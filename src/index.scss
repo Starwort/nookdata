@@ -1,0 +1,9 @@
+@font-face {
+    font-family: "ACNH";
+    font-style: normal;
+    font-weight: 400;
+    src: url(assets/fonts/humming.ttf) format("truetype");
+}
+* {
+    font-family: "ACNH" !important;
+}

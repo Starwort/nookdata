@@ -1,0 +1,45 @@
+.time-tracker {
+    width: 100%;
+    height: 32px;
+    display: flex;
+    flex-direction: row;
+    div {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        .large-division {
+            width: 1px;
+            height: 16px;
+        }
+        .medium-division {
+            width: 1px;
+            height: 12px;
+            margin-top: 2px;
+            margin-bottom: 2px;
+        }
+        .division-label {
+            transform: rotate(0.25turn);
+            font-size: smaller;
+            width: 1px;
+            overflow-x: visible;
+        }
+    }
+    .small-division {
+        width: 1px;
+        height: 8px;
+        margin-top: 4px;
+        margin-bottom: 4px;
+    }
+    .hour {
+        height: 8px;
+        margin-top: 4px;
+        flex-grow: 1;
+    }
+    .now {
+        position: relative;
+        left: var(--progress);
+        top: 0;
+        width: 1px;
+        height: 16px;
+    }
+}

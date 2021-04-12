@@ -1,0 +1,133 @@
+import { useTheme } from '@material-ui/core';
+import React from 'react';
+import UserSettings from '../../../user_settings';
+import './TimeTracker.scss';
+
+interface TimeTrackerProps {
+    hours: boolean[];
+    time: Date;
+    settings: UserSettings;
+}
+
+export default function TimeTracker(props: TimeTrackerProps) {
+    const theme = useTheme();
+    let now = props.time;
+    let progress = (
+        (
+            (
+                now.getMilliseconds() / 1000
+                + now.getSeconds()
+            ) / 60
+            + now.getMinutes()
+        ) / 60
+        + now.getHours()
+    ) * 100 / 24;
+    return <div
+        className="time-tracker"
+        style={{
+            marginBottom: props.settings.useTwelveHourTime ? 64 : 40,
+        }}
+    >
+        <div
+            className="now"
+            style={{
+                backgroundColor: theme.palette.error.main,
+                '--progress': `${progress}%`,
+            }}
+        />
+        <div>
+            <div className="large-division" style={{ backgroundColor: theme.palette.text.primary }} />
+            <div className="division-label">
+                {
+                    props.settings.useTwelveHourTime
+                        ? '12:00AM'
+                        : '00:00'
+                }
+            </div>
+        </div>
+        <div className="hour" style={{ backgroundColor: props.hours[0] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
+        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
+        <div className="hour" style={{ backgroundColor: props.hours[1] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
+        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
+        <div className="hour" style={{ backgroundColor: props.hours[2] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
+        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
+        <div className="hour" style={{ backgroundColor: props.hours[3] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
+        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
+        <div className="hour" style={{ backgroundColor: props.hours[4] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
+        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
+        <div className="hour" style={{ backgroundColor: props.hours[5] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
+        <div>
+            <div className="medium-division" style={{ backgroundColor: theme.palette.text.primary }} />
+            <div className="division-label">
+                {
+                    props.settings.useTwelveHourTime
+                        ? '6:00AM'
+                        : '06:00'
+                }
+            </div>
+        </div>
+        <div className="hour" style={{ backgroundColor: props.hours[6] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
+        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
+        <div className="hour" style={{ backgroundColor: props.hours[7] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
+        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
+        <div className="hour" style={{ backgroundColor: props.hours[8] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
+        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
+        <div className="hour" style={{ backgroundColor: props.hours[9] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
+        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
+        <div className="hour" style={{ backgroundColor: props.hours[10] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
+        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
+        <div className="hour" style={{ backgroundColor: props.hours[11] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
+        <div>
+            <div className="large-division" style={{ backgroundColor: theme.palette.text.primary }} />
+            <div className="division-label">
+                {
+                    props.settings.useTwelveHourTime
+                        ? '12:00PM'
+                        : '12:00'
+                }
+            </div>
+        </div>
+        <div className="hour" style={{ backgroundColor: props.hours[12] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
+        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
+        <div className="hour" style={{ backgroundColor: props.hours[13] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
+        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
+        <div className="hour" style={{ backgroundColor: props.hours[14] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
+        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
+        <div className="hour" style={{ backgroundColor: props.hours[15] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
+        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
+        <div className="hour" style={{ backgroundColor: props.hours[16] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
+        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
+        <div className="hour" style={{ backgroundColor: props.hours[17] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
+        <div>
+            <div className="medium-division" style={{ backgroundColor: theme.palette.text.primary }} />
+            <div className="division-label">
+                {
+                    props.settings.useTwelveHourTime
+                        ? '6:00PM'
+                        : '18:00'
+                }
+            </div>
+        </div>
+        <div className="hour" style={{ backgroundColor: props.hours[18] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
+        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
+        <div className="hour" style={{ backgroundColor: props.hours[19] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
+        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
+        <div className="hour" style={{ backgroundColor: props.hours[20] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
+        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
+        <div className="hour" style={{ backgroundColor: props.hours[21] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
+        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
+        <div className="hour" style={{ backgroundColor: props.hours[22] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
+        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
+        <div className="hour" style={{ backgroundColor: props.hours[23] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
+        <div>
+            <div className="large-division" style={{ backgroundColor: theme.palette.text.primary }} />
+            <div className="division-label">
+                {
+                    props.settings.useTwelveHourTime
+                        ? '12:00AM'
+                        : '00:00'
+                }
+            </div>
+        </div>
+    </div>
+}
