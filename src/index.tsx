@@ -125,7 +125,9 @@ function App() {
         setPageImpl(value);
     }
     let route = window.location.href.slice(baseUrl.length);
-    setPageImpl(route);
+    if (route !== page) {
+        setPageImpl(route);
+    }
     const theme = React.useMemo(
         () => getTheme(chosenTheme),
         [chosenTheme]
