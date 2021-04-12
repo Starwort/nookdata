@@ -1,21 +1,21 @@
 {
   "files": {
     "main.css": "/nookdata_v2/static/css/main.e44b9831.chunk.css",
-    "main.js": "/nookdata_v2/static/js/main.f991b4fe.chunk.js",
-    "main.js.map": "/nookdata_v2/static/js/main.f991b4fe.chunk.js.map",
+    "main.js": "/nookdata_v2/static/js/main.3a870a63.chunk.js",
+    "main.js.map": "/nookdata_v2/static/js/main.3a870a63.chunk.js.map",
     "runtime-main.js": "/nookdata_v2/static/js/runtime-main.15e63758.js",
     "runtime-main.js.map": "/nookdata_v2/static/js/runtime-main.15e63758.js.map",
-    "static/js/2.4036c658.chunk.js": "/nookdata_v2/static/js/2.4036c658.chunk.js",
-    "static/js/2.4036c658.chunk.js.map": "/nookdata_v2/static/js/2.4036c658.chunk.js.map",
+    "static/js/2.cf452e14.chunk.js": "/nookdata_v2/static/js/2.cf452e14.chunk.js",
+    "static/js/2.cf452e14.chunk.js.map": "/nookdata_v2/static/js/2.cf452e14.chunk.js.map",
     "index.html": "/nookdata_v2/index.html",
     "static/css/main.e44b9831.chunk.css.map": "/nookdata_v2/static/css/main.e44b9831.chunk.css.map",
-    "static/js/2.4036c658.chunk.js.LICENSE.txt": "/nookdata_v2/static/js/2.4036c658.chunk.js.LICENSE.txt",
+    "static/js/2.cf452e14.chunk.js.LICENSE.txt": "/nookdata_v2/static/js/2.cf452e14.chunk.js.LICENSE.txt",
     "static/media/index.scss": "/nookdata_v2/static/media/humming.554d3bb8.ttf"
   },
   "entrypoints": [
     "static/js/runtime-main.15e63758.js",
-    "static/js/2.4036c658.chunk.js",
+    "static/js/2.cf452e14.chunk.js",
     "static/css/main.e44b9831.chunk.css",
-    "static/js/main.f991b4fe.chunk.js"
+    "static/js/main.3a870a63.chunk.js"
   ]
 }

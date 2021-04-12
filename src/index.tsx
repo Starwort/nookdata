@@ -3,7 +3,7 @@ import { CssBaseline, List, ListItem, ListItemIcon, ListItemText, ThemeProvider,
 import { EmojiNature } from '@material-ui/icons';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { homepage as baseUrl } from '../package.json';
+import { homepage } from '../package.json';
 import AppBar from './components/AppBar';
 import NavigationDrawer from './components/NavigationDrawer';
 import './index.scss';
@@ -12,15 +12,15 @@ import Critterpedia from './pages/critterpedia';
 import getTheme from './themes';
 import UserSettings from './user_settings';
 
+const baseUrl = process.env.NODE_ENV === 'production' ? homepage : 'http://localhost:3000/nookdata_v2';
+
 interface PageData {
     title: string;
-    url: string;
     icon: React.ReactNode;
 }
 const pageData: Dict<PageData> = {
-    'critterpedia': {
+    '/critterpedia': {
         title: 'Critterpedia',
-        url: baseUrl + '/critterpedia',
         icon: <EmojiNature />,
     }
 }
@@ -47,8 +47,14 @@ interface AppFrameProps {
     children: React.ReactNode;
 }
 function AppFrame(props: AppFrameProps) {
-    const [drawerOpen, setDrawerOpen] = React.useState(false);
     const theme = useTheme();
+    const startOpen = useMediaQuery(theme.breakpoints.up('lg'));
+    const [initialRender, setInitialRender] = React.useState(true);
+    const [drawerOpen, setDrawerOpen] = React.useState(false);
+    if (startOpen && initialRender) {
+        setDrawerOpen(true);
+        setInitialRender(false);
+    }
     return (
         <>
             <AppBar setTheme={props.setTheme} setDrawerOpen={setDrawerOpen} theme={props.theme} drawerOpen={drawerOpen} title={
@@ -88,6 +94,7 @@ interface RouteProps {
     children: React.ReactNode;
 }
 function Route(props: RouteProps) {
+    console.log(props);
     if (props.page !== props.route) {
         return null;
     }
@@ -119,10 +126,10 @@ function App() {
         window.clearInterval(timeUpdateId);
     }
     timeUpdateId = window.setInterval(() => setTime(new Date()), 500);
-    const [page, setPageImpl] = React.useState('');
-    function setPage(value: string) {
-        window.history.pushState(null, pageData[value].title, pageData[value].url);
-        setPageImpl(value);
+    const [page, setPageImpl] = React.useState('/');
+    function setPage(route: string) {
+        window.history.pushState(null, pageData[route].title, baseUrl + route);
+        setPageImpl(route);
     }
     let route = window.location.href.slice(baseUrl.length);
     if (route !== page) {
@@ -135,7 +142,7 @@ function App() {
     return <ThemeProvider theme={theme}>
         <CssBaseline />
         <AppFrame page={page} theme={chosenTheme} setTheme={setChosenTheme} setPage={setPage}>
-            <Route page={page} route="critterpedia">
+            <Route page={page} route="/critterpedia">
                 <Critterpedia time={time} settings={settings} />
             </Route>
         </AppFrame>
