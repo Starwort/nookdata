@@ -3,12 +3,27 @@ import { CssBaseline, List, ListItem, ListItemIcon, ListItemText, ThemeProvider,
 import { EmojiNature } from '@material-ui/icons';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { homepage as baseUrl } from '../package.json';
 import AppBar from './components/AppBar';
 import NavigationDrawer from './components/NavigationDrawer';
 import './index.scss';
+import { Dict } from './misc';
 import Critterpedia from './pages/critterpedia';
 import getTheme from './themes';
 import UserSettings from './user_settings';
+
+interface PageData {
+    title: string;
+    url: string;
+    icon: React.ReactNode;
+}
+const pageData: Dict<PageData> = {
+    'critterpedia': {
+        title: 'Critterpedia',
+        url: baseUrl + '/critterpedia',
+        icon: <EmojiNature />,
+    }
+}
 
 
 interface DrawerAdjustProps {
@@ -52,26 +67,13 @@ function AppFrame(props: AppFrameProps) {
             } />
             <NavigationDrawer open={drawerOpen} setOpen={setDrawerOpen}>
                 <List>
-                    <ListItem selected={props.page === 'critterpedia'} button key='critterpedia' onClick={() => props.setPage('critterpedia')}>
-                        <ListItemIcon><EmojiNature /></ListItemIcon>
-                        <ListItemText primary='Critterpedia' />
-                    </ListItem>
-                    {/* {['A', 'B', 'C'].map((text, index) => (
-                        <ListItem selected={props.page === text} button key={text} onClick={() => props.setPage(text)}>
-                            <ListItemIcon>{index % 2 === 0 ? <EmojiNature /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    ))} */}
-                </List>
-                {/* <Divider />
-                <List>
-                    {['A', 'B', 'C'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <EmojiNature /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
+                    {Object.entries(pageData).map(([route, data]) => (
+                        <ListItem selected={props.page === route} button onClick={() => props.setPage(route)}>
+                            <ListItemIcon>{data.icon}</ListItemIcon>
+                            <ListItemText primary={data.title} />
                         </ListItem>
                     ))}
-                </List> */}
+                </List>
             </NavigationDrawer>
             <DrawerAdjust active={drawerOpen}>
                 {props.children}
@@ -89,6 +91,7 @@ function Route(props: RouteProps) {
     if (props.page !== props.route) {
         return null;
     }
+    document.title = pageData[props.route].title + ' | NookData';
     return <>
         {props.children}
     </>;
@@ -116,7 +119,13 @@ function App() {
         window.clearInterval(timeUpdateId);
     }
     timeUpdateId = window.setInterval(() => setTime(new Date()), 500);
-    const [page, setPage] = React.useState('home');
+    const [page, setPageImpl] = React.useState('');
+    function setPage(value: string) {
+        window.history.pushState(null, pageData[value].title, pageData[value].url);
+        setPageImpl(value);
+    }
+    let route = window.location.href.slice(baseUrl.length);
+    setPageImpl(route);
     const theme = React.useMemo(
         () => getTheme(chosenTheme),
         [chosenTheme]

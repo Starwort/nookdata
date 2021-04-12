@@ -1,9 +1,9 @@
 declare global {
     interface String {
-        capitalize: () => String;
+        capitalise: () => String;
     }
 }
-String.prototype.capitalize = function () {
+String.prototype.capitalise = function () {
     return this.charAt(0).toUpperCase() + this.slice(1);
 }
 

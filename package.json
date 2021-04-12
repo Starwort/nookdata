@@ -25,7 +25,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && rm -rf docs && cp -r build docs && touch docs/.nojekyll && sleep 0.05 && git add -A docs && git commit --amend --no-edit && git push",
+    "build": "react-scripts build && rm -rf docs && cp -r build docs && touch docs/.nojekyll && cp 404.html docs && sleep 0.05 && git add -A docs && git commit --amend --no-edit && git push",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

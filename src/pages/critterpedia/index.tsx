@@ -62,8 +62,21 @@ export default function Critterpedia(props: CritterpediaProps) {
     };
     const [bugsData, setBugsDataImpl] = React.useState(data.bugs);
     const [fishData, setFishDataImpl] = React.useState(data.fish);
-    const [openDialogue, setOpenDialogue] = React.useState<number | null>(null);
+    const [openDialogue, setOpenDialogueImpl] = React.useState<number | null>(null);
     const [openDialogueType, setOpenDialogueType] = React.useState<'bug' | 'fish'>('bug');
+    function setOpenDialogue(value: number | null) {
+        if (value !== null) {
+            let title = (
+                openDialogueType === 'bug'
+                    ? bugs
+                    : fish
+            )[value].name.capitalise();
+            window.history.pushState(null, `Critterpedia - ${title} | NookData`)
+        } else {
+            window.history.pushState(null, `Critterpedia | NookData`)
+        }
+        setOpenDialogueImpl(value);
+    }
     function setBugsData(bug: number, state: UserCritterData) {
         data.bugs[bug] = state;
         window.localStorage.critterpedia = JSON.stringify(data);

@@ -88,7 +88,7 @@ function CritterPanel(props: CritterPanelProps) {
 
     return <>
         <Card className="critter-panel" title={
-            `${props.data.name.capitalize()} (${props.type.capitalize()
+            `${props.data.name.capitalise()} (${props.type.capitalise()
             } #${props.data.index + 1})`
         }
             style={
@@ -191,7 +191,7 @@ function CritterPanel(props: CritterPanelProps) {
                         flexGrow: 1,
                         transition: 'color 0.5s ease-in-out',
                     }}>
-                        {props.data.name.capitalize()}
+                        {props.data.name.capitalise()}
                     </div>
                     {
                         props.data.index < 79
@@ -207,7 +207,7 @@ function CritterPanel(props: CritterPanelProps) {
                     textAlign: 'center'
                 }}
             >
-                {props.type.capitalize()} #{props.data.index + 1}
+                {props.type.capitalise()} #{props.data.index + 1}
                 <br />
                 <Divider style={{ marginTop: 8, marginBottom: 8 }} />
                 <div
