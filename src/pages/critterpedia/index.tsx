@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select, TextField, useTheme } from '@material-ui/core';
+import { Card, CardContent, CardHeader, FormControl, Grid, InputLabel, MenuItem, Select, TextField, useTheme } from '@material-ui/core';
 import React from 'react';
 import UserSettings from '../../user_settings';
 import CritterPanel from './components/CritterPanel';
@@ -40,25 +40,21 @@ export default function Critterpedia(props: CritterpediaProps) {
         window.localStorage.critterpedia = JSON.stringify(data);
     }
     const data: UserCritterpediaData = JSON.parse(window.localStorage.critterpedia);
-    const [activeRequired, setActiveRequired] = React.useState(false);
-    const [leavingRequired, setLeavingRequired] = React.useState(false);
+    const [activeRequired, setActiveRequired] = React.useState<'now' | 'month' | 'until_next' | 'any'>('any');
     const [location, setLocation] = React.useState('');
     const [name, setName] = React.useState('');
     const [price, setPrice] = React.useState(0);
     const [priceComparison, setPriceComparison] = React.useState<'>=' | '=' | '<='>('>=');
     const [size, setSize] = React.useState('');
-    const [unmodelledRequired, setUnmodelledRequired] = React.useState(false);
-    const [unobtainedRequired, setUnobtainedRequired] = React.useState(false);
+    const [stateRequired, setStateRequired] = React.useState<'unobtained' | 'unmodelled' | 'any'>('any');
     const searchParameters: SearchParameters = {
         activeRequired,
-        leavingRequired,
         location,
         name,
         price,
         priceComparison,
         size,
-        unmodelledRequired,
-        unobtainedRequired,
+        stateRequired,
     };
     const [bugsData, setBugsDataImpl] = React.useState(data.bugs);
     const [fishData, setFishDataImpl] = React.useState(data.fish);
@@ -103,7 +99,7 @@ export default function Critterpedia(props: CritterpediaProps) {
                         <TextField fullWidth value={size} onChange={(event) => setSize(event.target.value)} label="Size (fish)" />
                     </Grid>
                     <Grid item xs={6} sm={3} md={2} >
-                        <FormControl fullWidth variant="filled">
+                        <FormControl fullWidth>
                             <InputLabel id="comp-label">Price</InputLabel>
                             <Select
                                 value={priceComparison}
@@ -123,52 +119,39 @@ export default function Critterpedia(props: CritterpediaProps) {
                         <TextField fullWidth value={price} onChange={(event) => setPrice(+event.target.value)} label="Value" />
                     </Grid>
                     <Grid item xs={12} sm={6} md={4} >
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={activeRequired}
-                                    onChange={(event) => setActiveRequired(event.target.checked)}
-                                    color="primary"
-                                />
-                            }
-                            label="Available this month"
-                        />
+                        <FormControl fullWidth>
+                            <InputLabel id="active-label">Activity</InputLabel>
+                            <Select
+                                value={activeRequired}
+                                onChange={(event) => setActiveRequired(
+                                    event.target.value as ('now' | 'month' | 'until_next' | 'any')
+                                )}
+                                labelId='active-label'
+                                fullWidth
+                            >
+                                <MenuItem value="any">Any activity</MenuItem>
+                                <MenuItem value="month">Active this month</MenuItem>
+                                <MenuItem value="now">Active now</MenuItem>
+                                <MenuItem value="until_next">Active until next month</MenuItem>
+                            </Select>
+                        </FormControl>
                     </Grid>
                     <Grid item xs={12} sm={6} md={4} >
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={leavingRequired}
-                                    onChange={(event) => setLeavingRequired(event.target.checked)}
-                                    color="primary"
-                                />
-                            }
-                            label="Unavailable from next month"
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={4} >
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={unobtainedRequired}
-                                    onChange={(event) => setUnobtainedRequired(event.target.checked)}
-                                    color="primary"
-                                />
-                            }
-                            label="Unobtained"
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={4} >
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={unmodelledRequired}
-                                    onChange={(event) => setUnmodelledRequired(event.target.checked)}
-                                    color="primary"
-                                />
-                            }
-                            label="Model unobtained"
-                        />
+                        <FormControl fullWidth>
+                            <InputLabel id="state-label">Collection</InputLabel>
+                            <Select
+                                value={stateRequired}
+                                onChange={(event) => setStateRequired(
+                                    event.target.value as ('any' | 'unobtained' | 'unmodelled')
+                                )}
+                                labelId='state-label'
+                                fullWidth
+                            >
+                                <MenuItem value="any">Any</MenuItem>
+                                <MenuItem value="unobtained">Not yet caught</MenuItem>
+                                <MenuItem value="unmodelled">No model obtained</MenuItem>
+                            </Select>
+                        </FormControl>
                     </Grid>
                 </Grid>
             </CardContent>

@@ -2,10 +2,8 @@ interface SearchParameters {
     name: string;
     location: string;
     size: string;
-    activeRequired: boolean;
-    leavingRequired: boolean;
-    unobtainedRequired: boolean;
-    unmodelledRequired: boolean;
+    activeRequired: 'now' | 'month' | 'until_next' | 'any';
+    stateRequired: 'unobtained' | 'unmodelled' | 'any';
     priceComparison: '>=' | '=' | '<=';
     price: number;
 }
