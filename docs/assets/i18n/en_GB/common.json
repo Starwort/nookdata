@@ -1,0 +1,9 @@
+{
+    "time": {
+        "twelve_hour": {
+            "am": "{{h12}}:{{m}}A.M.",
+            "pm": "{{h12}}:{{m}}P.M."
+        },
+        "twenty_four_hour": "{{pad}}{{h24}}:{{m}}"
+    }
+}
