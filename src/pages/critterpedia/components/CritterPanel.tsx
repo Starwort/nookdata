@@ -1,4 +1,4 @@
-import { Card, CardActionArea, CardContent, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, Divider, FormControlLabel, IconButton, Toolbar, useTheme } from "@material-ui/core";
+import { Card, CardActionArea, CardContent, Checkbox, createStyles, Dialog, DialogActions, DialogContent, DialogTitle, Divider, FormControlLabel, IconButton, makeStyles, Toolbar, useTheme } from "@material-ui/core";
 import { ChevronLeft, ChevronRight, Cloud, Help, Warning, WbSunny } from "@material-ui/icons";
 import React from "react";
 import '../../../prototype_mods';
@@ -9,7 +9,14 @@ import './CritterPanel.scss';
 import MonthPanels from "./MonthPanels";
 import TimeTracker from "./TimeTracker";
 
-
+const useStyles = makeStyles((theme) => createStyles({
+    modelled: {
+        color: theme.palette.modelled.main,
+        '&.Mui-disabled': {
+            color: theme.palette.modelled.transparent,
+        },
+    },
+}))
 
 interface CritterPanelProps {
     data: (typeof bugs[0]) | (typeof fish[0]);
@@ -33,28 +40,29 @@ function CritterPanel(props: CritterPanelProps) {
             [...props.data.hours.slice(6), ...props.data.hours.slice(0, 6)]
     );
     const theme = useTheme();
-    const activeNow = hours[props.month].reduce((a, b) => a || b);
-    const leavingSoon = activeNow && !hours[(props.month + 1) % 12].reduce((a, b) => a || b);
+    const activeNow = hours[props.month][props.hour];
+    const activeMonth = hours[props.month].reduce((a, b) => a || b);
+    const leavingSoon = activeMonth && !hours[(props.month + 1) % 12].reduce((a, b) => a || b);
     const { palette } = useTheme();
     const {
         activeRequired,
-        leavingRequired,
         location,
         name,
         price,
         priceComparison,
         size,
-        unmodelledRequired,
-        unobtainedRequired,
+        stateRequired,
     } = props.searchParameters;
     let shadow = '';
     if (props.type == 'fish') {
         shadow = (props.data as typeof fish[0]).shadow;
     }
     let match = true;
-    if (activeRequired && !activeNow) {
+    if (activeRequired === 'now' && !activeNow) {
         match = false;
-    } else if (leavingRequired && !leavingSoon) {
+    } else if (activeRequired === 'month' && !activeMonth) {
+        match = false;
+    } else if (activeRequired === 'until_next' && !leavingSoon) {
         match = false;
     } else if (!props.data.location.includes(location.toLowerCase())) {
         match = false;
@@ -62,9 +70,9 @@ function CritterPanel(props: CritterPanelProps) {
         match = false;
     } else if (props.type == 'fish' && !shadow.includes(size.toLowerCase())) {
         match = false;
-    } else if (unobtainedRequired && props.obtained) {
+    } else if (stateRequired === 'unobtained' && props.obtained) {
         match = false;
-    } else if (unmodelledRequired && props.modelled) {
+    } else if (stateRequired === 'unmodelled' && props.modelled) {
         match = false;
     } else {
         switch (priceComparison) {
@@ -90,6 +98,10 @@ function CritterPanel(props: CritterPanelProps) {
         <Card className="critter-panel" title={
             `${props.data.name.capitalise()} (${props.type.capitalise()
             } #${props.data.index + 1})`
+            + (activeMonth ? '' : '\nUnavailable')
+            + (activeNow ? '\nActive right now!' : '')
+            + (props.modelled ? '\nModel obtained!' : '')
+            + '\nClick for more details'
         }
             style={
                 {
@@ -99,7 +111,7 @@ function CritterPanel(props: CritterPanelProps) {
                             props.obtained
                                 ? palette.primary.transparent
                                 : (
-                                    activeNow
+                                    activeMonth
                                         ? undefined
                                         : palette.error.transparent
                                 )
@@ -107,7 +119,7 @@ function CritterPanel(props: CritterPanelProps) {
                     borderColor: props.modelled
                         ? palette.modelled.main
                         : (
-                            activeNow
+                            activeMonth
                                 ? (
                                     props.obtained
                                         ? palette.primary.main
@@ -131,7 +143,7 @@ function CritterPanel(props: CritterPanelProps) {
                             color: props.modelled
                                 ? palette.modelled.main
                                 : (
-                                    activeNow
+                                    activeMonth
                                         ? (
                                             props.obtained
                                                 ? palette.primary.main
@@ -262,11 +274,11 @@ function CritterPanel(props: CritterPanelProps) {
                 <FormControlLabel
                     control={
                         <Checkbox
+                            className={useStyles(theme).modelled}
                             checked={props.modelled}
                             disabled={!props.obtained}
                             onChange={(event) => props.setModelled(event.target.checked)}
                             color="default"
-                            style={{ color: theme.palette.modelled.main }}
                         />
                     }
                     label="Modelled"

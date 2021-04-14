@@ -7,3 +7,6 @@
 * {
     font-family: "ACNH" !important;
 }
+.no-transition * {
+    transition: none !important;
+}

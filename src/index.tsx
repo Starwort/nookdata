@@ -109,7 +109,12 @@ const sentinelDate = new Date();
 
 function App() {
     const themeSetting: "dark" | "light" = window.localStorage.theme || 'dark';
-    const [chosenTheme, setChosenTheme] = React.useState<'dark' | 'light'>(themeSetting);
+    const [chosenTheme, setChosenThemeImpl] = React.useState<'dark' | 'light'>(themeSetting);
+    function setChosenTheme(value: 'dark' | 'light') {
+        document.body.classList.add("no-transition");
+        setTimeout(() => setChosenThemeImpl(value), 10);
+        setTimeout(() => document.body.classList.remove("no-transition"), 20);
+    }
     const hemisphereSetting: "north" | "south" = window.localStorage.hemisphere || 'north';
     const [chosenHemisphere, setChosenHemisphere] = React.useState<'north' | 'south'>(hemisphereSetting);
     const settings: UserSettings = {
