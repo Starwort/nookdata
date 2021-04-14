@@ -9,7 +9,7 @@ i18n.use(Backend)
     .use(initReactI18next)
     .init({
         backend: { loadPath: '/nookdata_v2/assets/i18n/{{lng}}/{{ns}}.json' },
-        fallbackLng: 'en',
+        fallbackLng: 'en-GB',
         debug: true,
 
         interpolation: {
