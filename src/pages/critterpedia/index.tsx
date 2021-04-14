@@ -1,11 +1,11 @@
 import { Card, CardContent, CardHeader, FormControl, Grid, InputLabel, MenuItem, Select, TextField, useTheme } from '@material-ui/core';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import UserSettings from '../../user_settings';
 import CritterPanel from './components/CritterPanel';
+import { getCritterName } from './data';
 import { bugs, fish } from './data.json';
 import SearchParameters from './search_parameters';
-const a = bugs;
-const b = fish;
 
 function range(stop: number) {
     return Array.from(Array(stop).keys());
@@ -27,6 +27,7 @@ interface CritterpediaProps {
 }
 
 export default function Critterpedia(props: CritterpediaProps) {
+    const { t, i18n } = useTranslation('critterpedia');
     const theme = useTheme();
     if (!window.localStorage.critterpedia) {
         let data: UserCritterpediaData = {
@@ -62,14 +63,14 @@ export default function Critterpedia(props: CritterpediaProps) {
     const [openDialogueType, setOpenDialogueType] = React.useState<'bug' | 'fish'>('bug');
     function setOpenDialogue(value: number | null) {
         if (value !== null) {
-            let title = (
+            let title = getCritterName((
                 openDialogueType === 'bug'
                     ? bugs
                     : fish
-            )[value].name.capitalise();
-            window.history.pushState(null, `Critterpedia - ${title} | NookData`)
+            )[value], openDialogueType, t).capitalise();
+            window.history.pushState(null, t('critterpedia.title.info', { name: title }))
         } else {
-            window.history.pushState(null, `Critterpedia | NookData`)
+            window.history.pushState(null, t('critterpedia.title.default'))
         }
         setOpenDialogueImpl(value);
     }
@@ -86,21 +87,21 @@ export default function Critterpedia(props: CritterpediaProps) {
     const now = new Date();
     return <div style={{ maxWidth: 1316, margin: 'auto' }}>
         <Card style={{ margin: 16 }}>
-            <CardHeader title="Search Critters" />
+            <CardHeader title={t('critterpedia.search.title')} />
             <CardContent>
                 <Grid container spacing={1}>
                     <Grid item xs={12} sm={6} md={4} >
-                        <TextField fullWidth value={name} onChange={(event) => setName(event.target.value)} label="Name" />
+                        <TextField fullWidth value={name} onChange={(event) => setName(event.target.value)} label={t('critterpedia.search.name')} />
                     </Grid>
                     <Grid item xs={12} sm={6} md={4} >
-                        <TextField fullWidth value={location} onChange={(event) => setLocation(event.target.value)} label="Location" />
+                        <TextField fullWidth value={location} onChange={(event) => setLocation(event.target.value)} label={t('critterpedia.search.location')} />
                     </Grid>
                     <Grid item xs={12} sm={6} md={4} >
-                        <TextField fullWidth value={size} onChange={(event) => setSize(event.target.value)} label="Size (fish)" />
+                        <TextField fullWidth value={size} onChange={(event) => setSize(event.target.value)} label={t('critterpedia.search.shadow')} />
                     </Grid>
                     <Grid item xs={6} sm={3} md={2} >
                         <FormControl fullWidth>
-                            <InputLabel id="comp-label">Price</InputLabel>
+                            <InputLabel id="comp-label">{t('critterpedia.search.price.comp')}</InputLabel>
                             <Select
                                 value={priceComparison}
                                 onChange={(event) => setPriceComparison(
@@ -116,11 +117,11 @@ export default function Critterpedia(props: CritterpediaProps) {
                         </FormControl>
                     </Grid>
                     <Grid item xs={6} sm={3} md={2} >
-                        <TextField fullWidth value={price} onChange={(event) => setPrice(+event.target.value)} label="Value" />
+                        <TextField fullWidth value={price} onChange={(event) => setPrice(+event.target.value)} label={t('critterpedia.search.price.value')} />
                     </Grid>
                     <Grid item xs={12} sm={6} md={4} >
                         <FormControl fullWidth>
-                            <InputLabel id="active-label">Activity</InputLabel>
+                            <InputLabel id="active-label">{t('critterpedia.search.active.title')}</InputLabel>
                             <Select
                                 value={activeRequired}
                                 onChange={(event) => setActiveRequired(
@@ -129,16 +130,16 @@ export default function Critterpedia(props: CritterpediaProps) {
                                 labelId='active-label'
                                 fullWidth
                             >
-                                <MenuItem value="any">Any activity</MenuItem>
-                                <MenuItem value="month">Active this month</MenuItem>
-                                <MenuItem value="now">Active now</MenuItem>
-                                <MenuItem value="until_next">Active until next month</MenuItem>
+                                <MenuItem value="any">{t('critterpedia.search.active.any')}</MenuItem>
+                                <MenuItem value="month">{t('critterpedia.search.active.month')}</MenuItem>
+                                <MenuItem value="now">{t('critterpedia.search.active.now')}</MenuItem>
+                                <MenuItem value="until_next">{t('critterpedia.search.active.until_next')}</MenuItem>
                             </Select>
                         </FormControl>
                     </Grid>
                     <Grid item xs={12} sm={6} md={4} >
                         <FormControl fullWidth>
-                            <InputLabel id="state-label">Collection</InputLabel>
+                            <InputLabel id="state-label">{t('critterpedia.search.state.title')}</InputLabel>
                             <Select
                                 value={stateRequired}
                                 onChange={(event) => setStateRequired(
@@ -147,9 +148,9 @@ export default function Critterpedia(props: CritterpediaProps) {
                                 labelId='state-label'
                                 fullWidth
                             >
-                                <MenuItem value="any">Any</MenuItem>
-                                <MenuItem value="unobtained">Not yet caught</MenuItem>
-                                <MenuItem value="unmodelled">No model obtained</MenuItem>
+                                <MenuItem value="any">{t('critterpedia.search.state.any')}</MenuItem>
+                                <MenuItem value="unobtained">{t('critterpedia.search.state.unobtained')}</MenuItem>
+                                <MenuItem value="unmodelled">{t('critterpedia.search.state.unmodelled')}</MenuItem>
                             </Select>
                         </FormControl>
                     </Grid>
@@ -158,17 +159,33 @@ export default function Critterpedia(props: CritterpediaProps) {
         </Card>
         <Card style={{ margin: 16 }}>
             <CardHeader title={
-                <>
-                    Bugs - <span style={{ color: theme.palette.primary.main }}>
-                        ({
-                            bugsData.reduce((total, bug) => total + (+bug.obtained), 0)
-                        } / 80)
-                    </span> <span style={{ color: theme.palette.modelled.main }}>
-                        ({
-                            bugsData.reduce((total, bug) => total + (+bug.modelled), 0)
-                        } / 80)
-                    </span>
-                </>
+                t(
+                    'critterpedia.cards.bugs',
+                    {
+                        obtained: <span style={{ color: theme.palette.primary.main }}>
+                            {
+                                t('critterpedia.cards.completion',
+                                    {
+                                        collected: bugsData.reduce(
+                                            (total, bug) => total + (+bug.obtained), 0),
+                                        total: 80
+                                    }
+                                )
+                            }
+                        </span>,
+                        modelled: <span style={{ color: theme.palette.modelled.main }}>
+                            {
+                                t('critterpedia.cards.completion',
+                                    {
+                                        collected: bugsData.reduce(
+                                            (total, bug) => total + (+bug.modelled), 0),
+                                        total: 80
+                                    }
+                                )
+                            }
+                        </span>
+                    }
+                )
             } />
             <CardContent style={{ overflowX: 'auto' }}>
                 <table style={{ paddingRight: 16 }}>
@@ -213,17 +230,33 @@ export default function Critterpedia(props: CritterpediaProps) {
         </Card>
         <Card style={{ margin: 16 }}>
             <CardHeader title={
-                <>
-                    Fish - <span style={{ color: theme.palette.primary.main }}>
-                        ({
-                            fishData.reduce((total, fish) => total + (+fish.obtained), 0)
-                        } / 80)
-                    </span> <span style={{ color: theme.palette.modelled.main }}>
-                        ({
-                            fishData.reduce((total, fish) => total + (+fish.modelled), 0)
-                        } / 80)
-                    </span>
-                </>
+                t(
+                    'critterpedia.cards.fish',
+                    {
+                        obtained: <span style={{ color: theme.palette.primary.main }}>
+                            {
+                                t('critterpedia.cards.completion',
+                                    {
+                                        collected: fishData.reduce(
+                                            (total, fish) => total + (+fish.obtained), 0),
+                                        total: 80
+                                    }
+                                )
+                            }
+                        </span>,
+                        modelled: <span style={{ color: theme.palette.modelled.main }}>
+                            {
+                                t('critterpedia.cards.completion',
+                                    {
+                                        collected: fishData.reduce(
+                                            (total, fish) => total + (+fish.modelled), 0),
+                                        total: 80
+                                    }
+                                )
+                            }
+                        </span>
+                    }
+                )
             } />
             <CardContent style={{ overflowX: 'auto' }}>
                 <table style={{ paddingRight: 16 }}>

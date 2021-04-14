@@ -1,5 +1,6 @@
 import { useTheme } from '@material-ui/core';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import UserSettings from '../../../user_settings';
 import './TimeTracker.scss';
 
@@ -11,6 +12,7 @@ interface TimeTrackerProps {
 
 export default function TimeTracker(props: TimeTrackerProps) {
     const theme = useTheme();
+    const { t, i18n } = useTranslation('common');
     let now = props.time;
     let progress = (
         (
@@ -39,9 +41,17 @@ export default function TimeTracker(props: TimeTrackerProps) {
             <div className="large-division" style={{ backgroundColor: theme.palette.text.primary }} />
             <div className="division-label">
                 {
-                    props.settings.useTwelveHourTime
-                        ? '12:00AM'
-                        : '00:00'
+                    t(
+                        props.settings.useTwelveHourTime
+                            ? 'common.time.twelve_hour.am'
+                            : 'common.time.twenty_four_hour',
+                        {
+                            pad: '',
+                            h12: 12,
+                            h24: 0,
+                            m: '00',
+                        }
+                    )
                 }
             </div>
         </div>
@@ -60,9 +70,17 @@ export default function TimeTracker(props: TimeTrackerProps) {
             <div className="medium-division" style={{ backgroundColor: theme.palette.text.primary }} />
             <div className="division-label">
                 {
-                    props.settings.useTwelveHourTime
-                        ? '6:00AM'
-                        : '06:00'
+                    t(
+                        props.settings.useTwelveHourTime
+                            ? 'common.time.twelve_hour.am'
+                            : 'common.time.twenty_four_hour',
+                        {
+                            pad: '0',
+                            h12: 6,
+                            h24: 6,
+                            m: '00',
+                        }
+                    )
                 }
             </div>
         </div>
@@ -81,9 +99,17 @@ export default function TimeTracker(props: TimeTrackerProps) {
             <div className="large-division" style={{ backgroundColor: theme.palette.text.primary }} />
             <div className="division-label">
                 {
-                    props.settings.useTwelveHourTime
-                        ? '12:00PM'
-                        : '12:00'
+                    t(
+                        props.settings.useTwelveHourTime
+                            ? 'common.time.twelve_hour.pm'
+                            : 'common.time.twenty_four_hour',
+                        {
+                            pad: '',
+                            h12: 12,
+                            h24: 12,
+                            m: '00',
+                        }
+                    )
                 }
             </div>
         </div>
@@ -102,9 +128,17 @@ export default function TimeTracker(props: TimeTrackerProps) {
             <div className="medium-division" style={{ backgroundColor: theme.palette.text.primary }} />
             <div className="division-label">
                 {
-                    props.settings.useTwelveHourTime
-                        ? '6:00PM'
-                        : '18:00'
+                    t(
+                        props.settings.useTwelveHourTime
+                            ? 'common.time.twelve_hour.pm'
+                            : 'common.time.twenty_four_hour',
+                        {
+                            pad: '',
+                            h12: 6,
+                            h24: 18,
+                            m: '00',
+                        }
+                    )
                 }
             </div>
         </div>
@@ -123,9 +157,17 @@ export default function TimeTracker(props: TimeTrackerProps) {
             <div className="large-division" style={{ backgroundColor: theme.palette.text.primary }} />
             <div className="division-label">
                 {
-                    props.settings.useTwelveHourTime
-                        ? '12:00AM'
-                        : '00:00'
+                    t(
+                        props.settings.useTwelveHourTime
+                            ? 'common.time.twelve_hour.am'
+                            : 'common.time.twenty_four_hour',
+                        {
+                            pad: '0',
+                            h12: 12,
+                            h24: 0,
+                            m: '00',
+                        }
+                    )
                 }
             </div>
         </div>

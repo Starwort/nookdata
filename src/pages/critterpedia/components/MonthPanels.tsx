@@ -1,21 +1,22 @@
 import { Card, CardContent, Theme, useTheme } from "@material-ui/core";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import '../../../prototype_mods';
 import UserSettings from '../../../user_settings';
 import './CritterPanel.scss';
 const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
+    "critterpedia.dialogue.months.jan",
+    "critterpedia.dialogue.months.feb",
+    "critterpedia.dialogue.months.mar",
+    "critterpedia.dialogue.months.apr",
+    "critterpedia.dialogue.months.may",
+    "critterpedia.dialogue.months.jun",
+    "critterpedia.dialogue.months.jul",
+    "critterpedia.dialogue.months.aug",
+    "critterpedia.dialogue.months.sep",
+    "critterpedia.dialogue.months.oct",
+    "critterpedia.dialogue.months.nov",
+    "critterpedia.dialogue.months.dec",
 ];
 function winter(theme: Theme, settings: UserSettings) {
     return (
@@ -68,6 +69,7 @@ interface MonthPanelProps {
 }
 function MonthPanel(props: MonthPanelProps) {
     const theme = useTheme();
+    const { t, i18n } = useTranslation('critterpedia');
     return <td width="33%">
         <Card
             variant="outlined"
@@ -89,7 +91,7 @@ function MonthPanel(props: MonthPanelProps) {
             }}
         >
             <CardContent style={{ paddingBottom: 16 }}>
-                {months[props.month]}
+                {t(months[props.month])}
             </CardContent>
         </Card>
     </td>

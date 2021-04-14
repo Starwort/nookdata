@@ -1,11 +1,12 @@
 
 import { CssBaseline, List, ListItem, ListItemIcon, ListItemText, ThemeProvider, Typography, useMediaQuery, useTheme } from '@material-ui/core';
 import { EmojiNature } from '@material-ui/icons';
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { homepage } from '../package.json';
 import AppBar from './components/AppBar';
 import NavigationDrawer from './components/NavigationDrawer';
+import './i18n';
 import './index.scss';
 import { Dict } from './misc';
 import Critterpedia from './pages/critterpedia';
@@ -94,7 +95,6 @@ interface RouteProps {
     children: React.ReactNode;
 }
 function Route(props: RouteProps) {
-    console.log(props);
     if (props.page !== props.route) {
         return null;
     }
@@ -144,14 +144,16 @@ function App() {
         () => getTheme(chosenTheme),
         [chosenTheme]
     );
-    return <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <AppFrame page={page} theme={chosenTheme} setTheme={setChosenTheme} setPage={setPage}>
-            <Route page={page} route="/critterpedia">
-                <Critterpedia time={time} settings={settings} />
-            </Route>
-        </AppFrame>
-    </ThemeProvider>
+    return <Suspense fallback="Please wait...">
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <AppFrame page={page} theme={chosenTheme} setTheme={setChosenTheme} setPage={setPage}>
+                <Route page={page} route="/critterpedia">
+                    <Critterpedia time={time} settings={settings} />
+                </Route>
+            </AppFrame>
+        </ThemeProvider>
+    </Suspense>
 }
 
 ReactDOM.render(
