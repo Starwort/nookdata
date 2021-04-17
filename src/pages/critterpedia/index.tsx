@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, FormControl, Grid, InputLabel, MenuItem, Select, TextField, useTheme } from '@material-ui/core';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import UserSettings from '../../user_settings';
 import CritterPanel from './components/CritterPanel';
 import { getCritterName } from './data';
@@ -159,33 +159,23 @@ export default function Critterpedia(props: CritterpediaProps) {
         </Card>
         <Card style={{ margin: 16 }}>
             <CardHeader title={
-                t(
-                    'critterpedia:cards.bugs',
-                    {
-                        obtained: <span style={{ color: theme.palette.primary.main }}>
+                <Trans i18nKey="critterpedia:cards.bugs" t={t}>
+                    Bugs <span style={{ color: theme.palette.primary.main }}>
+                        ({
                             {
-                                t('critterpedia:cards.completion',
-                                    {
-                                        collected: bugsData.reduce(
-                                            (total, bug) => total + (+bug.obtained), 0),
-                                        total: 80
-                                    }
-                                )
+                                collected: bugsData.reduce(
+                                    (total, bug) => total + (+bug.obtained), 0),
                             }
-                        </span>,
-                        modelled: <span style={{ color: theme.palette.modelled.main }}>
+                        } / 80)
+                    </span> <span style={{ color: theme.palette.modelled.main }}>
+                        ({
                             {
-                                t('critterpedia:cards.completion',
-                                    {
-                                        collected: bugsData.reduce(
-                                            (total, bug) => total + (+bug.modelled), 0),
-                                        total: 80
-                                    }
-                                )
+                                collected: bugsData.reduce(
+                                    (total, bug) => total + (+bug.modelled), 0),
                             }
-                        </span>
-                    }
-                )
+                        } / 80)
+                    </span>
+                </Trans>
             } />
             <CardContent style={{ overflowX: 'auto' }}>
                 <table style={{ paddingRight: 16 }}>
@@ -230,33 +220,23 @@ export default function Critterpedia(props: CritterpediaProps) {
         </Card>
         <Card style={{ margin: 16 }}>
             <CardHeader title={
-                t(
-                    'critterpedia:cards.fish',
-                    {
-                        obtained: <span style={{ color: theme.palette.primary.main }}>
+                <Trans i18nKey="critterpedia:cards.fish" t={t}>
+                    Fish <span style={{ color: theme.palette.primary.main }}>
+                        ({
                             {
-                                t('critterpedia:cards.completion',
-                                    {
-                                        collected: fishData.reduce(
-                                            (total, fish) => total + (+fish.obtained), 0),
-                                        total: 80
-                                    }
-                                )
+                                collected: fishData.reduce(
+                                    (total, fish) => total + (+fish.obtained), 0),
                             }
-                        </span>,
-                        modelled: <span style={{ color: theme.palette.modelled.main }}>
+                        } / 80)
+                        </span> <span style={{ color: theme.palette.modelled.main }}>
+                        ({
                             {
-                                t('critterpedia:cards.completion',
-                                    {
-                                        collected: fishData.reduce(
-                                            (total, fish) => total + (+fish.modelled), 0),
-                                        total: 80
-                                    }
-                                )
+                                collected: fishData.reduce(
+                                    (total, fish) => total + (+fish.modelled), 0),
                             }
+                        } / 80)
                         </span>
-                    }
-                )
+                </Trans>
             } />
             <CardContent style={{ overflowX: 'auto' }}>
                 <table style={{ paddingRight: 16 }}>
