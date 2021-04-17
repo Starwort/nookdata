@@ -403,8 +403,8 @@
         }
     },
     "cards": {
-        "bugs": "Bugs <1>({{obtained}} / 80)</1> <2>({{modelled}} / 80)</2>",
-        "fish": "Fish <1>({{obtained}} / 80)</1> <2>({{modelled}} / 80)</2>"
+        "bugs": "Bugs <1>({{obtained}} / 80)</1> <3>({{modelled}} / 80)</3>",
+        "fish": "Fish <1>({{obtained}} / 80)</1> <3>({{modelled}} / 80)</3>"
     },
     "panel": {
         "type": {
