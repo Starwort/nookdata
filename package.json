@@ -29,7 +29,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "rm -rf public/assets/i18n && cp -r src/assets/i18n public/assets && react-scripts build && rm -rf docs && cp -r build docs && touch docs/.nojekyll && cp 404.html docs && sleep 0.05 && git add -A docs && git add -A public && git commit --amend --no-edit && git push",
+    "build": "rm -rf public/assets && cp -r src/assets public && react-scripts build && rm -rf docs && cp -r build docs && touch docs/.nojekyll && cp 404.html docs && sleep 0.05 && git add -A docs && git add -A public && git commit --amend --no-edit && git push",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

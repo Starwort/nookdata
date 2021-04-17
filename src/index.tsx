@@ -3,6 +3,7 @@ import { CssBaseline, List, ListItem, ListItemIcon, ListItemText, ThemeProvider,
 import { EmojiNature } from '@material-ui/icons';
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
+import { useTranslation } from 'react-i18next';
 import { homepage } from '../package.json';
 import AppBar from './components/AppBar';
 import NavigationDrawer from './components/NavigationDrawer';
@@ -21,7 +22,7 @@ interface PageData {
 }
 const pageData: Dict<PageData> = {
     '/critterpedia': {
-        title: 'Critterpedia',
+        title: 'common:pages.critterpedia',
         icon: <EmojiNature />,
     }
 }
@@ -56,6 +57,7 @@ function AppFrame(props: AppFrameProps) {
         setDrawerOpen(true);
         setInitialRender(false);
     }
+    const { t } = useTranslation('common');
     return (
         <>
             <AppBar setTheme={props.setTheme} setDrawerOpen={setDrawerOpen} theme={props.theme} drawerOpen={drawerOpen} title={
@@ -64,12 +66,12 @@ function AppFrame(props: AppFrameProps) {
                         style={{
                             color: theme.palette.winter.main,
                             display: 'inline'
-                        }}>Nook</div>
+                        }}>{t('common:title.a')}</div>
                     <div
                         style={{
                             color: theme.palette.summer.main,
                             display: 'inline'
-                        }}>Data</div>
+                        }}>{t('common:title.b')}</div>
                 </Typography>
             } />
             <NavigationDrawer open={drawerOpen} setOpen={setDrawerOpen}>
@@ -77,7 +79,7 @@ function AppFrame(props: AppFrameProps) {
                     {Object.entries(pageData).map(([route, data]) => (
                         <ListItem selected={props.page === route} button onClick={() => props.setPage(route)}>
                             <ListItemIcon>{data.icon}</ListItemIcon>
-                            <ListItemText primary={data.title} />
+                            <ListItemText primary={t(data.title)} />
                         </ListItem>
                     ))}
                 </List>
@@ -95,10 +97,11 @@ interface RouteProps {
     children: React.ReactNode;
 }
 function Route(props: RouteProps) {
+    const { t } = useTranslation('common');
     if (props.page !== props.route) {
         return null;
     }
-    document.title = pageData[props.route].title + ' | NookData';
+    document.title = t('common:title.browser.page', { pageTitle: t(pageData[props.route].title) });
     return <>
         {props.children}
     </>;
@@ -107,7 +110,12 @@ function Route(props: RouteProps) {
 let timeUpdateId: number | undefined = undefined;
 const sentinelDate = new Date();
 
+function Loading() {
+    return <img src="assets/shared/loading.gif" style={{ margin: 'auto' }} />
+}
+
 function App() {
+    const { t } = useTranslation('common');
     const themeSetting: "dark" | "light" = window.localStorage.theme || 'dark';
     const [chosenTheme, setChosenThemeImpl] = React.useState<'dark' | 'light'>(themeSetting);
     function setChosenTheme(value: 'dark' | 'light') {
@@ -133,7 +141,7 @@ function App() {
     timeUpdateId = window.setInterval(() => setTime(new Date()), 500);
     const [page, setPageImpl] = React.useState('/');
     function setPage(route: string) {
-        window.history.pushState(null, pageData[route].title, baseUrl + route);
+        window.history.pushState(null, t('common:title.browser.page', { pageTitle: t(pageData[route].title) }), baseUrl + route);
         setPageImpl(route);
     }
     let route = window.location.href.slice(baseUrl.length);
@@ -144,7 +152,7 @@ function App() {
         () => getTheme(chosenTheme),
         [chosenTheme]
     );
-    return <Suspense fallback="Please wait...">
+    return <Suspense fallback={<Loading />}>
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <AppFrame page={page} theme={chosenTheme} setTheme={setChosenTheme} setPage={setPage}>

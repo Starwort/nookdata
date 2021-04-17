@@ -5,5 +5,16 @@
             "pm": "{{h12}}:{{m}}P.M."
         },
         "twenty_four_hour": "{{pad}}{{h24}}:{{m}}"
+    },
+    "title": {
+        "a": "Nook",
+        "b": "Data",
+        "browser": {
+            "generic": "NookData",
+            "page": "{{pageTitle}} | NookData"
+        }
+    },
+    "pages": {
+        "critterpedia": "Critterpedia"
     }
 }
