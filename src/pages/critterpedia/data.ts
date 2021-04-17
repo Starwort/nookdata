@@ -10,15 +10,15 @@ export {
 
 
 function getCritterName(critter: Critter, type: 'bug' | 'fish', t: (key: string, props?: Object) => string) {
-    return t(`critterpedia.${type}.name.${critter.normal_name}`);
+    return t(`critterpedia:${type}.name.${critter.normal_name}`);
 }
 
 function getCritterQuote(critter: Critter, type: 'bug' | 'fish', playername: string, t: (key: string, props?: Object) => string) {
-    return t(`critterpedia.${type}.quote.${critter.normal_name}`, { playername });
+    return t(`critterpedia:${type}.quote.${critter.normal_name}`, { playername });
 }
 
 function getCritterLocation(critter: Critter, type: 'bug' | 'fish', t: (key: string, props?: Object) => string) {
-    return t(`critterpedia.${type}.location.${critter.location}`);
+    return t(`critterpedia:${type}.location.${critter.location}`);
 }
 
 
