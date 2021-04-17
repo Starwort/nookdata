@@ -163,14 +163,14 @@ export default function Critterpedia(props: CritterpediaProps) {
                     Bugs <span style={{ color: theme.palette.primary.main }}>
                         ({
                             {
-                                collected: bugsData.reduce(
+                                obtained: bugsData.reduce(
                                     (total, bug) => total + (+bug.obtained), 0),
                             }
                         } / 80)
                     </span> <span style={{ color: theme.palette.modelled.main }}>
                         ({
                             {
-                                collected: bugsData.reduce(
+                                modelled: bugsData.reduce(
                                     (total, bug) => total + (+bug.modelled), 0),
                             }
                         } / 80)
@@ -224,14 +224,14 @@ export default function Critterpedia(props: CritterpediaProps) {
                     Fish <span style={{ color: theme.palette.primary.main }}>
                         ({
                             {
-                                collected: fishData.reduce(
+                                obtained: fishData.reduce(
                                     (total, fish) => total + (+fish.obtained), 0),
                             }
                         } / 80)
                         </span> <span style={{ color: theme.palette.modelled.main }}>
                         ({
                             {
-                                collected: fishData.reduce(
+                                modelled: fishData.reduce(
                                     (total, fish) => total + (+fish.modelled), 0),
                             }
                         } / 80)
