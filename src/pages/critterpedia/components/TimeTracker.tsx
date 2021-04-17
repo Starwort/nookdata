@@ -43,8 +43,8 @@ export default function TimeTracker(props: TimeTrackerProps) {
                 {
                     t(
                         props.settings.useTwelveHourTime
-                            ? 'common.time.twelve_hour.am'
-                            : 'common.time.twenty_four_hour',
+                            ? 'common:time.twelve_hour.am'
+                            : 'common:time.twenty_four_hour',
                         {
                             pad: '',
                             h12: 12,
@@ -72,8 +72,8 @@ export default function TimeTracker(props: TimeTrackerProps) {
                 {
                     t(
                         props.settings.useTwelveHourTime
-                            ? 'common.time.twelve_hour.am'
-                            : 'common.time.twenty_four_hour',
+                            ? 'common:time.twelve_hour.am'
+                            : 'common:time.twenty_four_hour',
                         {
                             pad: '0',
                             h12: 6,
@@ -101,8 +101,8 @@ export default function TimeTracker(props: TimeTrackerProps) {
                 {
                     t(
                         props.settings.useTwelveHourTime
-                            ? 'common.time.twelve_hour.pm'
-                            : 'common.time.twenty_four_hour',
+                            ? 'common:time.twelve_hour.pm'
+                            : 'common:time.twenty_four_hour',
                         {
                             pad: '',
                             h12: 12,
@@ -130,8 +130,8 @@ export default function TimeTracker(props: TimeTrackerProps) {
                 {
                     t(
                         props.settings.useTwelveHourTime
-                            ? 'common.time.twelve_hour.pm'
-                            : 'common.time.twenty_four_hour',
+                            ? 'common:time.twelve_hour.pm'
+                            : 'common:time.twenty_four_hour',
                         {
                             pad: '',
                             h12: 6,
@@ -159,8 +159,8 @@ export default function TimeTracker(props: TimeTrackerProps) {
                 {
                     t(
                         props.settings.useTwelveHourTime
-                            ? 'common.time.twelve_hour.am'
-                            : 'common.time.twenty_four_hour',
+                            ? 'common:time.twelve_hour.am'
+                            : 'common:time.twenty_four_hour',
                         {
                             pad: '0',
                             h12: 12,

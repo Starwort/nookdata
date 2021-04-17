@@ -58,7 +58,7 @@ function CritterPanel(props: CritterPanelProps) {
     } = props.searchParameters;
     let shadow = '';
     if (props.type == 'fish') {
-        shadow = t(`critterpedia.fish.size.${(props.data as typeof fish[0]).shadow}`);
+        shadow = t(`critterpedia:fish.size.${(props.data as typeof fish[0]).shadow}`);
     }
     let match = true;
     if (activeRequired === 'now' && !activeNow) {
@@ -100,11 +100,11 @@ function CritterPanel(props: CritterPanelProps) {
     return <>
         <Card className="critter-panel" title={
             [
-                t(`critterpedia.panel.type.${props.type}`, { name: getCritterName(props.data, props.type, t).capitalise(), index: props.data.index + 1 }),
-                (activeMonth ? '' : t('critterpedia.panel.status.unavailable')),
-                (activeNow ? t('critterpedia.panel.status.now') : ''),
-                (props.modelled ? t('critterpedia.status.panel.modelled') : ''),
-                t('critterpedia.status.panel.details'),
+                t(`critterpedia:panel.type.${props.type}`, { name: getCritterName(props.data, props.type, t).capitalise(), index: props.data.index + 1 }),
+                (activeMonth ? '' : t('critterpedia:panel.status.unavailable')),
+                (activeNow ? t('critterpedia:panel.status.now') : ''),
+                (props.modelled ? t('critterpedia:status.panel.modelled') : ''),
+                t('critterpedia:status.panel.details'),
             ].filter((elem) => !!elem).join('\n')
         }
             style={
@@ -223,7 +223,7 @@ function CritterPanel(props: CritterPanelProps) {
                     textAlign: 'center'
                 }}
             >
-                {t(`critterpedia.dialogue.type.${props.type}`, { index: props.data.index + 1 })}
+                {t(`critterpedia:dialogue.type.${props.type}`, { index: props.data.index + 1 })}
                 <br />
                 <Divider style={{ marginTop: 8, marginBottom: 8 }} />
                 <div
@@ -260,7 +260,7 @@ function CritterPanel(props: CritterPanelProps) {
                                 className="critter-icon"
                             />
                             {props.data.dry && <div
-                                title={t('critterpedia.dialogue.details.dry')}
+                                title={t('critterpedia:dialogue.details.dry')}
                             >
                                 <WbSunny
                                     className="critter-dry"
@@ -270,7 +270,7 @@ function CritterPanel(props: CritterPanelProps) {
                                 />
                             </div>}
                             {props.data.rain && <div
-                                title={t('critterpedia.dialogue.details.wet')}
+                                title={t('critterpedia:dialogue.details.wet')}
                             >
                                 <Cloud
                                     className="critter-wet"
@@ -296,7 +296,7 @@ function CritterPanel(props: CritterPanelProps) {
                             color="primary"
                         />
                     }
-                    label={t('critterpedia.dialogue.obtained')}
+                    label={t('critterpedia:dialogue.obtained')}
                 />
                 <FormControlLabel
                     control={
@@ -308,7 +308,7 @@ function CritterPanel(props: CritterPanelProps) {
                             color="default"
                         />
                     }
-                    label={t('critterpedia.dialogue.modelled')}
+                    label={t('critterpedia:dialogue.modelled')}
                 />
             </DialogActions>
         </Dialog>

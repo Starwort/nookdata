@@ -5,18 +5,18 @@ import '../../../prototype_mods';
 import UserSettings from '../../../user_settings';
 import './CritterPanel.scss';
 const months = [
-    "critterpedia.dialogue.months.jan",
-    "critterpedia.dialogue.months.feb",
-    "critterpedia.dialogue.months.mar",
-    "critterpedia.dialogue.months.apr",
-    "critterpedia.dialogue.months.may",
-    "critterpedia.dialogue.months.jun",
-    "critterpedia.dialogue.months.jul",
-    "critterpedia.dialogue.months.aug",
-    "critterpedia.dialogue.months.sep",
-    "critterpedia.dialogue.months.oct",
-    "critterpedia.dialogue.months.nov",
-    "critterpedia.dialogue.months.dec",
+    "critterpedia:dialogue.months.jan",
+    "critterpedia:dialogue.months.feb",
+    "critterpedia:dialogue.months.mar",
+    "critterpedia:dialogue.months.apr",
+    "critterpedia:dialogue.months.may",
+    "critterpedia:dialogue.months.jun",
+    "critterpedia:dialogue.months.jul",
+    "critterpedia:dialogue.months.aug",
+    "critterpedia:dialogue.months.sep",
+    "critterpedia:dialogue.months.oct",
+    "critterpedia:dialogue.months.nov",
+    "critterpedia:dialogue.months.dec",
 ];
 function winter(theme: Theme, settings: UserSettings) {
     return (
