@@ -24,7 +24,11 @@ const pageData: Dict<PageData> = {
     '/critterpedia': {
         title: 'common:pages.critterpedia',
         icon: <EmojiNature />,
-    }
+    },
+    // '/': {
+    //     title: 'Home',
+    //     icon: <EmojiNature />,
+    // },
 }
 
 
@@ -111,7 +115,10 @@ let timeUpdateId: number | undefined = undefined;
 const sentinelDate = new Date();
 
 function Loading() {
-    return <img src="assets/shared/loading.gif" style={{ margin: 'auto' }} />
+    return <img
+        src="assets/shared/loading.gif"
+        style={{ width: '20%', height: '20%', margin: '15% 40%', borderRadius: '50%' }}
+    />;
 }
 
 function App() {
@@ -152,20 +159,23 @@ function App() {
         () => getTheme(chosenTheme),
         [chosenTheme]
     );
-    return <Suspense fallback={<Loading />}>
-        <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <AppFrame page={page} theme={chosenTheme} setTheme={setChosenTheme} setPage={setPage}>
-                <Route page={page} route="/critterpedia">
-                    <Critterpedia time={time} settings={settings} />
-                </Route>
-            </AppFrame>
-        </ThemeProvider>
-    </Suspense>
+    return <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <AppFrame page={page} theme={chosenTheme} setTheme={setChosenTheme} setPage={setPage}>
+            <Route page={page} route="/critterpedia">
+                <Critterpedia time={time} settings={settings} />
+            </Route>
+            {/* <Route page={page} route="/">
+                <Loading />
+            </Route> */}
+        </AppFrame>
+    </ThemeProvider>
 }
 
 ReactDOM.render(
-    <App />,
+    <Suspense fallback={<Loading />}>
+        <App />
+    </Suspense>,
     document.getElementById('root')
 );
 export { };
