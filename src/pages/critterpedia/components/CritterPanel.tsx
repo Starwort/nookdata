@@ -103,8 +103,8 @@ function CritterPanel(props: CritterPanelProps) {
                 t(`critterpedia:panel.type.${props.type}`, { name: getCritterName(props.data, props.type, t).capitalise(), index: props.data.index + 1 }),
                 (activeMonth ? '' : t('critterpedia:panel.status.unavailable')),
                 (activeNow ? t('critterpedia:panel.status.now') : ''),
-                (props.modelled ? t('critterpedia:status.panel.modelled') : ''),
-                t('critterpedia:status.panel.details'),
+                (props.modelled ? t('critterpedia:panel.status.modelled') : ''),
+                t('critterpedia:panel.status.details'),
             ].filter((elem) => !!elem).join('\n')
         }
             style={
