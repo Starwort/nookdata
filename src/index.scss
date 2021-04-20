@@ -7,6 +7,21 @@
 * {
     font-family: "ACNH" !important;
 }
+body {
+    background-color: #121212;
+}
+.loader {
+    position: absolute;
+    background-color: #242424;
+    box-shadow: 0px 0px 100px 100px #242424;
+    background-image: url(assets/shared/loading.gif);
+    background-size: 100px;
+    top: calc(33% - 50px) !important;
+    left: calc(50% - 50px) !important;
+    width: 100px;
+    height: 100px;
+    border-radius: 50px !important;
+}
 .no-transition * {
     transition: none !important;
 }

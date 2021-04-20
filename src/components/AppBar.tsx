@@ -1,8 +1,9 @@
-import { AppBar as TopAppBar, IconButton, Toolbar } from '@material-ui/core';
+import { AppBar as TopAppBar, FormControl, IconButton, InputLabel, MenuItem, Select, Toolbar } from '@material-ui/core';
 import DarkModeIcon from '@material-ui/icons/Brightness4';
 import LightModeIcon from '@material-ui/icons/Brightness7';
 import MenuIcon from '@material-ui/icons/Menu';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 
 interface AppBarProps {
@@ -14,6 +15,7 @@ interface AppBarProps {
 }
 
 function AppBar(props: AppBarProps) {
+    const { t, i18n } = useTranslation('common');
     return (
         <>
             <TopAppBar position="fixed">
@@ -26,6 +28,18 @@ function AppBar(props: AppBarProps) {
                     <div style={{ flexGrow: 1 }}>
                         {props.title}
                     </div>
+                    <FormControl>
+                        <InputLabel id="lang-label">{t('common:lang.choose')}</InputLabel>
+                        <Select
+                            value={i18n.language.split('-')[0]}
+                            onChange={(event) => i18n.changeLanguage(event.target.value as string)}
+                            labelId='lang-label'
+                        >
+                            <MenuItem value="en">{t('common:lang.en')}</MenuItem>
+                            {/* <MenuItem value="fr">{t('common:lang.fr')}</MenuItem> */}
+                            {/* <MenuItem value="unmodelled">{t('critterpedia:search.state.unmodelled')}</MenuItem> */}
+                        </Select>
+                    </FormControl>
                     {props.theme == 'light'
                         ? <IconButton color="inherit" onClick={
                             () => {

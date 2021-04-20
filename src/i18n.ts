@@ -9,8 +9,8 @@ i18n.use(Backend)
     .use(initReactI18next)
     .init({
         backend: { loadPath: '/nookdata_v2/assets/i18n/{{lng}}/{{ns}}.json' },
-        fallbackLng: 'en-GB',
-        debug: true,
+        fallbackLng: 'en',
+        debug: process.env.NODE_ENV == 'development',
 
         interpolation: {
             escapeValue: false, // not needed for react as it escapes by default

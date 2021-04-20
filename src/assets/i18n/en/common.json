@@ -6,6 +6,9 @@
         },
         "twenty_four_hour": "{{pad}}{{h24}}:{{m}}"
     },
+    "pages": {
+        "critterpedia": "Critterpedia"
+    },
     "title": {
         "a": "Nook",
         "b": "Data",
@@ -14,7 +17,9 @@
             "page": "{{pageTitle}} | NookData"
         }
     },
-    "pages": {
-        "critterpedia": "Critterpedia"
+    "lang": {
+        "choose": "Site language",
+        "en": "English (English)",
+        "fr": "French (français)"
     }
 }

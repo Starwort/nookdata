@@ -70,12 +70,12 @@ function AppFrame(props: AppFrameProps) {
                         style={{
                             color: theme.palette.winter.main,
                             display: 'inline'
-                        }}>{t('common:title.a')}</div>
+                        }}>{t('title.a')}</div>
                     <div
                         style={{
                             color: theme.palette.summer.main,
                             display: 'inline'
-                        }}>{t('common:title.b')}</div>
+                        }}>{t('title.b')}</div>
                 </Typography>
             } />
             <NavigationDrawer open={drawerOpen} setOpen={setDrawerOpen}>
@@ -115,10 +115,11 @@ let timeUpdateId: number | undefined = undefined;
 const sentinelDate = new Date();
 
 function Loading() {
-    return <img
-        src="assets/shared/loading.gif"
-        style={{ width: '20%', height: '20%', margin: '15% 40%', borderRadius: '50%' }}
-    />;
+    // return <img
+    //     src="assets/shared/loading.gif"
+    //     style={{ width: '20%', height: '20%', margin: '15% 40%', borderRadius: '50%' }}
+    // />;
+    return <div className="loader"></div>
 }
 
 function App() {
@@ -148,7 +149,7 @@ function App() {
     timeUpdateId = window.setInterval(() => setTime(new Date()), 500);
     const [page, setPageImpl] = React.useState('/');
     function setPage(route: string) {
-        window.history.pushState(null, t('common:title.browser.page', { pageTitle: t(pageData[route].title) }), baseUrl + route);
+        window.history.pushState(null, t('core:title.browser.page', { pageTitle: t(pageData[route].title) }), baseUrl + route);
         setPageImpl(route);
     }
     let route = window.location.href.slice(baseUrl.length);
@@ -162,12 +163,14 @@ function App() {
     return <ThemeProvider theme={theme}>
         <CssBaseline />
         <AppFrame page={page} theme={chosenTheme} setTheme={setChosenTheme} setPage={setPage}>
-            <Route page={page} route="/critterpedia">
-                <Critterpedia time={time} settings={settings} />
-            </Route>
-            {/* <Route page={page} route="/">
-                <Loading />
-            </Route> */}
+            <Suspense fallback={<Loading />}>
+                <Route page={page} route="/critterpedia">
+                    <Critterpedia time={time} settings={settings} />
+                </Route>
+                {/* <Route page={page} route="/">
+                    <Loading />
+                </Route> */}
+            </Suspense>
         </AppFrame>
     </ThemeProvider>
 }
