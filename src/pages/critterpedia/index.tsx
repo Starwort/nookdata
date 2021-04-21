@@ -24,10 +24,13 @@ interface UserCritterpediaData {
 interface CritterpediaProps {
     settings: UserSettings;
     time: Date;
+    params: URLSearchParams;
+    setParams: (route: URLSearchParams) => void;
 }
 
 export default function Critterpedia(props: CritterpediaProps) {
-    const { t, i18n } = useTranslation('critterpedia');
+    const { t } = useTranslation('critterpedia');
+    const { settings, time, params, setParams } = props;
     const theme = useTheme();
     if (!window.localStorage.critterpedia) {
         let data: UserCritterpediaData = {
@@ -63,17 +66,55 @@ export default function Critterpedia(props: CritterpediaProps) {
     const [openDialogueType, setOpenDialogueType] = React.useState<'bug' | 'fish'>('bug');
     function setOpenDialogue(value: number | null) {
         if (value !== null) {
-            let title = getCritterName((
-                openDialogueType === 'bug'
-                    ? bugs
-                    : fish
-            )[value], openDialogueType, t).capitalise();
-            window.history.pushState(null, t('critterpedia:title.info', { name: title }))
+            let title = getCritterName(
+                (
+                    openDialogueType === 'bug'
+                        ? bugs
+                        : fish
+                )[value],
+                openDialogueType,
+                t
+            ).capitalise();
+            document.title = t('critterpedia:title.info', { name: title });
+            window.history.pushState(null, t('critterpedia:title.info', { name: title }));
+            setParams(new URLSearchParams({ 'type': openDialogueType, 'index': value.toString() }));
         } else {
-            window.history.pushState(null, t('critterpedia:title.default'))
+            document.title = t('critterpedia:title.default');
+            window.history.pushState(null, t('critterpedia:title.default'));
+            setParams(new URLSearchParams());
         }
         setOpenDialogueImpl(value);
     }
+    try {
+        if (!params.has('type')) {
+            throw new Error();
+        }
+        if (!params.has('index')) {
+            throw new Error();
+        }
+        const type: 'bug' | 'fish' = params.get('type') as 'bug' | 'fish';
+        const index: number = +params.get('index')!;
+        if (type === 'bug' || type == 'fish') {
+            if ((0 <= index && index < 80)
+                && (type !== openDialogueType || index !== openDialogue)) {
+                setOpenDialogueType(type);
+                setOpenDialogueImpl(index);
+                let title = getCritterName(
+                    (
+                        type === 'bug'
+                            ? bugs
+                            : fish
+                    )[index],
+                    type,
+                    t
+                ).capitalise();
+                document.title = t('critterpedia:title.info', { name: title });
+            }
+        }
+    } catch {
+        props.setParams(new URLSearchParams({}));
+    }
+
     function setBugsData(bug: number, state: UserCritterData) {
         data.bugs[bug] = state;
         window.localStorage.critterpedia = JSON.stringify(data);
@@ -188,7 +229,7 @@ export default function Critterpedia(props: CritterpediaProps) {
                                             range(16).map(
                                                 (x) => {
                                                     const bugData = bugsData[x * 5 + y];
-                                                    return <td>
+                                                    return <td key={x}>
                                                         <CritterPanel
                                                             data={bugs[x * 5 + y]}
                                                             obtained={bugData.obtained}
@@ -204,8 +245,8 @@ export default function Critterpedia(props: CritterpediaProps) {
                                                                 setOpenDialogue(value);
                                                             }}
                                                             searchParameters={searchParameters}
-                                                            settings={props.settings}
-                                                            now={props.time}
+                                                            settings={settings}
+                                                            now={time}
                                                         />
                                                     </td>;
                                                 }
@@ -249,7 +290,7 @@ export default function Critterpedia(props: CritterpediaProps) {
                                             range(16).map(
                                                 (x) => {
                                                     const bugData = fishData[x * 5 + y];
-                                                    return <td>
+                                                    return <td key={x}>
                                                         <CritterPanel
                                                             data={fish[x * 5 + y]}
                                                             obtained={bugData.obtained}
@@ -265,8 +306,8 @@ export default function Critterpedia(props: CritterpediaProps) {
                                                                 setOpenDialogue(value);
                                                             }}
                                                             searchParameters={searchParameters}
-                                                            settings={props.settings}
-                                                            now={props.time}
+                                                            settings={settings}
+                                                            now={time}
                                                         />
                                                     </td>;
                                                 }

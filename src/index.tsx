@@ -1,4 +1,3 @@
-
 import { CssBaseline, List, ListItem, ListItemIcon, ListItemText, ThemeProvider, Typography, useMediaQuery, useTheme } from '@material-ui/core';
 import { EmojiNature } from '@material-ui/icons';
 import React, { Suspense } from 'react';
@@ -15,6 +14,7 @@ import getTheme from './themes';
 import UserSettings from './user_settings';
 
 const baseUrl = process.env.NODE_ENV === 'production' ? homepage : 'http://localhost:3000/nookdata_v2';
+const root = '/nookdata_v2';
 
 interface PageData {
     title: string;
@@ -102,7 +102,7 @@ interface RouteProps {
 }
 function Route(props: RouteProps) {
     const { t } = useTranslation('common');
-    if (props.page !== props.route) {
+    if (props.page.split('?')[0] !== props.route) {
         return null;
     }
     document.title = t('common:title.browser.page', { pageTitle: t(pageData[props.route].title) });
@@ -152,9 +152,25 @@ function App() {
         window.history.pushState(null, t('core:title.browser.page', { pageTitle: t(pageData[route].title) }), baseUrl + route);
         setPageImpl(route);
     }
-    let route = window.location.href.slice(baseUrl.length);
+    let url = new URL(window.location.href);
+    url.pathname = url.pathname.slice(root.length) || '/';
+    let route = url.pathname;
     if (route !== page) {
         setPageImpl(route);
+    }
+    const params = url.searchParams;
+    function setParams(newParams: URLSearchParams) {
+        params.delete('index');
+        for (let key of params.keys()) {
+            params.delete(key);
+        }
+        for (let [key, value] of newParams.entries()) {
+            params.append(key, value);
+        }
+        let urlTmp = new URL(url.href);
+        urlTmp.pathname = root + urlTmp.pathname;
+        window.history.replaceState(null, document.title, urlTmp.href);
+        // setParamsImpl(params);
     }
     const theme = React.useMemo(
         () => getTheme(chosenTheme),
@@ -165,7 +181,7 @@ function App() {
         <AppFrame page={page} theme={chosenTheme} setTheme={setChosenTheme} setPage={setPage}>
             <Suspense fallback={<Loading />}>
                 <Route page={page} route="/critterpedia">
-                    <Critterpedia time={time} settings={settings} />
+                    <Critterpedia time={time} settings={settings} params={params} setParams={setParams} />
                 </Route>
                 {/* <Route page={page} route="/">
                     <Loading />

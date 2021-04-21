@@ -22224,7 +22224,7 @@
             "rain": true,
             "normal_name": "hermit_crab",
             "price": 1000,
-            "location": "On the beach, disguised as shells",
+            "location": "ground_beach",
             "hours": [
                 [
                     true,
@@ -22546,7 +22546,7 @@
             "rain": true,
             "normal_name": "wharf_roach",
             "price": 200,
-            "location": "wharf",
+            "location": "ground_wharf",
             "hours": [
                 [
                     true,
