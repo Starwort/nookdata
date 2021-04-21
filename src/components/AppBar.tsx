@@ -15,7 +15,7 @@ interface AppBarProps {
 }
 
 function AppBar(props: AppBarProps) {
-    const { t, i18n } = useTranslation('common');
+    const { t, i18n } = useTranslation('core');
     return (
         <>
             <TopAppBar position="fixed">
@@ -29,14 +29,14 @@ function AppBar(props: AppBarProps) {
                         {props.title}
                     </div>
                     <FormControl>
-                        <InputLabel id="lang-label">{t('common:lang.choose')}</InputLabel>
+                        <InputLabel id="lang-label">{t('core:lang.choose')}</InputLabel>
                         <Select
                             value={i18n.language.split('-')[0]}
                             onChange={(event) => i18n.changeLanguage(event.target.value as string)}
                             labelId='lang-label'
                         >
-                            <MenuItem value="en">{t('common:lang.en')}</MenuItem>
-                            {/* <MenuItem value="fr">{t('common:lang.fr')}</MenuItem> */}
+                            <MenuItem value="en">{t('core:lang.en')}</MenuItem>
+                            {/* <MenuItem value="fr">{t('core:lang.fr')}</MenuItem> */}
                             {/* <MenuItem value="unmodelled">{t('critterpedia:search.state.unmodelled')}</MenuItem> */}
                         </Select>
                     </FormControl>

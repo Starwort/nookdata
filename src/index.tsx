@@ -22,7 +22,7 @@ interface PageData {
 }
 const pageData: Dict<PageData> = {
     '/critterpedia': {
-        title: 'common:pages.critterpedia',
+        title: 'core:pages.critterpedia',
         icon: <EmojiNature />,
     },
     // '/': {
@@ -61,7 +61,7 @@ function AppFrame(props: AppFrameProps) {
         setDrawerOpen(true);
         setInitialRender(false);
     }
-    const { t } = useTranslation('common');
+    const { t } = useTranslation('core');
     return (
         <>
             <AppBar setTheme={props.setTheme} setDrawerOpen={setDrawerOpen} theme={props.theme} drawerOpen={drawerOpen} title={
@@ -101,11 +101,11 @@ interface RouteProps {
     children: React.ReactNode;
 }
 function Route(props: RouteProps) {
-    const { t } = useTranslation('common');
+    const { t } = useTranslation('core');
     if (props.page.split('?')[0] !== props.route) {
         return null;
     }
-    document.title = t('common:title.browser.page', { pageTitle: t(pageData[props.route].title) });
+    document.title = t('core:title.browser.page', { pageTitle: t(pageData[props.route].title) });
     return <>
         {props.children}
     </>;
@@ -123,7 +123,7 @@ function Loading() {
 }
 
 function App() {
-    const { t } = useTranslation('common');
+    const { t } = useTranslation('core');
     const themeSetting: "dark" | "light" = window.localStorage.theme || 'dark';
     const [chosenTheme, setChosenThemeImpl] = React.useState<'dark' | 'light'>(themeSetting);
     function setChosenTheme(value: 'dark' | 'light') {
