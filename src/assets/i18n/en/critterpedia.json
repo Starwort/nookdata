@@ -165,14 +165,14 @@
             "scorpion": "I caught a scorpion! It was a sting operation!"
         },
         "location": {
-            "flying": "Flying",
+            "flying": "Flying anywhere",
             "flying_hybrid": "Flying near hybrid flowers",
             "flying_light": "Flying near light sources",
-            "trees": "On trees",
-            "tree_hive": "In trees (hive drops when shaken)",
-            "tree_shake": "In trees (revealed when shaken)",
-            "tree_stump": "On tree stumps",
-            "tree_coconut": "On coconut trees",
+            "trees": "On tree trunks",
+            "trees_hive": "In trees (hive drops when shaken)",
+            "trees_shake": "In trees (revealed when shaken)",
+            "trees_stump": "On tree stumps",
+            "trees_coconut": "On coconut trees",
             "ground": "On the ground",
             "ground_snowball": "On the ground (rolling snowballs)",
             "ground_leaf": "On the ground under trees, disguised as fallen furniture leaves",
@@ -385,8 +385,9 @@
         "location": "Location",
         "shadow": "Size (fish)",
         "price": {
-            "comp": "Price",
-            "value": "Value"
+            "label": "Critter Price",
+            "comp": "Comparison",
+            "value": "Price"
         },
         "active": {
             "title": "Activity",

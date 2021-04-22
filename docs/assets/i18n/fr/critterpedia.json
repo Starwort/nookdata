@@ -165,28 +165,28 @@
             "scorpion": "I caught a scorpion! It was a sting operation!"
         },
         "location": {
-            "flying": "Flying anywhere",
-            "flying_hybrid": "Flying near hybrid flowers",
-            "flying_light": "Flying near light sources",
-            "trees": "On tree trunks",
-            "trees_hive": "In trees (hive drops when shaken)",
-            "trees_shake": "In trees (revealed when shaken)",
-            "trees_stump": "On tree stumps",
-            "trees_coconut": "On coconut trees",
-            "ground": "On the ground",
-            "ground_snowball": "On the ground (rolling snowballs)",
-            "ground_leaf": "On the ground under trees, disguised as fallen furniture leaves",
-            "ground_beach": "On the beach, disguised as shells",
-            "ground_wharf": "On the rocks found on the beach",
-            "flowers": "On flowers",
-            "flowers_white": "On white flowers",
-            "underground": "Underground (can be heard chirping, revealed when unearthed)",
-            "water": "On ponds and rivers",
-            "food": "On spoilt turnips",
-            "junk": "On spoilt turnips and fishing junk",
-            "heads": "On islanders' heads",
-            "on_rocks": "On rocks",
-            "under_rocks": "Under rocks (revealed when the rock is hit)"
+            "flying": "Vole",
+            "flying_hybrid": "Vole près des fleurs hybrides",
+            "flying_light": "Vole près des sources de lumière",
+            "trees": "Sur les troncs d'arbres",
+            "tree_hive": "Dans les arbres (la ruche tombe de l'arbre quand on le secoue)",
+            "tree_shake": "Dans les arbres (se montre lorsque l'on secoue l'arbre)",
+            "tree_stump": "Sur les arbres coupés",
+            "tree_coconut": "Sur les troncs de cocotiers",
+            "ground": "Sur terre",
+            "ground_snowball": "Sur terre (en train de faire rouler une boule de neige)",
+            "ground_leaf": "Sur terre sous les arbres, camouflé en feuille de meuble",
+            "ground_beach": "Sur la plage, camouflé en coquillage",
+            "ground_wharf": "Sur les rochers côtiers de la plage",
+            "flowers": "Sur les fleurs",
+            "flowers_white": "Sur les fleurs blanches",
+            "underground": "Dans le sol (on peut l'entendre faire du bruit, se montre lorsqu'on le déterre)",
+            "water": "Dans les lacs et rivières",
+            "food": "Sur les navets pourris",
+            "junk": "Sur les navets pourris et les déchets",
+            "heads": "Sur la tête des habitants",
+            "on_rocks": "Sur les rochers",
+            "under_rocks": "Sous les rochers (se montre lorsque l'on frappe un rocher)"
         }
     },
     "fish": {
@@ -249,7 +249,7 @@
             "anchovy": "anchovy",
             "horse_mackerel": "horse mackerel",
             "barred_knifejaw": "barred knifejaw",
-            "sea_bass": "sea bass",
+            "sea_bass": "bar commun",
             "red_snapper": "red snapper",
             "dab": "dab",
             "olive_flounder": "olive flounder",
@@ -331,7 +331,7 @@
             "anchovy": "I caught an anchovy! Stay away from my pizza!",
             "horse_mackerel": "I caught a horse mackerel! Of course, Mack...er...el.",
             "barred_knifejaw": "I caught a barred knifejaw! They must have a hard time eating!",
-            "sea_bass": "I caught a sea bass! No, wait - it's at least a C+!",
+            "sea_bass": "Tu as pris un bar commun ! Gare au bar à thym !",
             "red_snapper": "I caught a red snapper! It looks pretty dapper!",
             "dab": "I caught a dab! Not bad!",
             "olive_flounder": "I caught an olive flounder! That's not the pits!",
@@ -355,14 +355,14 @@
             "coelacanth": "<big><big>Blast from the past!</big></big> I caught a coelacanth! Think positive! Be a coela-CAN!"
         },
         "location": {
-            "river": "In rivers",
-            "river_cliff": "In clifftop rivers",
-            "river_mouth": "In the mouths of rivers",
-            "salmon": "In the mouths of rivers during the first half of September;\nAnywhere in rivers during the second half of September",
-            "pond": "In ponds",
-            "waterfall": "Near waterfalls",
-            "ocean": "In the sea",
-            "pier": "By the pier"
+            "river": "Dans les rivières",
+            "river_cliff": "Dans les rivières en hauteur (sur les falaises)",
+            "river_mouth": "Dans la partie entre la rivière et la mer",
+            "salmon": "Dans la partie entre la rivière et la mer pendant la première moitié du mois de Septembre;\nDans les rivières pendant la deuxième moitié du mois de Septembre",
+            "pond": "Dans les lacs",
+            "waterfall": "Près des cascades",
+            "ocean": "Dans la mer",
+            "pier": "Près du port"
         },
         "size": {
             "one": "1",
@@ -371,80 +371,80 @@
             "four": "4",
             "five": "5",
             "six": "6",
-            "six_fin": "6, with a fin",
-            "six_narrow": "6, but narrow"
+            "six_fin": "6, avec une nageoire dorsale",
+            "six_narrow": "6, mais fin"
         }
     },
     "title": {
-        "default": "Critterpedia | NookData",
-        "info": "Critterpedia - {{name}} | NookData"
+        "default": "Bébêtopédie | NookData",
+        "info": "Bébêtopédie - {{name}} | NookData"
     },
     "search": {
-        "title": "Search Critters",
-        "name": "Name",
-        "location": "Location",
-        "shadow": "Size (fish)",
+        "title": "Critères de recherche",
+        "name": "Nom",
+        "location": "Trouvable :",
+        "shadow": "Taille (poisson)",
         "price": {
-            "label": "Critter Price",
-            "comp": "Comparison",
-            "value": "Price"
+            "label": "Prix de la bébête",
+            "comp": "Comparaison",
+            "value": "Prix"
         },
         "active": {
-            "title": "Activity",
-            "any": "Any activity",
-            "month": "Active this month",
-            "now": "Active now",
-            "until_next": "Active until next month"
+            "title": "Disponibilité",
+            "any": "Peu importe",
+            "month": "Disponible ce mois-ci",
+            "now": "Disponible maintenant",
+            "until_next": "Disponible jusqu'au mois prochain"
         },
         "state": {
             "title": "Collection",
-            "any": "Any",
-            "unobtained": "Not yet caught",
-            "unmodelled": "No model obtained"
+            "any": "Tous",
+            "unobtained": "Pas encore attrappé",
+            "unmodelled": "Statue pas encore obtenue"
         }
     },
     "cards": {
-        "bugs": "Bugs <1>({{obtained}} / 80)</1> <3>({{modelled}} / 80)</3>",
-        "fish": "Fish <1>({{obtained}} / 80)</1> <3>({{modelled}} / 80)</3>"
+        "bugs": "Insectes <1>({{obtained}} / 80)</1> <3>({{modelled}} / 80)</3>",
+        "fish": "Poissons <1>({{obtained}} / 80)</1> <3>({{modelled}} / 80)</3>"
     },
     "panel": {
         "type": {
-            "bug": "{{name}} (Bug #{{index}})",
-            "fish": "{{name}} (Fish #{{index}})"
+            "bug": "{{name}} (Insecte n°{{index}})",
+            "fish": "{{name}} (Poisson n°{{index}})"
         },
         "status": {
-            "unavailable": "Unavailable",
-            "now": "Active right now!",
-            "modelled": "Model obtained!",
-            "details": "Click for more details"
+            "unavailable": "Pas disponible",
+            "now": "Disponible!",
+            "modelled": "Statue obtenue!",
+            "details": "Plus de détails..."
         }
     },
     "dialogue": {
         "type": {
-            "bug": "Bug #{{index}}",
-            "fish": "Fish #{{index}}"
+            "bug": "Insecte n°{{index}}",
+            "fish": "Poisson n°{{index}}"
         },
         "months": {
-            "jan": "January",
-            "feb": "February",
-            "mar": "March",
-            "apr": "April",
-            "may": "May",
-            "jun": "June",
-            "jul": "July",
-            "aug": "August",
-            "sep": "September",
-            "oct": "October",
-            "nov": "November",
-            "dec": "December"
+            "jan": "Janvier",
+            "feb": "Fevrier",
+            "mar": "Mars",
+            "apr": "Avril",
+            "may": "Mai",
+            "jun": "Juin",
+            "jul": "Juillet",
+            "aug": "Août",
+            "sep": "Septembre",
+            "oct": "Octobre",
+            "nov": "Novembre",
+            "dec": "Décembre"
         },
         "details": {
-            "dry": "Available during dry weather",
-            "wet": "Available during rain",
-            "found": "Found:",
-            "price": "Sells for:"
+            "dry": "Disponible quand il fait sec",
+            "wet": "Disponible lorsqu'il pleut",
+            "found": "Trouvable :",
+            "price": "Se vends pour :"
         },
-        "obtained": "Obtained",
-        "modelled": "Modelled"
+        "obtained": "Bébête obtenue",
+        "modelled": "Statue obtenue"
     }
 }

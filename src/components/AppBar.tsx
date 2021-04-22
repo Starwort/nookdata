@@ -31,12 +31,13 @@ function AppBar(props: AppBarProps) {
                     <FormControl>
                         <InputLabel id="lang-label">{t('core:lang.choose')}</InputLabel>
                         <Select
+                            autoWidth
                             value={i18n.language.split('-')[0]}
                             onChange={(event) => i18n.changeLanguage(event.target.value as string)}
                             labelId='lang-label'
                         >
                             <MenuItem value="en">{t('core:lang.en')}</MenuItem>
-                            {/* <MenuItem value="fr">{t('core:lang.fr')}</MenuItem> */}
+                            <MenuItem value="fr">{t('core:lang.fr')}</MenuItem>
                             {/* <MenuItem value="unmodelled">{t('critterpedia:search.state.unmodelled')}</MenuItem> */}
                         </Select>
                     </FormControl>

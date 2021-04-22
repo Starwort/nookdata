@@ -7734,7 +7734,7 @@
             "rain": true,
             "normal_name": "wasp",
             "price": 2500,
-            "location": "tree_hive",
+            "location": "trees_hive",
             "hours": [
                 [
                     true,
@@ -14174,7 +14174,7 @@
             "rain": true,
             "normal_name": "jewel_beetle",
             "price": 2400,
-            "location": "tree_stump",
+            "location": "trees_stump",
             "hours": [
                 [
                     false,
@@ -14496,7 +14496,7 @@
             "rain": true,
             "normal_name": "violin_beetle",
             "price": 450,
-            "location": "tree_stump",
+            "location": "trees_stump",
             "hours": [
                 [
                     false,
@@ -14818,7 +14818,7 @@
             "rain": false,
             "normal_name": "citrus_long_horned_beetle",
             "price": 350,
-            "location": "tree_stump",
+            "location": "trees_stump",
             "hours": [
                 [
                     true,
@@ -15140,7 +15140,7 @@
             "rain": true,
             "normal_name": "rosalia_batesi_beetle",
             "price": 3000,
-            "location": "tree_stump",
+            "location": "trees_stump",
             "hours": [
                 [
                     false,
@@ -15462,7 +15462,7 @@
             "rain": true,
             "normal_name": "blue_weevil_beetle",
             "price": 800,
-            "location": "tree_coconut",
+            "location": "trees_coconut",
             "hours": [
                 [
                     false,
@@ -17072,7 +17072,7 @@
             "rain": true,
             "normal_name": "goliath_beetle",
             "price": 8000,
-            "location": "tree_coconut",
+            "location": "trees_coconut",
             "hours": [
                 [
                     false,
@@ -19004,7 +19004,7 @@
             "rain": true,
             "normal_name": "golden_stag",
             "price": 12000,
-            "location": "tree_coconut",
+            "location": "trees_coconut",
             "hours": [
                 [
                     false,
@@ -19326,7 +19326,7 @@
             "rain": true,
             "normal_name": "giraffe_stag",
             "price": 12000,
-            "location": "tree_coconut",
+            "location": "trees_coconut",
             "hours": [
                 [
                     false,
@@ -21580,7 +21580,7 @@
             "rain": false,
             "normal_name": "bagworm",
             "price": 600,
-            "location": "tree_shake",
+            "location": "trees_shake",
             "hours": [
                 [
                     true,
@@ -24800,7 +24800,7 @@
             "rain": true,
             "normal_name": "spider",
             "price": 480,
-            "location": "tree_shake",
+            "location": "trees_shake",
             "hours": [
                 [
                     true,

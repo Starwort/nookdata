@@ -1,0 +1,25 @@
+{
+    "time": {
+        "twelve_hour": {
+            "am": "{{h12}}:{{m}}h du matin",
+            "pm": "{{h12}}:{{m}}h du soir"
+        },
+        "twenty_four_hour": "{{pad}}{{h24}}:{{m}}"
+    },
+    "pages": {
+        "critterpedia": "Bébêtopédie"
+    },
+    "title": {
+        "a": "Nook",
+        "b": "Data",
+        "browser": {
+            "generic": "NookData",
+            "page": "{{pageTitle}} | NookData"
+        }
+    },
+    "lang": {
+        "choose": "Langue du site",
+        "en": "Anglais (English)",
+        "fr": "Français (français)"
+    }
+}

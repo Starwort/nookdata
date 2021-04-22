@@ -36,7 +36,7 @@ interface CritterPanelProps {
     settings: UserSettings;
 }
 function CritterPanel(props: CritterPanelProps) {
-    const { t, i18n } = useTranslation('critterpedia');
+    const { t } = useTranslation('critterpedia');
     const hours = (
         props.settings.hemisphere == 'north' ?
             props.data.hours :
