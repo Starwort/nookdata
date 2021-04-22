@@ -2,7 +2,9 @@
     "time": {
         "twelve_hour": {
             "am": "{{h12}}:{{m}}h du matin",
-            "pm": "{{h12}}:{{m}}h du soir"
+            "pm": "{{h12}}:{{m}}h du soir",
+            "am_short": "{{h12}}h du matin",
+            "pm_short": "{{h12}}h du soir"
         },
         "twenty_four_hour": "{{pad}}{{h24}}:{{m}}"
     },

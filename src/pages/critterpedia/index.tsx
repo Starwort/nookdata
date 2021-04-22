@@ -63,28 +63,62 @@ export default function Critterpedia(props: CritterpediaProps) {
     const [bugsData, setBugsDataImpl] = React.useState(data.bugs);
     const [fishData, setFishDataImpl] = React.useState(data.fish);
     const [openDialogue, setOpenDialogueImpl] = React.useState<number | null>(null);
-    const [openDialogueType, setOpenDialogueType] = React.useState<'bug' | 'fish'>('bug');
-    function setOpenDialogue(value: number | null) {
-        if (value !== null) {
+    const [openDialogueType, setOpenDialogueTypeImpl] = React.useState<'bug' | 'fish'>('bug');
+    function openCritterDialogue(type: 'bug' | 'fish', index: number | null) {
+        if (index !== null) {
+            console.log(`Loading ${type} #${index}`);
+            if (type !== openDialogueType) {
+                setOpenDialogueTypeImpl(type);
+            }
             let title = getCritterName(
                 (
-                    openDialogueType === 'bug'
+                    type === 'bug'
                         ? bugs
                         : fish
-                )[value],
-                openDialogueType,
+                )[index],
+                type,
                 t
             ).capitalise();
             document.title = t('critterpedia:title.info', { name: title });
             window.history.pushState(null, t('critterpedia:title.info', { name: title }));
-            setParams(new URLSearchParams({ 'type': openDialogueType, 'index': value.toString() }));
+            setParams(new URLSearchParams({ 'type': type, 'index': index.toString() }));
+            if (index !== openDialogue) {
+                setOpenDialogueImpl(index);
+            }
         } else {
+            console.log('Unloading critter dialogue');
             document.title = t('critterpedia:title.default');
             window.history.pushState(null, t('critterpedia:title.default'));
             setParams(new URLSearchParams());
+            setOpenDialogueImpl(null);
         }
-        setOpenDialogueImpl(value);
     }
+    // function setOpenDialogueType(value: 'bug' | 'fish') {
+    //     console.log('Loading:', value);
+    //     setOpenDialogueTypeImpl(value);
+    // }
+    // function setOpenDialogue(value: number | null) {
+    //     console.log(openDialogueType);
+    //     if (value !== null) {
+    //         let title = getCritterName(
+    //             (
+    //                 openDialogueType === 'bug'
+    //                     ? bugs
+    //                     : fish
+    //             )[value],
+    //             openDialogueType,
+    //             t
+    //         ).capitalise();
+    //         document.title = t('critterpedia:title.info', { name: title });
+    //         window.history.pushState(null, t('critterpedia:title.info', { name: title }));
+    //         setParams(new URLSearchParams({ 'type': openDialogueType, 'index': value.toString() }));
+    //     } else {
+    //         document.title = t('critterpedia:title.default');
+    //         window.history.pushState(null, t('critterpedia:title.default'));
+    //         setParams(new URLSearchParams());
+    //     }
+    //     setOpenDialogueImpl(value);
+    // }
     try {
         if (!params.has('type')) {
             throw new Error();
@@ -95,20 +129,8 @@ export default function Critterpedia(props: CritterpediaProps) {
         const type: 'bug' | 'fish' = params.get('type') as 'bug' | 'fish';
         const index: number = +params.get('index')!;
         if (type === 'bug' || type == 'fish') {
-            if ((0 <= index && index < 80)
-                && (type !== openDialogueType || index !== openDialogue)) {
-                setOpenDialogueType(type);
-                setOpenDialogueImpl(index);
-                let title = getCritterName(
-                    (
-                        type === 'bug'
-                            ? bugs
-                            : fish
-                    )[index],
-                    type,
-                    t
-                ).capitalise();
-                document.title = t('critterpedia:title.info', { name: title });
+            if (0 <= index && index < 80) {
+                openCritterDialogue(type, index);
             }
         }
     } catch {
@@ -239,12 +261,12 @@ export default function Critterpedia(props: CritterpediaProps) {
                                         {
                                             range(16).map(
                                                 (x) => {
-                                                    const bugData = bugsData[x * 5 + y];
+                                                    const critterData = bugsData[x * 5 + y];
                                                     return <td key={x}>
                                                         <CritterPanel
                                                             data={bugs[x * 5 + y]}
-                                                            obtained={bugData.obtained}
-                                                            modelled={bugData.modelled}
+                                                            obtained={critterData.obtained}
+                                                            modelled={critterData.modelled}
                                                             type="bug"
                                                             setObtained={(value: boolean) => setBugsData(x * 5 + y, { obtained: value, modelled: false })}
                                                             setModelled={(value: boolean) => setBugsData(x * 5 + y, { obtained: true, modelled: value })}
@@ -252,8 +274,9 @@ export default function Critterpedia(props: CritterpediaProps) {
                                                             hour={now.getHours()}
                                                             openDialogue={openDialogueType === 'bug' ? openDialogue : null}
                                                             setOpenDialogue={(value: number | null) => {
-                                                                setOpenDialogueType('bug');
-                                                                setOpenDialogue(value);
+                                                                // setOpenDialogueType('bug');
+                                                                // setOpenDialogue(value);
+                                                                openCritterDialogue('bug', value);
                                                             }}
                                                             searchParameters={searchParameters}
                                                             settings={settings}
@@ -300,12 +323,12 @@ export default function Critterpedia(props: CritterpediaProps) {
                                         {
                                             range(16).map(
                                                 (x) => {
-                                                    const bugData = fishData[x * 5 + y];
+                                                    const critterData = fishData[x * 5 + y];
                                                     return <td key={x}>
                                                         <CritterPanel
                                                             data={fish[x * 5 + y]}
-                                                            obtained={bugData.obtained}
-                                                            modelled={bugData.modelled}
+                                                            obtained={critterData.obtained}
+                                                            modelled={critterData.modelled}
                                                             type="fish"
                                                             setObtained={(value: boolean) => setFishData(x * 5 + y, { obtained: value, modelled: false })}
                                                             setModelled={(value: boolean) => setFishData(x * 5 + y, { obtained: true, modelled: value })}
@@ -313,8 +336,9 @@ export default function Critterpedia(props: CritterpediaProps) {
                                                             hour={now.getHours()}
                                                             openDialogue={openDialogueType === 'fish' ? openDialogue : null}
                                                             setOpenDialogue={(value: number | null) => {
-                                                                setOpenDialogueType('fish');
-                                                                setOpenDialogue(value);
+                                                                // setOpenDialogueType('fish');
+                                                                // setOpenDialogue(value);
+                                                                openCritterDialogue('fish', value);
                                                             }}
                                                             searchParameters={searchParameters}
                                                             settings={settings}

@@ -1,26 +1,22 @@
 type Dict<V> = {
     [key: string]: V;
 }
-function decodeURLParams(url: string): Dict<string> {
-    return Object.fromEntries(
-        url
-            .split('?')[1]
-            ?.split('&')
-            ?.map(
-                i => {
-                    return i.split('=', 2).map(j => decodeURIComponent(j));
-                }
-            )
-        ?? []
-    );
+var _getTextWidthDiv: HTMLDivElement;
+function setUpDiv() {
+    _getTextWidthDiv = document.createElement("div");
+    _getTextWidthDiv.style.position = 'absolute';
+    _getTextWidthDiv.style.top = '-9999px';
+    _getTextWidthDiv.style.left = '-9999px';
+    // _getTextWidthDiv.ariaHidden = true;
+    document.body.appendChild(_getTextWidthDiv);
+    return _getTextWidthDiv;
 }
-function encodeURLParams(newParams: Dict<string>, url: string) {
-    return url.split('?')[0] + '?' + Object.entries(newParams).map(
-        i => i.map(
-            j => encodeURIComponent(j)
-        ).join('=')
-    ).join('&');
+function getTextWidth(text: string) {
+    var div = _getTextWidthDiv ?? (setUpDiv());
+    div.innerText = text
+    return div.clientWidth;
 }
+
 export type { Dict };
-export { decodeURLParams, encodeURLParams };
+export { getTextWidth };
 

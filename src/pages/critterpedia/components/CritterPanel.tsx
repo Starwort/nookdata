@@ -279,8 +279,8 @@ function CritterPanel(props: CritterPanelProps) {
                                     }}
                                 />
                             </div>}
-                            <div className="location-label">Found:</div>
-                            <div className="price-label">Sells for:</div>
+                            <div className="location-label">{t('critterpedia:dialogue.details.found')}</div>
+                            <div className="price-label">{t('critterpedia:dialogue.details.price')}</div>
                             <div className="location">{getCritterLocation(props.data, props.type, t)}</div>
                             <div className="price">{props.data.price}</div>
                         </div>

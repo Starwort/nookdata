@@ -19,9 +19,11 @@
         }
         .division-label {
             transform: rotate(0.25turn);
+            // writing-mode: vertical-rl;
             font-size: smaller;
             width: 1px;
             overflow-x: visible;
+            white-space: nowrap;
         }
     }
     .small-division {

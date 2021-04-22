@@ -1,6 +1,7 @@
 import { useTheme } from '@material-ui/core';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { getTextWidth } from '../../../misc';
 import UserSettings from '../../../user_settings';
 import './TimeTracker.scss';
 
@@ -12,7 +13,7 @@ interface TimeTrackerProps {
 
 export default function TimeTracker(props: TimeTrackerProps) {
     const theme = useTheme();
-    const { t, i18n } = useTranslation('core');
+    const { t } = useTranslation('core');
     let now = props.time;
     let progress = (
         (
@@ -27,7 +28,34 @@ export default function TimeTracker(props: TimeTrackerProps) {
     return <div
         className="time-tracker"
         style={{
-            marginBottom: props.settings.useTwelveHourTime ? 64 : 40,
+            marginBottom: Math.max(
+                getTextWidth(
+                    t(
+                        props.settings.useTwelveHourTime
+                            ? 'core:time.twelve_hour.am_short'
+                            : 'core:time.twenty_four_hour',
+                        {
+                            pad: '0',
+                            h12: 12,
+                            h24: 0,
+                            m: '00',
+                        }
+                    )
+                ),
+                getTextWidth(
+                    t(
+                        props.settings.useTwelveHourTime
+                            ? 'core:time.twelve_hour.pm_short'
+                            : 'core:time.twenty_four_hour',
+                        {
+                            pad: '0',
+                            h12: 12,
+                            h24: 0,
+                            m: '00',
+                        }
+                    )
+                ),
+            ) - 8,
         }}
     >
         <div
@@ -43,10 +71,10 @@ export default function TimeTracker(props: TimeTrackerProps) {
                 {
                     t(
                         props.settings.useTwelveHourTime
-                            ? 'core:time.twelve_hour.am'
+                            ? 'core:time.twelve_hour.am_short'
                             : 'core:time.twenty_four_hour',
                         {
-                            pad: '',
+                            pad: '0',
                             h12: 12,
                             h24: 0,
                             m: '00',
@@ -72,7 +100,7 @@ export default function TimeTracker(props: TimeTrackerProps) {
                 {
                     t(
                         props.settings.useTwelveHourTime
-                            ? 'core:time.twelve_hour.am'
+                            ? 'core:time.twelve_hour.am_short'
                             : 'core:time.twenty_four_hour',
                         {
                             pad: '0',
@@ -101,7 +129,7 @@ export default function TimeTracker(props: TimeTrackerProps) {
                 {
                     t(
                         props.settings.useTwelveHourTime
-                            ? 'core:time.twelve_hour.pm'
+                            ? 'core:time.twelve_hour.pm_short'
                             : 'core:time.twenty_four_hour',
                         {
                             pad: '',
@@ -130,7 +158,7 @@ export default function TimeTracker(props: TimeTrackerProps) {
                 {
                     t(
                         props.settings.useTwelveHourTime
-                            ? 'core:time.twelve_hour.pm'
+                            ? 'core:time.twelve_hour.pm_short'
                             : 'core:time.twenty_four_hour',
                         {
                             pad: '',
@@ -159,7 +187,7 @@ export default function TimeTracker(props: TimeTrackerProps) {
                 {
                     t(
                         props.settings.useTwelveHourTime
-                            ? 'core:time.twelve_hour.am'
+                            ? 'core:time.twelve_hour.am_short'
                             : 'core:time.twenty_four_hour',
                         {
                             pad: '0',
