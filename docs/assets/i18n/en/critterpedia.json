@@ -385,9 +385,13 @@
         "location": "Location",
         "shadow": "Size (fish)",
         "price": {
-            "label": "Critter Price",
-            "comp": "Comparison",
-            "value": "Price"
+            "label": "Sells for",
+            "comp_values": {
+                "ge": "at least",
+                "eq": "exactly",
+                "le": "at most"
+            },
+            "value": "Bells"
         },
         "active": {
             "title": "Activity",
