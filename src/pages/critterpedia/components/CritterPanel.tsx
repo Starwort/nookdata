@@ -30,7 +30,7 @@ interface CritterPanelProps {
     month: number;
     hour: number;
     searchParameters: SearchParameters;
-    openDialogue: number | null;
+    open: boolean;
     setOpenDialogue: (value: number | null) => void;
 }
 function CritterPanel(props: CritterPanelProps) {
@@ -165,7 +165,7 @@ function CritterPanel(props: CritterPanelProps) {
             </CardActionArea>
         </Card>
         <Dialog
-            open={props.openDialogue == props.data.index}
+            open={props.open}
             onClose={() => props.setOpenDialogue(null)}
             scroll="body"
             PaperProps={{

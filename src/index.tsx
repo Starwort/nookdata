@@ -3,6 +3,8 @@ import { EmojiNature } from '@material-ui/icons';
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { useTranslation } from 'react-i18next';
+import { Route, Switch } from 'react-router';
+import { BrowserRouter, NavLink, NavLinkProps, Redirect } from 'react-router-dom';
 import { homepage } from '../package.json';
 import AppBar from './components/AppBar';
 import NavigationDrawer from './components/NavigationDrawer';
@@ -49,11 +51,31 @@ function DrawerAdjust(props: DrawerAdjustProps) {
         </div>
     )
 }
+
+interface ListItemLinkProps {
+    icon?: React.ReactNode;
+    primary: string;
+    to: string;
+    exact?: boolean;
+}
+function ListItemLink(props: ListItemLinkProps) {
+    const { icon, primary, to, exact } = props;
+    const renderLink = React.useMemo(
+        () =>
+            React.forwardRef<any, Omit<NavLinkProps, 'to'>>((itemProps, ref) => (
+                <NavLink to={to} ref={ref} {...itemProps} activeClassName="Mui-selected" exact={exact} />
+            )),
+        [to],
+    );
+    return <ListItem button component={renderLink}>
+        {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
+        <ListItemText primary={primary} />
+    </ListItem>;
+}
+
 interface AppFrameProps {
     setTheme: (value: "dark" | "light") => void;
     theme: "dark" | "light";
-    setPage: (value: string) => void;
-    page: string;
     children: React.ReactNode;
 }
 function AppFrame(props: AppFrameProps) {
@@ -85,10 +107,7 @@ function AppFrame(props: AppFrameProps) {
             <NavigationDrawer open={drawerOpen} setOpen={setDrawerOpen}>
                 <List>
                     {Object.entries(pageData).map(([route, data]) => (
-                        <ListItem selected={props.page === route} button onClick={() => props.setPage(route)}>
-                            <ListItemIcon>{data.icon}</ListItemIcon>
-                            <ListItemText primary={t(data.title)} />
-                        </ListItem>
+                        <ListItemLink to={route} icon={data.icon} primary={t(data.title)} />
                     ))}
                 </List>
             </NavigationDrawer>
@@ -99,21 +118,21 @@ function AppFrame(props: AppFrameProps) {
     )
 }
 
-interface RouteProps {
-    page: string;
-    route: string;
-    children: React.ReactNode;
-}
-function Route(props: RouteProps) {
-    const { t } = useTranslation('core');
-    if (props.page.split('?')[0] !== props.route) {
-        return null;
-    }
-    document.title = t('core:title.browser.page', { pageTitle: t(pageData[props.route].title) });
-    return <>
-        {props.children}
-    </>;
-}
+// interface RouteProps {
+//     page: string;
+//     route: string;
+//     children: React.ReactNode;
+// }
+// function Route(props: RouteProps) {
+//     const { t } = useTranslation('core');
+//     if (props.page.split('?')[0] !== props.route) {
+//         return null;
+//     }
+//     document.title = t('core:title.browser.page', { pageTitle: t(pageData[props.route].title) });
+//     return <>
+//         {props.children}
+//     </>;
+// }
 
 let timeUpdateId: number | undefined = undefined;
 const sentinelDate = new Date();
@@ -126,6 +145,25 @@ function Loading() {
     return <div className="loader"></div>
 }
 
+function valueOr(data: String | undefined, defaultValue: number) {
+    let rv = data ? +data : defaultValue;
+    if (!isNaN(rv)) {
+        return rv;
+    } else {
+        return defaultValue;
+    }
+}
+function booleanOr(data: String | undefined, defaultValue: boolean) {
+    switch (data) {
+        case 'true':
+            return true;
+        case 'false':
+            return false;
+        default:
+            return defaultValue;
+    }
+}
+
 function App() {
     const { t } = useTranslation('core');
     const themeSetting: "dark" | "light" = window.localStorage.theme || 'dark';
@@ -135,47 +173,56 @@ function App() {
         setTimeout(() => setChosenThemeImpl(value), 10);
         setTimeout(() => document.body.classList.remove("no-transition"), 20);
     }
+    const nameSetting: string = window.localStorage.playerName || 'PLAYER';
+    const [chosenName, setChosenNameImpl] = React.useState(nameSetting);
+    function setChosenName(value: string) {
+        window.localStorage.playerName = value;
+        setChosenNameImpl(value);
+    }
+    const islandNameSetting: string = window.localStorage.islandName || 'ISLAND';
+    const [chosenIslandName, setChosenIslandNameImpl] = React.useState(islandNameSetting);
+    function setChosenIslandName(value: string) {
+        window.localStorage.islandName = value;
+        setChosenIslandNameImpl(value);
+    }
     const hemisphereSetting: "north" | "south" = window.localStorage.hemisphere || 'north';
-    const [chosenHemisphere, setChosenHemisphere] = React.useState<'north' | 'south'>(hemisphereSetting);
+    const [chosenHemisphere, setChosenHemisphereImpl] = React.useState<'north' | 'south'>(hemisphereSetting);
+    function setChosenHemisphere(value: 'north' | 'south') {
+        window.localStorage.hemisphere = value;
+        setChosenHemisphereImpl(value);
+    }
+    const offsetSetting: number = valueOr(window.localStorage.timeOffset, 0);
+    const [chosenOffset, setChosenOffsetImpl] = React.useState(offsetSetting);
+    function setChosenOffset(value: number) {
+        window.localStorage.timeOffset = value;
+        setChosenOffsetImpl(value);
+    }
+    const systemTimeSetting: boolean = booleanOr(window.localStorage.useSystemTime, true);
+    const [chosenSystemTime, setChosenSystemTimeImpl] = React.useState(systemTimeSetting);
+    function setChosenSystemTime(value: boolean) {
+        window.localStorage.useSystemTime = value;
+        setChosenSystemTimeImpl(value);
+    }
+    const twelveHourTimeSetting: boolean = booleanOr(window.localStorage.useTwelveHourTime, true);
+    const [chosenTwelveHourTime, setChosenTwelveHourTimeImpl] = React.useState(twelveHourTimeSetting);
+    function setChosenTwelveHourTime(value: boolean) {
+        window.localStorage.useTwelveHourTime = value;
+        setChosenTwelveHourTimeImpl(value);
+    }
     const settings: UserSettings = {
         theme: chosenTheme,
         hemisphere: chosenHemisphere,
-        islandName: 'Gloverboia',
-        playerName: 'Starwort',
-        timeOffset: 0,
-        useSystemTime: true,
-        useTwelveHourTime: true,
+        islandName: chosenIslandName,
+        playerName: chosenName,
+        timeOffset: chosenOffset,
+        useSystemTime: chosenSystemTime,
+        useTwelveHourTime: chosenTwelveHourTime,
     }
     const [time, setTime] = React.useState(sentinelDate);
     if (timeUpdateId) {
         window.clearInterval(timeUpdateId);
     }
     timeUpdateId = window.setInterval(() => setTime(new Date()), 500);
-    const [page, setPageImpl] = React.useState('/');
-    function setPage(route: string) {
-        window.history.pushState(null, t('core:title.browser.page', { pageTitle: t(pageData[route].title) }), baseUrl + route);
-        setPageImpl(route);
-    }
-    let url = new URL(window.location.href);
-    url.pathname = url.pathname.slice(root.length) || '/';
-    let route = url.pathname;
-    if (route !== page) {
-        setPageImpl(route);
-    }
-    const params = url.searchParams;
-    function setParams(newParams: URLSearchParams) {
-        params.delete('index');
-        for (let key of params.keys()) {
-            params.delete(key);
-        }
-        for (let [key, value] of newParams.entries()) {
-            params.append(key, value);
-        }
-        let urlTmp = new URL(url.href);
-        urlTmp.pathname = root + urlTmp.pathname;
-        window.history.replaceState(null, document.title, urlTmp.href);
-        // setParamsImpl(params);
-    }
     const theme = React.useMemo(
         () => getTheme(chosenTheme),
         [chosenTheme]
@@ -186,11 +233,28 @@ function App() {
     return <ThemeProvider theme={theme}>
         <NDContextProvider time={time} settings={settings}>
             <CssBaseline />
-            <AppFrame page={page} theme={chosenTheme} setTheme={setChosenTheme} setPage={setPage}>
+            <AppFrame theme={chosenTheme} setTheme={setChosenTheme}>
                 <Suspense fallback={<Loading />}>
-                    <Route page={page} route="/critterpedia">
-                        <Critterpedia params={params} setParams={setParams} />
-                    </Route>
+                    <Switch>
+                        {/* <Route exact path="/">
+                            Hello world!
+                        </Route> */}
+                        <Route path="/critterpedia/:type/:index" render={({ match }) => {
+                            let type = match.params.type;
+                            let index = valueOr(match.params.index, -1);
+                            if (!(type === 'bug' || type === 'fish') || index < 0 || index > 79) {
+                                return <Redirect to="/critterpedia" />
+                            }
+                            return <Critterpedia load={{ type, index }} />
+                        }}>
+                        </Route>
+                        <Route path="/critterpedia" exact>
+                            <Critterpedia />
+                        </Route>
+                        <Route path="/critterpedia">
+                            <Redirect to="/critterpedia" />
+                        </Route>
+                    </Switch>
                     {/* <Route page={page} route="/">
                     <Loading />
                 </Route> */}
@@ -204,7 +268,9 @@ function App() {
 
 ReactDOM.render(
     <Suspense fallback={<Loading />}>
-        <App />
+        <BrowserRouter basename={root}>
+            <App />
+        </BrowserRouter>
     </Suspense>,
     document.getElementById('root')
 );

@@ -1,8 +1,8 @@
 import { Card, CardContent, CardHeader, FormControl, Grid, InputLabel, MenuItem, Select, TextField, useTheme } from '@material-ui/core';
 import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router';
 import CritterPanel from './components/CritterPanel';
-import { getCritterName } from './data';
 import { bugs, fish } from './data.json';
 import SearchParameters from './search_parameters';
 
@@ -21,13 +21,11 @@ interface UserCritterpediaData {
 }
 
 interface CritterpediaProps {
-    params: URLSearchParams;
-    setParams: (route: URLSearchParams) => void;
+    load?: { type: 'bug' | 'fish', index: number }
 }
 
 export default function Critterpedia(props: CritterpediaProps) {
     const { t } = useTranslation('critterpedia');
-    const { params, setParams } = props;
     const theme = useTheme();
     if (!window.localStorage.critterpedia) {
         let data: UserCritterpediaData = {
@@ -57,81 +55,18 @@ export default function Critterpedia(props: CritterpediaProps) {
         size,
         stateRequired,
     };
+    const { type, index } = props.load ?? { type: 'bug', index: null };
     const [bugsData, setBugsDataImpl] = React.useState(data.bugs);
     const [fishData, setFishDataImpl] = React.useState(data.fish);
-    const [openDialogue, setOpenDialogueImpl] = React.useState<number | null>(null);
-    const [openDialogueType, setOpenDialogueTypeImpl] = React.useState<'bug' | 'fish'>('bug');
-    function openCritterDialogue(type: 'bug' | 'fish', index: number | null) {
-        if (index !== null) {
-            console.log(`Loading ${type} #${index}`);
-            if (type !== openDialogueType) {
-                setOpenDialogueTypeImpl(type);
-            }
-            let title = getCritterName(
-                (
-                    type === 'bug'
-                        ? bugs
-                        : fish
-                )[index],
-                type,
-                t
-            ).capitalise();
-            document.title = t('critterpedia:title.info', { name: title });
-            window.history.pushState(null, t('critterpedia:title.info', { name: title }));
-            setParams(new URLSearchParams({ 'type': type, 'index': index.toString() }));
-            if (index !== openDialogue) {
-                setOpenDialogueImpl(index);
-            }
+
+    const history = useHistory();
+
+    function setOpenDialogue(type: 'bug' | 'fish', index: number | null) {
+        if (index === null) {
+            history.push('/critterpedia');
         } else {
-            console.log('Unloading critter dialogue');
-            document.title = t('critterpedia:title.default');
-            window.history.pushState(null, t('critterpedia:title.default'));
-            setParams(new URLSearchParams());
-            setOpenDialogueImpl(null);
+            history.push(`/critterpedia/${type}/${index}`);
         }
-    }
-    // function setOpenDialogueType(value: 'bug' | 'fish') {
-    //     console.log('Loading:', value);
-    //     setOpenDialogueTypeImpl(value);
-    // }
-    // function setOpenDialogue(value: number | null) {
-    //     console.log(openDialogueType);
-    //     if (value !== null) {
-    //         let title = getCritterName(
-    //             (
-    //                 openDialogueType === 'bug'
-    //                     ? bugs
-    //                     : fish
-    //             )[value],
-    //             openDialogueType,
-    //             t
-    //         ).capitalise();
-    //         document.title = t('critterpedia:title.info', { name: title });
-    //         window.history.pushState(null, t('critterpedia:title.info', { name: title }));
-    //         setParams(new URLSearchParams({ 'type': openDialogueType, 'index': value.toString() }));
-    //     } else {
-    //         document.title = t('critterpedia:title.default');
-    //         window.history.pushState(null, t('critterpedia:title.default'));
-    //         setParams(new URLSearchParams());
-    //     }
-    //     setOpenDialogueImpl(value);
-    // }
-    try {
-        if (!params.has('type')) {
-            throw new Error();
-        }
-        if (!params.has('index')) {
-            throw new Error();
-        }
-        const type: 'bug' | 'fish' = params.get('type') as 'bug' | 'fish';
-        const index: number = +params.get('index')!;
-        if (type === 'bug' || type == 'fish') {
-            if (0 <= index && index < 80) {
-                openCritterDialogue(type, index);
-            }
-        }
-    } catch {
-        props.setParams(new URLSearchParams({}));
     }
 
     function setBugsData(bug: number, state: UserCritterData) {
@@ -258,23 +193,20 @@ export default function Critterpedia(props: CritterpediaProps) {
                                         {
                                             range(16).map(
                                                 (x) => {
-                                                    const critterData = bugsData[x * 5 + y];
+                                                    const myIndex = x * 5 + y;
+                                                    const critterData = bugsData[myIndex];
                                                     return <td key={x}>
                                                         <CritterPanel
-                                                            data={bugs[x * 5 + y]}
+                                                            data={bugs[myIndex]}
                                                             obtained={critterData.obtained}
                                                             modelled={critterData.modelled}
                                                             type="bug"
-                                                            setObtained={(value: boolean) => setBugsData(x * 5 + y, { obtained: value, modelled: false })}
-                                                            setModelled={(value: boolean) => setBugsData(x * 5 + y, { obtained: true, modelled: value })}
+                                                            setObtained={(value: boolean) => setBugsData(myIndex, { obtained: value, modelled: false })}
+                                                            setModelled={(value: boolean) => setBugsData(myIndex, { obtained: true, modelled: value })}
                                                             month={now.getMonth()}
                                                             hour={now.getHours()}
-                                                            openDialogue={openDialogueType === 'bug' ? openDialogue : null}
-                                                            setOpenDialogue={(value: number | null) => {
-                                                                // setOpenDialogueType('bug');
-                                                                // setOpenDialogue(value);
-                                                                openCritterDialogue('bug', value);
-                                                            }}
+                                                            open={type === 'bug' && index === myIndex}
+                                                            setOpenDialogue={(value) => setOpenDialogue('bug', value)}
                                                             searchParameters={searchParameters}
                                                         />
                                                     </td>;
@@ -318,23 +250,20 @@ export default function Critterpedia(props: CritterpediaProps) {
                                         {
                                             range(16).map(
                                                 (x) => {
-                                                    const critterData = fishData[x * 5 + y];
+                                                    const myIndex = x * 5 + y;
+                                                    const critterData = fishData[myIndex];
                                                     return <td key={x}>
                                                         <CritterPanel
-                                                            data={fish[x * 5 + y]}
+                                                            data={fish[myIndex]}
                                                             obtained={critterData.obtained}
                                                             modelled={critterData.modelled}
                                                             type="fish"
-                                                            setObtained={(value: boolean) => setFishData(x * 5 + y, { obtained: value, modelled: false })}
-                                                            setModelled={(value: boolean) => setFishData(x * 5 + y, { obtained: true, modelled: value })}
+                                                            setObtained={(value: boolean) => setFishData(myIndex, { obtained: value, modelled: false })}
+                                                            setModelled={(value: boolean) => setFishData(myIndex, { obtained: true, modelled: value })}
                                                             month={now.getMonth()}
                                                             hour={now.getHours()}
-                                                            openDialogue={openDialogueType === 'fish' ? openDialogue : null}
-                                                            setOpenDialogue={(value: number | null) => {
-                                                                // setOpenDialogueType('fish');
-                                                                // setOpenDialogue(value);
-                                                                openCritterDialogue('fish', value);
-                                                            }}
+                                                            open={type === 'fish' && index == myIndex}
+                                                            setOpenDialogue={(value) => setOpenDialogue('fish', value)}
                                                             searchParameters={searchParameters}
                                                         />
                                                     </td>;
