@@ -10,5 +10,8 @@ const commonProps: ComponentsProps = {
     MuiFormControl: {
         variant: 'filled',
     },
+    MuiDialogTitle: {
+        style: { textAlign: 'center' },
+    }
 };
 export { commonProps };

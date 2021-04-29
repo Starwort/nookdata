@@ -1,20 +1,18 @@
 import { useTheme } from '@material-ui/core';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNDContext } from '../../../context';
 import { getTextWidth } from '../../../misc';
-import UserSettings from '../../../user_settings';
 import './TimeTracker.scss';
 
 interface TimeTrackerProps {
     hours: boolean[];
-    time: Date;
-    settings: UserSettings;
 }
 
 export default function TimeTracker(props: TimeTrackerProps) {
     const theme = useTheme();
     const { t } = useTranslation('core');
-    let now = props.time;
+    const { time: now, settings } = useNDContext();
     let progress = (
         (
             (
@@ -31,7 +29,7 @@ export default function TimeTracker(props: TimeTrackerProps) {
             marginBottom: Math.max(
                 getTextWidth(
                     t(
-                        props.settings.useTwelveHourTime
+                        settings.useTwelveHourTime
                             ? 'core:time.twelve_hour.am_short'
                             : 'core:time.twenty_four_hour',
                         {
@@ -44,7 +42,7 @@ export default function TimeTracker(props: TimeTrackerProps) {
                 ),
                 getTextWidth(
                     t(
-                        props.settings.useTwelveHourTime
+                        settings.useTwelveHourTime
                             ? 'core:time.twelve_hour.pm_short'
                             : 'core:time.twenty_four_hour',
                         {
@@ -70,7 +68,7 @@ export default function TimeTracker(props: TimeTrackerProps) {
             <div className="division-label">
                 {
                     t(
-                        props.settings.useTwelveHourTime
+                        settings.useTwelveHourTime
                             ? 'core:time.twelve_hour.am_short'
                             : 'core:time.twenty_four_hour',
                         {
@@ -99,7 +97,7 @@ export default function TimeTracker(props: TimeTrackerProps) {
             <div className="division-label">
                 {
                     t(
-                        props.settings.useTwelveHourTime
+                        settings.useTwelveHourTime
                             ? 'core:time.twelve_hour.am_short'
                             : 'core:time.twenty_four_hour',
                         {
@@ -128,7 +126,7 @@ export default function TimeTracker(props: TimeTrackerProps) {
             <div className="division-label">
                 {
                     t(
-                        props.settings.useTwelveHourTime
+                        settings.useTwelveHourTime
                             ? 'core:time.twelve_hour.pm_short'
                             : 'core:time.twenty_four_hour',
                         {
@@ -157,7 +155,7 @@ export default function TimeTracker(props: TimeTrackerProps) {
             <div className="division-label">
                 {
                     t(
-                        props.settings.useTwelveHourTime
+                        settings.useTwelveHourTime
                             ? 'core:time.twelve_hour.pm_short'
                             : 'core:time.twenty_four_hour',
                         {
@@ -186,7 +184,7 @@ export default function TimeTracker(props: TimeTrackerProps) {
             <div className="division-label">
                 {
                     t(
-                        props.settings.useTwelveHourTime
+                        settings.useTwelveHourTime
                             ? 'core:time.twelve_hour.am_short'
                             : 'core:time.twenty_four_hour',
                         {

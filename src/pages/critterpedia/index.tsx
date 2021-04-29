@@ -1,7 +1,6 @@
 import { Card, CardContent, CardHeader, FormControl, Grid, InputLabel, MenuItem, Select, TextField, useTheme } from '@material-ui/core';
 import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import UserSettings from '../../user_settings';
 import CritterPanel from './components/CritterPanel';
 import { getCritterName } from './data';
 import { bugs, fish } from './data.json';
@@ -22,15 +21,13 @@ interface UserCritterpediaData {
 }
 
 interface CritterpediaProps {
-    settings: UserSettings;
-    time: Date;
     params: URLSearchParams;
     setParams: (route: URLSearchParams) => void;
 }
 
 export default function Critterpedia(props: CritterpediaProps) {
     const { t } = useTranslation('critterpedia');
-    const { settings, time, params, setParams } = props;
+    const { params, setParams } = props;
     const theme = useTheme();
     if (!window.localStorage.critterpedia) {
         let data: UserCritterpediaData = {
@@ -279,8 +276,6 @@ export default function Critterpedia(props: CritterpediaProps) {
                                                                 openCritterDialogue('bug', value);
                                                             }}
                                                             searchParameters={searchParameters}
-                                                            settings={settings}
-                                                            now={time}
                                                         />
                                                     </td>;
                                                 }
@@ -341,8 +336,6 @@ export default function Critterpedia(props: CritterpediaProps) {
                                                                 openCritterDialogue('fish', value);
                                                             }}
                                                             searchParameters={searchParameters}
-                                                            settings={settings}
-                                                            now={time}
                                                         />
                                                     </td>;
                                                 }

@@ -2,8 +2,8 @@ import { Card, CardActionArea, CardContent, Checkbox, createStyles, Dialog, Dial
 import { ChevronLeft, ChevronRight, Cloud, Help, Warning, WbSunny } from "@material-ui/icons";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { useNDContext } from "../../../context";
 import '../../../prototype_mods';
-import UserSettings from '../../../user_settings';
 import { getCritterLocation, getCritterName, getCritterQuote } from '../data';
 import { bugs, fish } from '../data.json';
 import SearchParameters from "../search_parameters";
@@ -32,13 +32,12 @@ interface CritterPanelProps {
     searchParameters: SearchParameters;
     openDialogue: number | null;
     setOpenDialogue: (value: number | null) => void;
-    now: Date;
-    settings: UserSettings;
 }
 function CritterPanel(props: CritterPanelProps) {
     const { t } = useTranslation('critterpedia');
+    const { time, settings } = useNDContext();
     const hours = (
-        props.settings.hemisphere == 'north' ?
+        settings.hemisphere == 'north' ?
             props.data.hours :
             [...props.data.hours.slice(6), ...props.data.hours.slice(0, 6)]
     );
@@ -97,16 +96,18 @@ function CritterPanel(props: CritterPanelProps) {
         }
     }
 
+    const title = [
+        t(`critterpedia:panel.type.${props.type}`, { name: getCritterName(props.data, props.type, t).capitalise(), index: props.data.index + 1 }),
+        (activeMonth ? '' : t('critterpedia:panel.status.unavailable')),
+        (activeNow ? t('critterpedia:panel.status.now') : ''),
+        (props.modelled ? t('critterpedia:panel.status.modelled') : ''),
+        t('critterpedia:panel.status.details'),
+    ].filter((elem) => !!elem).join('\n');
+
     return <>
-        <Card className="critter-panel" title={
-            [
-                t(`critterpedia:panel.type.${props.type}`, { name: getCritterName(props.data, props.type, t).capitalise(), index: props.data.index + 1 }),
-                (activeMonth ? '' : t('critterpedia:panel.status.unavailable')),
-                (activeNow ? t('critterpedia:panel.status.now') : ''),
-                (props.modelled ? t('critterpedia:panel.status.modelled') : ''),
-                t('critterpedia:panel.status.details'),
-            ].filter((elem) => !!elem).join('\n')
-        }
+        <Card
+            className="critter-panel"
+            title={title}
             style={
                 {
                     backgroundColor: props.modelled
@@ -232,7 +233,7 @@ function CritterPanel(props: CritterPanelProps) {
                         __html: getCritterQuote(
                             props.data,
                             props.type,
-                            props.settings.playerName,
+                            settings.playerName,
                             t
                         )
                     }}
@@ -242,12 +243,9 @@ function CritterPanel(props: CritterPanelProps) {
                         (month) => month.reduce((a, b) => a || b)
                     )}
                     activeMonth={props.month}
-                    settings={props.settings}
                 />
                 <TimeTracker
-                    hours={hours[props.now.getMonth()]}
-                    time={props.now}
-                    settings={props.settings}
+                    hours={hours[time.getMonth()]}
                 />
                 <Card variant="outlined">
                     <CardContent>

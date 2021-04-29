@@ -6,10 +6,14 @@ import { useTranslation } from 'react-i18next';
 import { homepage } from '../package.json';
 import AppBar from './components/AppBar';
 import NavigationDrawer from './components/NavigationDrawer';
+import UpdateReadyDialogue from './components/UpdateReadyDialogue';
+import WorksOfflineDialogue from './components/WorksOfflineDialogue';
+import { NDContextProvider } from './context';
 import './i18n';
 import './index.scss';
 import { Dict } from './misc';
 import Critterpedia from './pages/critterpedia';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import getTheme from './themes';
 import UserSettings from './user_settings';
 
@@ -176,18 +180,25 @@ function App() {
         () => getTheme(chosenTheme),
         [chosenTheme]
     );
+    const [updateReady, setUpdateReady] = React.useState(false);
+    const [worksOffline, setWorksOffline] = React.useState(false);
+    serviceWorkerRegistration.register({ onUpdate: _ => setUpdateReady(true), onSuccess: _ => setWorksOffline(true) });
     return <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <AppFrame page={page} theme={chosenTheme} setTheme={setChosenTheme} setPage={setPage}>
-            <Suspense fallback={<Loading />}>
-                <Route page={page} route="/critterpedia">
-                    <Critterpedia time={time} settings={settings} params={params} setParams={setParams} />
-                </Route>
-                {/* <Route page={page} route="/">
+        <NDContextProvider time={time} settings={settings}>
+            <CssBaseline />
+            <AppFrame page={page} theme={chosenTheme} setTheme={setChosenTheme} setPage={setPage}>
+                <Suspense fallback={<Loading />}>
+                    <Route page={page} route="/critterpedia">
+                        <Critterpedia params={params} setParams={setParams} />
+                    </Route>
+                    {/* <Route page={page} route="/">
                     <Loading />
                 </Route> */}
-            </Suspense>
-        </AppFrame>
+                </Suspense>
+            </AppFrame>
+            <WorksOfflineDialogue open={worksOffline} setOpen={setWorksOffline} />
+            <UpdateReadyDialogue open={updateReady} setOpen={setUpdateReady} />
+        </NDContextProvider>
     </ThemeProvider>
 }
 
