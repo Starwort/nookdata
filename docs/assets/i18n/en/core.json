@@ -23,5 +23,8 @@
         "choose": "Site language",
         "en": "English (English)",
         "fr": "French (français)"
+    },
+    "button": {
+        "dismiss": "Dismiss"
     }
 }
