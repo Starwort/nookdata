@@ -100,7 +100,7 @@ export default function Critterpedia(props: CritterpediaProps) {
                         <Grid item xs={12} sm={6} md={4} >
                             <TextField fullWidth value={size} onChange={(event) => setSize(event.target.value)} label={t('critterpedia:search.shadow')} />
                         </Grid>
-                        <Grid item xs={4} sm={2} md={2} >
+                        <Grid item xs={6} sm={3} md={2} >
                             <FormControl fullWidth>
                                 <InputLabel id="comp-label">{t('critterpedia:search.price.label')}</InputLabel>
                                 <Select
@@ -117,7 +117,7 @@ export default function Critterpedia(props: CritterpediaProps) {
                                 </Select>
                             </FormControl>
                         </Grid>
-                        <Grid item xs={4} sm={2} md={2} >
+                        <Grid item xs={6} sm={3} md={2} >
                             <TextField fullWidth value={price} onChange={(event) => setPrice(+event.target.value)} label={t('critterpedia:search.price.value')} />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4} >

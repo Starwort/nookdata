@@ -203,7 +203,7 @@ function App() {
         window.localStorage.useSystemTime = value;
         setChosenSystemTimeImpl(value);
     }
-    const twelveHourTimeSetting: boolean = booleanOr(window.localStorage.useTwelveHourTime, true);
+    const twelveHourTimeSetting: boolean = booleanOr(window.localStorage.useTwelveHourTime, false);
     const [chosenTwelveHourTime, setChosenTwelveHourTimeImpl] = React.useState(twelveHourTimeSetting);
     function setChosenTwelveHourTime(value: boolean) {
         window.localStorage.useTwelveHourTime = value;
