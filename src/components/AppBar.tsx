@@ -1,9 +1,11 @@
-import { AppBar as TopAppBar, FormControl, IconButton, InputLabel, MenuItem, Select, Toolbar } from '@material-ui/core';
+import { AppBar as TopAppBar, IconButton, Toolbar } from '@material-ui/core';
+import { Language } from '@material-ui/icons';
 import DarkModeIcon from '@material-ui/icons/Brightness4';
 import LightModeIcon from '@material-ui/icons/Brightness7';
 import MenuIcon from '@material-ui/icons/Menu';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import LanguageDialogue from './LanguageDialogue';
 
 
 interface AppBarProps {
@@ -16,6 +18,7 @@ interface AppBarProps {
 
 function AppBar(props: AppBarProps) {
     const { t, i18n } = useTranslation('core');
+    const [langOpen, setLangOpen] = React.useState(false);
     return (
         <>
             <TopAppBar position="fixed">
@@ -28,7 +31,7 @@ function AppBar(props: AppBarProps) {
                     <div style={{ flexGrow: 1 }}>
                         {props.title}
                     </div>
-                    <FormControl>
+                    {/* <FormControl>
                         <InputLabel id="lang-label">{t('core:lang.choose')}</InputLabel>
                         <Select
                             autoWidth
@@ -38,23 +41,35 @@ function AppBar(props: AppBarProps) {
                         >
                             <MenuItem value="en">{t('core:lang.en')}</MenuItem>
                             <MenuItem value="fr">{t('core:lang.fr')}</MenuItem>
-                            {/* <MenuItem value="unmodelled">{t('critterpedia:search.state.unmodelled')}</MenuItem> */}
                         </Select>
-                    </FormControl>
+                    </FormControl> */}
+                    <IconButton color="inherit" onClick={() => setLangOpen(true)}>
+                        <Language />
+                    </IconButton>
                     {props.theme == 'light'
-                        ? <IconButton color="inherit" onClick={
-                            () => {
-                                window.localStorage.theme = 'dark';
-                                props.setTheme('dark')
-                            }}><DarkModeIcon /></IconButton>
-                        : <IconButton color="inherit" onClick={
-                            () => {
-                                window.localStorage.theme = 'light';
-                                props.setTheme('light')
-                            }}><LightModeIcon /></IconButton>}
+                        ? <IconButton
+                            color="inherit"
+                            onClick={
+                                () => {
+                                    window.localStorage.theme = 'dark';
+                                    props.setTheme('dark')
+                                }
+                            }><DarkModeIcon /></IconButton>
+                        : <IconButton
+                            color="inherit"
+                            onClick={
+                                () => {
+                                    window.localStorage.theme = 'light';
+                                    props.setTheme('light')
+                                }
+                            }><LightModeIcon /></IconButton>}
                 </Toolbar>
             </TopAppBar>
             <Toolbar />
+            <LanguageDialogue open={langOpen} setLang={(value: string) => {
+                i18n.changeLanguage(value);
+                setLangOpen(false);
+            }} />
         </>
     )
 }
