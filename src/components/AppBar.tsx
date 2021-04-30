@@ -1,10 +1,11 @@
 import { AppBar as TopAppBar, IconButton, Toolbar } from '@material-ui/core';
-import { Language } from '@material-ui/icons';
+import { Info, Language } from '@material-ui/icons';
 import DarkModeIcon from '@material-ui/icons/Brightness4';
 import LightModeIcon from '@material-ui/icons/Brightness7';
 import MenuIcon from '@material-ui/icons/Menu';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import InfoDialogue from './InfoDialogue';
 import LanguageDialogue from './LanguageDialogue';
 
 
@@ -19,6 +20,7 @@ interface AppBarProps {
 function AppBar(props: AppBarProps) {
     const { t, i18n } = useTranslation('core');
     const [langOpen, setLangOpen] = React.useState(false);
+    const [infoOpen, setInfoOpen] = React.useState(false);
     return (
         <>
             <TopAppBar position="fixed">
@@ -31,18 +33,9 @@ function AppBar(props: AppBarProps) {
                     <div style={{ flexGrow: 1 }}>
                         {props.title}
                     </div>
-                    {/* <FormControl>
-                        <InputLabel id="lang-label">{t('core:lang.choose')}</InputLabel>
-                        <Select
-                            autoWidth
-                            value={i18n.language.split('-')[0]}
-                            onChange={(event) => i18n.changeLanguage(event.target.value as string)}
-                            labelId='lang-label'
-                        >
-                            <MenuItem value="en">{t('core:lang.en')}</MenuItem>
-                            <MenuItem value="fr">{t('core:lang.fr')}</MenuItem>
-                        </Select>
-                    </FormControl> */}
+                    <IconButton color="inherit" onClick={() => setInfoOpen(true)}>
+                        <Info />
+                    </IconButton>
                     <IconButton color="inherit" onClick={() => setLangOpen(true)}>
                         <Language />
                     </IconButton>
@@ -70,6 +63,7 @@ function AppBar(props: AppBarProps) {
                 i18n.changeLanguage(value);
                 setLangOpen(false);
             }} />
+            <InfoDialogue open={infoOpen} setOpen={setInfoOpen} />
         </>
     )
 }

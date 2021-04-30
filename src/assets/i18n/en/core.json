@@ -26,5 +26,9 @@
     },
     "button": {
         "dismiss": "Dismiss"
+    },
+    "info": {
+        "title": "About",
+        "description": "You are currently viewing NookData revision <1>{{gitRevision}}</1>."
     }
 }
