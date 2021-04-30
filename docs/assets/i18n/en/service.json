@@ -1,10 +1,10 @@
 {
     "available_offline": {
         "title": "NookData is now available offline!",
-        "content": "All the assets and code for the application have been cached to your device, and you can now use NookData offline."
+        "content": "NookData's assets and code have been saved to your device's cache; you can continue to use NookData, even offline!"
     },
     "available_update": {
         "title": "Update ready",
-        "content": "An update has been downloaded; close all open NookData tabs, then open a new one to load the new version."
+        "content": "An update has been downloaded; when you're ready to update, close all open NookData tabs before opening a new one to use the new version."
     }
 }

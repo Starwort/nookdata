@@ -1,0 +1,42 @@
+#!/home/starwort/.pyenv/versions/3.9.0/bin/python
+import os
+import git  # requires gitpython
+
+START = "    /// --- STATIC ASSET CACHING ---\n"
+END = "    /// --- END STATIC ASSET CACHING ---\n"
+
+
+def tree(location: str):
+    for file in os.listdir(location):
+        path = "/".join((location, file))
+        if os.path.isdir(path):
+            yield from tree(path)
+        else:
+            yield path
+
+
+def get_assets():
+    return list(tree("assets"))
+
+
+repo = git.Repo(".")
+git_tree = repo.heads.master.commit.tree
+
+
+def revision(file: str):
+    return repo.git.rev_parse((git_tree / "src" / file).hexsha, short=6)
+
+
+os.chdir("src")
+with open("service-worker.ts") as file:
+    data = file.readlines()
+start = data.index(START) + 1
+end = data.index(END)
+files = get_assets()
+files.sort()
+cache_data = [
+    f"    {{url: '{file}', revision: '{revision(file)}'}},\n" for file in files
+]
+data[start:end] = cache_data
+with open("service-worker.ts", "w") as file:
+    file.write("".join(data))
