@@ -31,7 +31,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "rm -rf public/assets && cp -r src/assets public && react-scripts build && rm -rf docs && cp -r build docs && touch docs/.nojekyll && cp 404.html docs && sleep 0.05 && git add -A docs && git add -A public && git commit --amend --no-edit && git push",
+    "build": "npm run update_assets && react-scripts build && npm run regenerate_docs && git push",
+    "regenerate_docs": "rm -rf docs && cp -r build docs && touch docs/.nojekyll && cp 404.html docs && sleep 0.05 && git add -A docs && git commit --amend --no-edit",
+    "update_assets": "rm -rf public/assets && cp -r src/assets public && ./regenerate_asset_cache && sleep 0.05 && git add src/service-worker.ts && git commit --amend --no-edit",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
