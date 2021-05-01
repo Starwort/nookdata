@@ -418,6 +418,7 @@
         },
         "status": {
             "unavailable": "Unavailable",
+            "leaving_soon": "Unavailable from next month",
             "now": "Active right now!",
             "modelled": "Model obtained!",
             "details": "Click for more details"
