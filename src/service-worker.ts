@@ -193,6 +193,8 @@ precacheAndRoute([
     {url: 'assets/i18n/fr/core.json', revision: 'dfe288'},
     {url: 'assets/i18n/fr/critterpedia.json', revision: '6c5888'},
     {url: 'assets/shared/loading.gif', revision: 'f86d62'},
+    {url: 'assets/shared/loading.mp4', revision: 'c6fb34'},
+    {url: 'assets/shared/loading.webm', revision: '5154e6'},
     {url: 'assets/shared/nookdata-logo.png', revision: '094852'},
     {url: 'assets/shared/nookdata-text.png', revision: '75bf4d'},
     /// --- END STATIC ASSET CACHING ---

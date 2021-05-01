@@ -142,7 +142,11 @@ function Loading() {
     //     src="assets/shared/loading.gif"
     //     style={{ width: '20%', height: '20%', margin: '15% 40%', borderRadius: '50%' }}
     // />;
-    return <div className="loader"></div>
+    // return <div className="loader"></div>
+    return <video autoPlay loop muted playsInline className="loader">
+        <source src="assets/shared/loading.webm" type="video/webm" />
+        <source src="assets/shared/loading.mp4" type="video/mp4" />
+    </video>;
 }
 
 function valueOr(data: String | undefined, defaultValue: number) {
@@ -253,6 +257,9 @@ function App() {
                         </Route>
                         <Route path="/critterpedia">
                             <Redirect to="/critterpedia" />
+                        </Route>
+                        <Route path="/loading">
+                            <Loading />
                         </Route>
                     </Switch>
                     {/* <Route page={page} route="/">
