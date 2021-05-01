@@ -1,30 +1,30 @@
 {
-    "files": {
-        "main.css": "/nookdata_v2/static/css/main.97626844.chunk.css",
-        "main.js": "/nookdata_v2/static/js/main.042f8c13.chunk.js",
-        "main.js.map": "/nookdata_v2/static/js/main.042f8c13.chunk.js.map",
-        "runtime-main.js": "/nookdata_v2/static/js/runtime-main.9243f22f.js",
-        "runtime-main.js.map": "/nookdata_v2/static/js/runtime-main.9243f22f.js.map",
-        "static/js/2.e275b902.chunk.js": "/nookdata_v2/static/js/2.e275b902.chunk.js",
-        "static/js/2.e275b902.chunk.js.map": "/nookdata_v2/static/js/2.e275b902.chunk.js.map",
-        "static/js/3.223bf47b.chunk.js": "/nookdata_v2/static/js/3.223bf47b.chunk.js",
-        "static/js/3.223bf47b.chunk.js.map": "/nookdata_v2/static/js/3.223bf47b.chunk.js.map",
-        "static/css/4.11ffd39c.chunk.css": "/nookdata_v2/static/css/4.11ffd39c.chunk.css",
-        "static/js/4.cfe48b5f.chunk.js": "/nookdata_v2/static/js/4.cfe48b5f.chunk.js",
-        "static/js/4.cfe48b5f.chunk.js.map": "/nookdata_v2/static/js/4.cfe48b5f.chunk.js.map",
-        "index.html": "/nookdata_v2/index.html",
-        "service-worker.js": "/nookdata_v2/service-worker.js",
-        "service-worker.js.map": "/nookdata_v2/service-worker.js.map",
-        "static/css/4.11ffd39c.chunk.css.map": "/nookdata_v2/static/css/4.11ffd39c.chunk.css.map",
-        "static/css/main.97626844.chunk.css.map": "/nookdata_v2/static/css/main.97626844.chunk.css.map",
-        "static/js/2.e275b902.chunk.js.LICENSE.txt": "/nookdata_v2/static/js/2.e275b902.chunk.js.LICENSE.txt",
-        "static/media/getFetch.cjs": "/nookdata_v2/static/media/getFetch.d7d6010d.cjs",
-        "static/media/index.scss": "/nookdata_v2/static/media/humming.554d3bb8.ttf"
-    },
-    "entrypoints": [
-        "static/js/runtime-main.9243f22f.js",
-        "static/js/2.e275b902.chunk.js",
-        "static/css/main.97626844.chunk.css",
-        "static/js/main.042f8c13.chunk.js"
-    ]
+  "files": {
+    "main.css": "/nookdata_v2/static/css/main.97626844.chunk.css",
+    "main.js": "/nookdata_v2/static/js/main.945c86f4.chunk.js",
+    "main.js.map": "/nookdata_v2/static/js/main.945c86f4.chunk.js.map",
+    "runtime-main.js": "/nookdata_v2/static/js/runtime-main.9243f22f.js",
+    "runtime-main.js.map": "/nookdata_v2/static/js/runtime-main.9243f22f.js.map",
+    "static/js/2.e275b902.chunk.js": "/nookdata_v2/static/js/2.e275b902.chunk.js",
+    "static/js/2.e275b902.chunk.js.map": "/nookdata_v2/static/js/2.e275b902.chunk.js.map",
+    "static/js/3.223bf47b.chunk.js": "/nookdata_v2/static/js/3.223bf47b.chunk.js",
+    "static/js/3.223bf47b.chunk.js.map": "/nookdata_v2/static/js/3.223bf47b.chunk.js.map",
+    "static/css/4.11ffd39c.chunk.css": "/nookdata_v2/static/css/4.11ffd39c.chunk.css",
+    "static/js/4.cfe48b5f.chunk.js": "/nookdata_v2/static/js/4.cfe48b5f.chunk.js",
+    "static/js/4.cfe48b5f.chunk.js.map": "/nookdata_v2/static/js/4.cfe48b5f.chunk.js.map",
+    "index.html": "/nookdata_v2/index.html",
+    "service-worker.js": "/nookdata_v2/service-worker.js",
+    "service-worker.js.map": "/nookdata_v2/service-worker.js.map",
+    "static/css/4.11ffd39c.chunk.css.map": "/nookdata_v2/static/css/4.11ffd39c.chunk.css.map",
+    "static/css/main.97626844.chunk.css.map": "/nookdata_v2/static/css/main.97626844.chunk.css.map",
+    "static/js/2.e275b902.chunk.js.LICENSE.txt": "/nookdata_v2/static/js/2.e275b902.chunk.js.LICENSE.txt",
+    "static/media/getFetch.cjs": "/nookdata_v2/static/media/getFetch.d7d6010d.cjs",
+    "static/media/index.scss": "/nookdata_v2/static/media/humming.554d3bb8.ttf"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9243f22f.js",
+    "static/js/2.e275b902.chunk.js",
+    "static/css/main.97626844.chunk.css",
+    "static/js/main.945c86f4.chunk.js"
+  ]
 }
