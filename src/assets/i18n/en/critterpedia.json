@@ -408,12 +408,12 @@
         }
     },
     "cards": {
-        "bugs": "Bugs <1>({{obtained}} / 80)</1> <3>({{modelled}} / 80)</3>",
+        "bugs": "Insects <1>({{obtained}} / 80)</1> <3>({{modelled}} / 80)</3>",
         "fish": "Fish <1>({{obtained}} / 80)</1> <3>({{modelled}} / 80)</3>"
     },
     "panel": {
         "type": {
-            "bug": "{{name}} (Bug #{{index}})",
+            "bug": "{{name}} (Insect #{{index}})",
             "fish": "{{name}} (Fish #{{index}})"
         },
         "status": {
@@ -426,7 +426,7 @@
     },
     "dialogue": {
         "type": {
-            "bug": "Bug #{{index}}",
+            "bug": "Insect #{{index}}",
             "fish": "Fish #{{index}}"
         },
         "months": {
