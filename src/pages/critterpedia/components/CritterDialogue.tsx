@@ -1,4 +1,4 @@
-import { Card, CardContent, Checkbox, createStyles, Dialog, DialogActions, DialogContent, DialogTitle, Divider, FormControlLabel, Grid, IconButton, makeStyles, Toolbar, useTheme } from "@material-ui/core";
+import { Card, Checkbox, createStyles, Dialog, DialogActions, DialogContent, DialogTitle, Divider, FormControlLabel, Grid, IconButton, makeStyles, Toolbar, useTheme } from "@material-ui/core";
 import { ChevronLeft, ChevronRight, Cloud, WbSunny } from "@material-ui/icons";
 import React from "react";
 import { Helmet } from "react-helmet";
@@ -133,7 +133,7 @@ export default function CritterDialogue(props: CritterDialogueProps) {
                     hours={hours[time.getMonth()]}
                 />
                 <Card variant="outlined">
-                    <CardContent>
+                    <>
                         <Grid container>
                             <Grid item xs={12} sm={6}>
                                 <img src={
@@ -141,37 +141,35 @@ export default function CritterDialogue(props: CritterDialogueProps) {
                                 } />
                             </Grid>
                             <Grid item xs={12} sm={6}>
-                                <div className="inline">
+                                <div className="info">
                                     {props.data.dry && <div
+                                        className="dry"
                                         title={t('critterpedia:dialogue.details.dry')}
                                     >
                                         <WbSunny
-                                            className="critter-dry"
                                             style={{
                                                 color: theme.palette.summer.main
                                             }}
                                         />
                                     </div>}
-                                    {t('critterpedia:dialogue.details.found')}<br />
-                                    {t('critterpedia:dialogue.details.price')}
-                                </div>
-                                <div className="inline">
+                                    <div className="lfound">{t('critterpedia:dialogue.details.found')}</div>
+                                    <div className="lsell">{t('critterpedia:dialogue.details.price')}</div>
                                     {props.data.rain && <div
-                                        title={t('critterpedia:dialogue.details.wet')}
+                                        className="rain"
+                                        title={t('critterpedia:dialogue.details.rain')}
                                     >
                                         <Cloud
-                                            className="critter-wet"
                                             style={{
                                                 color: theme.palette.winter.main
                                             }}
                                         />
                                     </div>}
-                                    {getCritterLocation(props.data, props.type, t)}<br />
-                                    {props.data.price}
+                                    <div className="found">{getCritterLocation(props.data, props.type, t)}</div>
+                                    <div className="sell">{t('core:money.value', { value: props.data.price })}</div>
                                 </div>
                             </Grid>
                         </Grid>
-                    </CardContent>
+                    </>
                 </Card>
             </DialogContent>
             <DialogActions>
