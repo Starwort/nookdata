@@ -2,3 +2,22 @@
     display: inline-block;
     padding: 0px 2px;
 }
+
+.info {
+    display: grid;
+    grid:
+        "dry rain"
+        "lfound found"
+        "lsell sell";
+    height: 100%;
+    padding: 8px;
+    @each $attr in (dry, rain, lfound, found, lsell, sell) {
+        .#{$attr} {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            grid-area: $attr;
+            padding: 2px;
+        }
+    }
+}

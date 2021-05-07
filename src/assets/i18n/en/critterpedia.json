@@ -431,7 +431,7 @@
         },
         "details": {
             "dry": "Available during dry weather",
-            "wet": "Available during rain",
+            "rain": "Available during rain",
             "found": "Found:",
             "price": "Sells for:"
         },
