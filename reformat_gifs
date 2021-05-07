@@ -1,0 +1,14 @@
+#!/home/starwort/.pyenv/versions/3.9.0/bin/python
+import os
+import git
+
+repo = git.Repo(".")
+modified_files: list[str] = [
+    item.a_path for item in repo.index.diff(None)
+] + repo.untracked_files
+modified_gifs = [
+    file for file in modified_files if file.endswith(".gif") and file.startswith("src/")
+]
+for gif in modified_gifs:
+    os.system(f"ffmpeg -i {gif} {gif}.mp4")
+    os.system(f"ffmpeg -i {gif} -c vp9 -b:v 0 -crf 41 {gif}.webm")

@@ -1,172 +1,21 @@
-import { CssBaseline, List, ListItem, ListItemIcon, ListItemText, ThemeProvider, Typography, useMediaQuery, useTheme } from '@material-ui/core';
-import { EmojiNature } from '@material-ui/icons';
+import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { Route, Switch } from 'react-router';
-import { BrowserRouter, NavLink, NavLinkProps, Redirect } from 'react-router-dom';
-import { homepage } from '../package.json';
-import AppBar from './components/AppBar';
-import NavigationDrawer from './components/NavigationDrawer';
-import UpdateReadyDialogue from './components/UpdateReadyDialogue';
-import WorksOfflineDialogue from './components/WorksOfflineDialogue';
+import { BrowserRouter, Redirect } from 'react-router-dom';
+import { AppFrame, Loading, UpdateReadyDialogue, WorksOfflineDialogue } from './components';
 import { NDContextProvider } from './context';
 import './i18n';
 import './index.scss';
-import { Dict } from './misc';
-import Critterpedia from './pages/critterpedia';
+import { booleanOr, root, valueOr } from './misc';
+import { Critterpedia } from './pages';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import getTheme from './themes';
 import UserSettings from './user_settings';
 
-const baseUrl = process.env.NODE_ENV === 'production' ? homepage : 'http://localhost:3000/nookdata_v2';
-const root = '/nookdata_v2';
-
-interface PageData {
-    title: string;
-    icon: React.ReactNode;
-}
-const pageData: Dict<PageData> = {
-    '/critterpedia': {
-        title: 'core:pages.critterpedia',
-        icon: <EmojiNature />,
-    },
-    // '/': {
-    //     title: 'Home',
-    //     icon: <EmojiNature />,
-    // },
-}
-
-
-interface DrawerAdjustProps {
-    active: boolean,
-    children: React.ReactNode;
-}
-function DrawerAdjust(props: DrawerAdjustProps) {
-    const theme = useTheme();
-    const matches = useMediaQuery(theme.breakpoints.up('sm'));
-    return (
-        <div style={{ paddingLeft: 240 * (+props.active) * (+matches), transition: 'padding-left 195ms cubic-bezier(0.4, 0, 0.6, 1) 0ms' }}>
-            {props.children}
-        </div>
-    )
-}
-
-interface ListItemLinkProps {
-    icon?: React.ReactNode;
-    primary: string;
-    to: string;
-    exact?: boolean;
-}
-function ListItemLink(props: ListItemLinkProps) {
-    const { icon, primary, to, exact } = props;
-    const renderLink = React.useMemo(
-        () =>
-            React.forwardRef<any, Omit<NavLinkProps, 'to'>>((itemProps, ref) => (
-                <NavLink to={to} ref={ref} {...itemProps} activeClassName="Mui-selected" exact={exact} />
-            )),
-        [to],
-    );
-    return <ListItem button component={renderLink}>
-        {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
-        <ListItemText primary={primary} />
-    </ListItem>;
-}
-
-interface AppFrameProps {
-    setTheme: (value: "dark" | "light") => void;
-    theme: "dark" | "light";
-    children: React.ReactNode;
-}
-function AppFrame(props: AppFrameProps) {
-    const theme = useTheme();
-    const startOpen = useMediaQuery(theme.breakpoints.up('lg'));
-    const [initialRender, setInitialRender] = React.useState(true);
-    const [drawerOpen, setDrawerOpen] = React.useState(false);
-    if (startOpen && initialRender) {
-        setDrawerOpen(true);
-        setInitialRender(false);
-    }
-    const { t } = useTranslation('core');
-    return (
-        <>
-            <AppBar setTheme={props.setTheme} setDrawerOpen={setDrawerOpen} theme={props.theme} drawerOpen={drawerOpen} title={
-                <Typography variant="h6">
-                    <div
-                        style={{
-                            color: theme.palette.winter.main,
-                            display: 'inline'
-                        }}>{t('title.a')}</div>
-                    <div
-                        style={{
-                            color: theme.palette.summer.main,
-                            display: 'inline'
-                        }}>{t('title.b')}</div>
-                </Typography>
-            } />
-            <NavigationDrawer open={drawerOpen} setOpen={setDrawerOpen}>
-                <List>
-                    {Object.entries(pageData).map(([route, data]) => (
-                        <ListItemLink to={route} icon={data.icon} primary={t(data.title)} />
-                    ))}
-                </List>
-            </NavigationDrawer>
-            <DrawerAdjust active={drawerOpen}>
-                {props.children}
-            </DrawerAdjust>
-        </>
-    )
-}
-
-// interface RouteProps {
-//     page: string;
-//     route: string;
-//     children: React.ReactNode;
-// }
-// function Route(props: RouteProps) {
-//     const { t } = useTranslation('core');
-//     if (props.page.split('?')[0] !== props.route) {
-//         return null;
-//     }
-//     document.title = t('core:title.browser.page', { pageTitle: t(pageData[props.route].title) });
-//     return <>
-//         {props.children}
-//     </>;
-// }
-
 let timeUpdateId: number | undefined = undefined;
 const sentinelDate = new Date();
-
-function Loading() {
-    // return <img
-    //     src="assets/shared/loading.gif"
-    //     style={{ width: '20%', height: '20%', margin: '15% 40%', borderRadius: '50%' }}
-    // />;
-    // return <div className="loader"></div>
-    return <video autoPlay loop muted playsInline className="loader">
-        <source src="assets/shared/loading.webm" type="video/webm" />
-        <source src="assets/shared/loading.mp4" type="video/mp4" />
-    </video>;
-}
-
-function valueOr(data: String | undefined, defaultValue: number) {
-    let rv = data ? +data : defaultValue;
-    if (!isNaN(rv)) {
-        return rv;
-    } else {
-        return defaultValue;
-    }
-}
-function booleanOr(data: String | undefined, defaultValue: boolean) {
-    switch (data) {
-        case 'true':
-            return true;
-        case 'false':
-            return false;
-        default:
-            return defaultValue;
-    }
-}
 
 function App() {
     const { t } = useTranslation('core');
