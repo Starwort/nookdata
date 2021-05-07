@@ -6,7 +6,57 @@
             "am_short": "{{h12}}A.M.",
             "pm_short": "{{h12}}P.M."
         },
-        "twenty_four_hour": "{{pad}}{{h24}}:{{m}}"
+        "twenty_four_hour": "{{pad}}{{h24}}:{{m}}",
+        "month": {
+            "jan": {
+                "short": "Jan.",
+                "long": "January"
+            },
+            "feb": {
+                "short": "Feb.",
+                "long": "February"
+            },
+            "mar": {
+                "short": "Mar.",
+                "long": "March"
+            },
+            "apr": {
+                "short": "Apr.",
+                "long": "April"
+            },
+            "may": {
+                "short": "May.",
+                "long": "May"
+            },
+            "jun": {
+                "short": "Jun.",
+                "long": "June"
+            },
+            "jul": {
+                "short": "Jul.",
+                "long": "July"
+            },
+            "aug": {
+                "short": "Aug.",
+                "long": "August"
+            },
+            "sep": {
+                "short": "Sep.",
+                "long": "September"
+            },
+            "oct": {
+                "short": "Oct.",
+                "long": "October"
+            },
+            "nov": {
+                "short": "Nov.",
+                "long": "November"
+            },
+            "dec": {
+                "short": "Dec.",
+                "long": "December"
+            }
+        }
     },
     "pages": {
         "critterpedia": "Critterpedia"

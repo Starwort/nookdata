@@ -30,8 +30,10 @@ export default function AppFrame(props: AppFrameProps) {
     const startOpen = useMediaQuery(theme.breakpoints.up('lg'));
     const [initialRender, setInitialRender] = React.useState(true);
     const [drawerOpen, setDrawerOpen] = React.useState(false);
-    if (startOpen && initialRender) {
-        setDrawerOpen(true);
+    if (initialRender) {
+        if (startOpen) {
+            setDrawerOpen(true);
+        }
         setInitialRender(false);
     }
     const { t } = useTranslation('core');
