@@ -2,9 +2,23 @@ declare global {
     interface String {
         capitalise: () => String;
     }
+    interface Array<T> {
+        rotated: (by: number) => Array<T>;
+        rotate: (by: number) => Array<T>;
+    }
 }
 String.prototype.capitalise = function () {
     return this.charAt(0).toUpperCase() + this.slice(1);
+}
+Array.prototype.rotated = function (by: number) {
+    by = by % this.length;
+    return this.slice(by, this.length).concat(this.slice(0, by));
+}
+Array.prototype.rotate = function (by: number) {
+    by = by % this.length;
+    while (this.length && by < 0) by += this.length;
+    this.push.apply(this, this.splice(0, by));
+    return this;
 }
 
 declare module "react" {

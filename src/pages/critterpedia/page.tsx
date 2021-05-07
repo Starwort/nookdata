@@ -3,13 +3,10 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Trans, useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
+import { range } from '../../misc';
 import CritterPanel from './components/CritterPanel';
 import { bugs, fish } from './data.json';
 import SearchParameters from './search_parameters';
-
-function range(stop: number) {
-    return Array.from(Array(stop).keys());
-}
 
 interface UserCritterData {
     obtained: boolean;
@@ -80,11 +77,10 @@ export default function Critterpedia(props: CritterpediaProps) {
         window.localStorage.critterpedia = JSON.stringify(data);
         setFishDataImpl(data.fish);
     }
-    const now = new Date();
-    const title = index !== null ? t('critterpedia:title.info', { name: t(`critterpedia:${type}.name.${(type === 'bug' ? bugs : fish)[index].normal_name}`).capitalise() }) : t('critterpedia:title.default');
+    // const title = index !== null ? t('critterpedia:title.info', { name: t(`critterpedia:${type}.name.${(type === 'bug' ? bugs : fish)[index].normal_name}`).capitalise() }) : ;
     return <>
         <Helmet>
-            <title>{title}</title>
+            <title>{t('critterpedia:title.default')}</title>
         </Helmet>
         <div style={{ maxWidth: 1316, margin: 'auto' }}>
             <Card style={{ margin: 16 }}>
@@ -198,8 +194,6 @@ export default function Critterpedia(props: CritterpediaProps) {
                                                                 type="bug"
                                                                 setObtained={(value: boolean) => setBugsData(myIndex, { obtained: value, modelled: false })}
                                                                 setModelled={(value: boolean) => setBugsData(myIndex, { obtained: true, modelled: value })}
-                                                                month={now.getMonth()}
-                                                                hour={now.getHours()}
                                                                 open={type === 'bug' && index === myIndex}
                                                                 setOpenDialogue={(value) => setOpenDialogue('bug', value)}
                                                                 searchParameters={searchParameters}
@@ -255,8 +249,6 @@ export default function Critterpedia(props: CritterpediaProps) {
                                                                 type="fish"
                                                                 setObtained={(value: boolean) => setFishData(myIndex, { obtained: value, modelled: false })}
                                                                 setModelled={(value: boolean) => setFishData(myIndex, { obtained: true, modelled: value })}
-                                                                month={now.getMonth()}
-                                                                hour={now.getHours()}
                                                                 open={type === 'fish' && index == myIndex}
                                                                 setOpenDialogue={(value) => setOpenDialogue('fish', value)}
                                                                 searchParameters={searchParameters}

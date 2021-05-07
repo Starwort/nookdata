@@ -1,24 +1,14 @@
-import { Card, CardActionArea, CardContent, Checkbox, createStyles, Dialog, DialogActions, DialogContent, DialogTitle, Divider, FormControlLabel, IconButton, makeStyles, Toolbar, useTheme } from "@material-ui/core";
-import { ChevronLeft, ChevronRight, Cloud, Help, Warning, WbSunny } from "@material-ui/icons";
+import { Card, CardActionArea, useTheme } from "@material-ui/core";
+import { Help, Warning } from "@material-ui/icons";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useNDContext } from "../../../context";
 import '../../../prototype_mods';
-import { getCritterLocation, getCritterName, getCritterQuote } from '../data';
+import { getCritterLocation, getCritterName } from '../data';
 import { bugs, fish } from '../data.json';
 import SearchParameters from "../search_parameters";
+import CritterDialogue from "./CritterDialogue";
 import './CritterPanel.scss';
-import MonthPanels from "./MonthPanels";
-import TimeTracker from "./TimeTracker";
-
-const useStyles = makeStyles((theme) => createStyles({
-    modelled: {
-        color: theme.palette.modelled.main,
-        '&.Mui-disabled': {
-            color: theme.palette.modelled.transparent,
-        },
-    },
-}))
 
 interface CritterPanelProps {
     data: (typeof bugs[0]) | (typeof fish[0]);
@@ -27,8 +17,6 @@ interface CritterPanelProps {
     modelled: boolean;
     setObtained: (value: boolean) => void;
     setModelled: (value: boolean) => void;
-    month: number;
-    hour: number;
     searchParameters: SearchParameters;
     open: boolean;
     setOpenDialogue: (value: number | null) => void;
@@ -39,12 +27,12 @@ function CritterPanel(props: CritterPanelProps) {
     const hours = (
         settings.hemisphere == 'north' ?
             props.data.hours :
-            [...props.data.hours.slice(6), ...props.data.hours.slice(0, 6)]
+            props.data.hours.rotated(6)
     );
     const theme = useTheme();
-    const activeNow = hours[props.month][props.hour];
-    const activeMonth = hours[props.month].reduce((a, b) => a || b);
-    const leavingSoon = activeMonth && !hours[(props.month + 1) % 12].reduce((a, b) => a || b);
+    const activeNow = hours[time.getMonth()][time.getHours()];
+    const activeMonth = hours[time.getMonth()].reduce((a, b) => a || b);
+    const leavingSoon = activeMonth && !hours[(time.getMonth() + 1) % 12].reduce((a, b) => a || b);
     const { palette } = useTheme();
     const {
         activeRequired,
@@ -164,152 +152,7 @@ function CritterPanel(props: CritterPanelProps) {
                 } />
             </CardActionArea>
         </Card>
-        <Dialog
-            open={props.open}
-            onClose={() => props.setOpenDialogue(null)}
-            scroll="body"
-            PaperProps={{
-                style: {
-                    borderColor: props.modelled
-                        ? palette.modelled.main
-                        : (
-                            props.obtained
-                                ? palette.primary.main
-                                : 'transparent'
-                        ),
-                    borderWidth: 1,
-                    borderStyle: 'solid',
-                    width: "75%",
-                    transition: 'color 0.5s ease-in-out, border-color 0.5s ease-in-out',
-                }
-            }}
-        >
-            <DialogTitle style={{
-                paddingBottom: 0,
-            }}
-            >
-                <Toolbar>
-                    {
-                        props.data.index > 0
-                            ? <IconButton edge="start" onClick={() => props.setOpenDialogue(props.data.index - 1)}>
-                                {theme.direction == 'ltr' ? <ChevronLeft /> : <ChevronRight />}
-                            </IconButton>
-                            : <IconButton disabled />
-                    }
-                    <div style={{
-                        textAlign: 'center',
-                        color: props.modelled
-                            ? palette.modelled.main
-                            : (
-                                props.obtained
-                                    ? palette.primary.main
-                                    : undefined
-                            ),
-                        flexGrow: 1,
-                        transition: 'color 0.5s ease-in-out',
-                    }}>
-                        {getCritterName(props.data, props.type, t).capitalise()}
-                    </div>
-                    {
-                        props.data.index < 79
-                            ? <IconButton edge="end" onClick={() => props.setOpenDialogue(props.data.index + 1)}>
-                                {theme.direction == 'ltr' ? <ChevronRight /> : <ChevronLeft />}
-                            </IconButton>
-                            : <IconButton disabled />
-                    }
-                </Toolbar>
-            </DialogTitle>
-            <DialogContent
-                style={{
-                    textAlign: 'center'
-                }}
-            >
-                {t(`critterpedia:dialogue.type.${props.type}`, { index: props.data.index + 1 })}
-                <br />
-                <Divider style={{ marginTop: 8, marginBottom: 8 }} />
-                <div
-                    style={{ paddingBottom: 8 }}
-                    dangerouslySetInnerHTML={{
-                        __html: getCritterQuote(
-                            props.data,
-                            props.type,
-                            settings.playerName,
-                            t
-                        )
-                    }}
-                />
-                <MonthPanels
-                    months={hours.map(
-                        (month) => month.reduce((a, b) => a || b)
-                    )}
-                    activeMonth={props.month}
-                />
-                <TimeTracker
-                    hours={hours[time.getMonth()]}
-                />
-                <Card variant="outlined">
-                    <CardContent>
-                        <div className="critter-overview">
-                            <img
-                                src={
-                                    `assets/${props.type}/${props.data.index.toString().padStart(2, '0')
-                                    }.png`
-                                }
-                                className="critter-icon"
-                            />
-                            {props.data.dry && <div
-                                title={t('critterpedia:dialogue.details.dry')}
-                            >
-                                <WbSunny
-                                    className="critter-dry"
-                                    style={{
-                                        color: theme.palette.summer.main
-                                    }}
-                                />
-                            </div>}
-                            {props.data.rain && <div
-                                title={t('critterpedia:dialogue.details.wet')}
-                            >
-                                <Cloud
-                                    className="critter-wet"
-                                    style={{
-                                        color: theme.palette.winter.main
-                                    }}
-                                />
-                            </div>}
-                            <div className="location-label">{t('critterpedia:dialogue.details.found')}</div>
-                            <div className="price-label">{t('critterpedia:dialogue.details.price')}</div>
-                            <div className="location">{getCritterLocation(props.data, props.type, t)}</div>
-                            <div className="price">{props.data.price}</div>
-                        </div>
-                    </CardContent>
-                </Card>
-            </DialogContent>
-            <DialogActions>
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            checked={props.obtained}
-                            onChange={(event) => props.setObtained(event.target.checked)}
-                            color="primary"
-                        />
-                    }
-                    label={t('critterpedia:dialogue.obtained')}
-                />
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            className={useStyles(theme).modelled}
-                            checked={props.modelled}
-                            disabled={!props.obtained}
-                            onChange={(event) => props.setModelled(event.target.checked)}
-                            color="default"
-                        />
-                    }
-                    label={t('critterpedia:dialogue.modelled')}
-                />
-            </DialogActions>
-        </Dialog>
+        <CritterDialogue {...props} />
     </>;
 }
 export default CritterPanel;

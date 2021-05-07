@@ -37,3 +37,16 @@ export function booleanOr(data: String | undefined, defaultValue: boolean) {
     }
 }
 
+// export function range(start: number, stop: number | undefined = undefined, step: number = 1): Array<number> {
+//     if (stop === undefined) {
+//         stop = start;
+//         start = 0;
+//     }
+//     return Array(
+//         Math.ceil((stop! - start) / step)
+//     ).fill(start).map((x, y) => x + y * step)
+// }
+
+export function range(stop: number) {
+    return Array.from(Array(stop).keys());
+}
