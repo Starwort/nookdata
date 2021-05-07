@@ -429,23 +429,9 @@
             "bug": "Insect #{{index}}",
             "fish": "Fish #{{index}}"
         },
-        "months": {
-            "jan": "January",
-            "feb": "February",
-            "mar": "March",
-            "apr": "April",
-            "may": "May",
-            "jun": "June",
-            "jul": "July",
-            "aug": "August",
-            "sep": "September",
-            "oct": "October",
-            "nov": "November",
-            "dec": "December"
-        },
         "details": {
             "dry": "Available during dry weather",
-            "wet": "Available during rain",
+            "rain": "Available during rain",
             "found": "Found:",
             "price": "Sells for:"
         },
