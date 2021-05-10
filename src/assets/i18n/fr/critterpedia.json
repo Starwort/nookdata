@@ -385,9 +385,13 @@
         "location": "Trouvable",
         "shadow": "Taille (poisson)",
         "price": {
-            "label": "Prix de la bestiole",
-            "comp": "Comparaison",
-            "value": "Prix"
+            "label": "Se vends pour",
+            "comp_values": {
+                "ge": "au moins",
+                "eq": "exactement",
+                "le": "au plus"
+            },
+            "value": "Clochettes"
         },
         "active": {
             "title": "Disponibilité",
@@ -414,6 +418,7 @@
         },
         "status": {
             "unavailable": "Pas disponible",
+            "leaving_soon": "Plus disponible à partir du mois prochain",
             "now": "Disponible!",
             "modelled": "Statue obtenue!",
             "details": "Plus de détails..."
@@ -424,23 +429,9 @@
             "bug": "Insecte nº{{index}}",
             "fish": "Poisson nº{{index}}"
         },
-        "months": {
-            "jan": "Janvier",
-            "feb": "Février",
-            "mar": "Mars",
-            "apr": "Avril",
-            "may": "Mai",
-            "jun": "Juin",
-            "jul": "Juillet",
-            "aug": "Août",
-            "sep": "Septembre",
-            "oct": "Octobre",
-            "nov": "Novembre",
-            "dec": "Décembre"
-        },
         "details": {
             "dry": "Disponible quand il fait sec",
-            "wet": "Disponible lorsqu'il pleut",
+            "rain": "Disponible lorsqu'il pleut",
             "found": "Trouvable :",
             "price": "Se vends pour :"
         },
