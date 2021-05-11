@@ -6,7 +6,57 @@
             "am_short": "{{h12}}h du matin",
             "pm_short": "{{h12}}h du soir"
         },
-        "twenty_four_hour": "{{pad}}{{h24}}:{{m}}"
+        "twenty_four_hour": "{{pad}}{{h24}}:{{m}}",
+        "month": {
+            "jan": {
+                "short": "Jan.",
+                "long": "Janvier"
+            },
+            "feb": {
+                "short": "Fev.",
+                "long": "Février"
+            },
+            "mar": {
+                "short": "Mars",
+                "long": "Mars"
+            },
+            "apr": {
+                "short": "Avr.",
+                "long": "Avril"
+            },
+            "may": {
+                "short": "Mai",
+                "long": "Mai"
+            },
+            "jun": {
+                "short": "Juin",
+                "long": "Juin"
+            },
+            "jul": {
+                "short": "Juil.",
+                "long": "Juillet"
+            },
+            "aug": {
+                "short": "Août",
+                "long": "Août"
+            },
+            "sep": {
+                "short": "Sep.",
+                "long": "Septembre"
+            },
+            "oct": {
+                "short": "Oct.",
+                "long": "Octobre"
+            },
+            "nov": {
+                "short": "Nov.",
+                "long": "Novembre"
+            },
+            "dec": {
+                "short": "Dec.",
+                "long": "Décembre"
+            }
+        }
     },
     "pages": {
         "critterpedia": "Bébêtopédie"
@@ -23,5 +73,15 @@
         "choose": "Langue du site",
         "en": "Anglais (English)",
         "fr": "Français (français)"
+    },
+    "button": {
+        "dismiss": "Fermer"
+    },
+    "info": {
+        "title": "Plus d'info",
+        "description": "Vous utilisez actuellement la révision <1>{{gitRevision}}</1> de NookData."
+    },
+    "money": {
+        "value": "{{value}} clochettes"
     }
 }
