@@ -25,16 +25,16 @@ interface AppFrameProps {
     theme: "dark" | "light";
     children: React.ReactNode;
 }
+let initialRenders = 2;
 export default function AppFrame(props: AppFrameProps) {
     const theme = useTheme();
     const startOpen = useMediaQuery(theme.breakpoints.up('lg'));
-    const [initialRender, setInitialRender] = React.useState(true);
     const [drawerOpen, setDrawerOpen] = React.useState(false);
-    if (initialRender) {
+    if (initialRenders) {
         if (startOpen) {
             setDrawerOpen(true);
         }
-        setInitialRender(false);
+        initialRenders--;
     }
     const { t } = useTranslation('core');
     return (
