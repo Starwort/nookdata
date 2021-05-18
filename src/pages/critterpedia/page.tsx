@@ -23,7 +23,7 @@ interface CritterpediaProps {
 }
 
 export default function Critterpedia(props: CritterpediaProps) {
-    const { t } = useTranslation('critterpedia');
+    const { t } = useTranslation(['core', 'critterpedia']);
     const theme = useTheme();
     if (!window.localStorage.critterpedia) {
         let data: UserCritterpediaData = {
@@ -77,10 +77,9 @@ export default function Critterpedia(props: CritterpediaProps) {
         window.localStorage.critterpedia = JSON.stringify(data);
         setFishDataImpl(data.fish);
     }
-    // const title = index !== null ? t('critterpedia:title.info', { name: t(`critterpedia:${type}.name.${(type === 'bug' ? bugs : fish)[index].normal_name}`).capitalise() }) : ;
     return <>
         <Helmet>
-            <title>{t('critterpedia:title.default')}</title>
+            <title>{t('core:title.browser.page', { pageTitle: t('core:pages.critterpedia') })}</title>
         </Helmet>
         <div style={{ maxWidth: 1316, margin: 'auto' }}>
             <Card style={{ margin: 16 }}>

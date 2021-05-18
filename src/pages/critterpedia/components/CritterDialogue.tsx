@@ -67,7 +67,7 @@ export default function CritterDialogue(props: CritterDialogueProps) {
             }}
         >
             <Helmet>
-                <title>{t('critterpedia:title.info', { name })}</title>
+                <title>{t('core:title.browser.page_data', { pageTitle: t('core:pages.critterpedia'), pageData: name })}</title>
             </Helmet>
             <DialogTitle style={{
                 paddingBottom: 0,
