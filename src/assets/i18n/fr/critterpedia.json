@@ -375,10 +375,6 @@
             "six_narrow": "6, mais fin"
         }
     },
-    "title": {
-        "default": "Bébêtopédie | NookData",
-        "info": "Bébêtopédie - {{name}} | NookData"
-    },
     "search": {
         "title": "Filtrer par critères de recherche",
         "name": "Nom",
