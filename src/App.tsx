@@ -10,8 +10,6 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import getTheme from './themes';
 import UserSettings from './user_settings';
 
-let timeUpdateId: number | undefined = undefined;
-const sentinelDate = new Date();
 export function App() {
     const themeSetting: "dark" | "light" = window.localStorage.theme || 'dark';
     const [chosenTheme, setChosenThemeImpl] = React.useState<'dark' | 'light'>(themeSetting);
@@ -65,11 +63,6 @@ export function App() {
         useSystemTime: chosenSystemTime,
         useTwelveHourTime: chosenTwelveHourTime,
     };
-    const [time, setTime] = React.useState(sentinelDate);
-    if (timeUpdateId) {
-        window.clearInterval(timeUpdateId);
-    }
-    timeUpdateId = window.setInterval(() => setTime(new Date()), 500);
     const theme = React.useMemo(
         () => getTheme(chosenTheme),
         [chosenTheme]
@@ -78,7 +71,7 @@ export function App() {
     const [worksOffline, setWorksOffline] = React.useState(false);
     serviceWorkerRegistration.register({ onUpdate: _ => setUpdateReady(true), onSuccess: _ => setWorksOffline(true) });
     return <ThemeProvider theme={theme}>
-        <NDContextProvider time={time} settings={settings}>
+        <NDContextProvider settings={settings}>
             <CssBaseline />
             <AppFrame theme={chosenTheme} setTheme={setChosenTheme}>
                 <Suspense fallback={<Loading />}>
