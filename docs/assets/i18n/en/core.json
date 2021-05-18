@@ -56,17 +56,49 @@
                 "short": "Dec.",
                 "long": "December"
             }
+        },
+        "weekday": {
+            "mon": {
+                "short": "Mon.",
+                "long": "Monday"
+            },
+            "tue": {
+                "short": "Tue.",
+                "long": "Tuesday"
+            },
+            "wed": {
+                "short": "Wed.",
+                "long": "Wednesday"
+            },
+            "thu": {
+                "short": "Thu.",
+                "long": "Thursday"
+            },
+            "fri": {
+                "short": "Fri.",
+                "long": "Friday"
+            },
+            "sat": {
+                "short": "Sat.",
+                "long": "Saturday"
+            },
+            "sun": {
+                "short": "Sun.",
+                "long": "Sunday"
+            }
         }
     },
     "pages": {
-        "critterpedia": "Critterpedia"
+        "critterpedia": "Critterpedia",
+        "turnips": "Turnip Prices"
     },
     "title": {
         "a": "Nook",
         "b": "Data",
         "browser": {
             "generic": "NookData",
-            "page": "{{pageTitle}} | NookData"
+            "page": "{{pageTitle}} | NookData",
+            "page_data": "{{pageTitle}} - {{pageData}} | NookData"
         }
     },
     "lang": {
@@ -74,8 +106,11 @@
         "en": "English (English)",
         "fr": "French (français)"
     },
-    "button": {
-        "dismiss": "Dismiss"
+    "ui": {
+        "dismiss": "Dismiss",
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "dont_ask": "Don't ask again"
     },
     "info": {
         "title": "About",

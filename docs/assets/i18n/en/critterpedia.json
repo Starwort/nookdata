@@ -375,10 +375,6 @@
             "six_narrow": "6, but narrow"
         }
     },
-    "title": {
-        "default": "Critterpedia | NookData",
-        "info": "Critterpedia - {{name}} | NookData"
-    },
     "search": {
         "title": "Search Critters",
         "name": "Name",
