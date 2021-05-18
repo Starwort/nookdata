@@ -46,13 +46,11 @@ const theme = createMuiTheme({
         },
         primary: {
             main: '#bb86fc',
-            dark: '#3700b3',
             contrastText: 'rgba(0,0,0,87%)',
             transparent: 'rgba(187, 134, 252, 0.3)',
         },
         secondary: {
             main: '#03dac6',
-            dark: '#03dac6',
             contrastText: 'rgba(0,0,0,87%)',
         },
         error: {
