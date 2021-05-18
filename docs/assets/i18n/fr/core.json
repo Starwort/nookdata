@@ -66,7 +66,8 @@
         "b": "Data",
         "browser": {
             "generic": "NookData",
-            "page": "{{pageTitle}} | NookData"
+            "page": "{{pageTitle}} | NookData",
+            "page_data": "{{pageTitle}} - {{pageData}} | NookData"
         }
     },
     "lang": {
@@ -74,7 +75,7 @@
         "en": "Anglais (English)",
         "fr": "Français (français)"
     },
-    "button": {
+    "ui": {
         "dismiss": "Fermer"
     },
     "info": {
