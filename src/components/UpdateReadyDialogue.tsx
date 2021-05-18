@@ -14,7 +14,7 @@ export default function UpdateReadyDialogue(props: UpdateReadyDialogueProps) {
             {t('service:available_update.content')}
         </DialogContent>
         <DialogActions>
-            <Button variant="text" onClick={() => props.setOpen(false)}>{t('core:button.dismiss')}</Button>
+            <Button variant="text" onClick={() => props.setOpen(false)}>{t('core:ui.dismiss')}</Button>
         </DialogActions>
     </Dialog>
 }

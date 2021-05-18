@@ -18,6 +18,13 @@ export function getTextWidth(text: string) {
 }
 
 export const root = '/nookdata_v2';
+export function getDefault<T>(data: string | undefined, defaultValue: T) {
+    if (data !== undefined) {
+        return JSON.parse(data) as T;  // todo: figure out how to type-check this
+    } else {
+        return defaultValue;
+    }
+}
 export function valueOr(data: String | undefined, defaultValue: number) {
     let rv = data ? +data : defaultValue;
     if (!isNaN(rv)) {
@@ -49,4 +56,10 @@ export function booleanOr(data: String | undefined, defaultValue: boolean) {
 
 export function range(stop: number) {
     return Array.from(Array(stop).keys());
+}
+export type DeepPartial<T> = {
+    [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
+};
+export function clone<T>(obj: T): T {
+    return JSON.parse(JSON.stringify(obj));
 }

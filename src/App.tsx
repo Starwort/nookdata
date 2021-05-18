@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { AppFrame, Loading, UpdateReadyDialogue, WorksOfflineDialogue } from './components';
 import { NDContextProvider } from './context';
 import { booleanOr, valueOr } from './misc';
-import { Critterpedia } from './pages';
+import { Critterpedia, Turnips } from './pages';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import getTheme from './themes';
 import UserSettings from './user_settings';
@@ -90,6 +90,9 @@ export function App() {
                         </Route>
                         <Route path="/critterpedia">
                             <Redirect to="/critterpedia" />
+                        </Route>
+                        <Route path="/turnips">
+                            <Turnips />
                         </Route>
                     </Switch>
                 </Suspense>

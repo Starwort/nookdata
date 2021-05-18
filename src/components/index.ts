@@ -1,5 +1,6 @@
 import AppBar from './AppBar';
 import AppFrame from './AppFrame';
+import Centred from './Centred';
 import DrawerAdjust from './DrawerAdjust';
 import InfoDialogue from './InfoDialogue';
 import LanguageDialogue from './LanguageDialogue';
@@ -21,4 +22,5 @@ export {
     UpdateReadyDialogue,
     WorksOfflineDialogue
 };
+export { Centred };
 
