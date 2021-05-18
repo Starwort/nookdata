@@ -1,4 +1,4 @@
-const enum Pattern {
+enum Pattern {
     FLUCTUATING,
     LARGE_SPIKE,
     DECREASING,
@@ -28,7 +28,7 @@ interface UserTurnipsData {
     firstBuy: boolean;
 }
 
-interface TurnipsResult {
+export interface TurnipsResult {
     pattern: Pattern;
     chance: number;
     hours: { min: number, max: number, avg: number }[];
@@ -162,6 +162,18 @@ function calculate(data: UserTurnipsData): TurnipsResult[] {
     return result;
 }
 
-export { Pattern, calculate };
+const emptyWeek: UserTurnipsData = {
+    buy: null,
+    mon: { am: null, pm: null },
+    tue: { am: null, pm: null },
+    wed: { am: null, pm: null },
+    thu: { am: null, pm: null },
+    fri: { am: null, pm: null },
+    sat: { am: null, pm: null },
+    previousPattern: Pattern.UNKNOWN,
+    firstBuy: false,
+};
+
+export { Pattern, calculate, emptyWeek };
 export type { UserHourData, UserTurnipsData };
 

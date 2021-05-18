@@ -14,9 +14,9 @@ export const pageData: Dict<PageData> = {
         title: 'core:pages.critterpedia',
         icon: <EmojiNature />,
     },
-    // '/': {
-    //     title: 'Home',
-    //     icon: <EmojiNature />,
+    // '/turnips': {
+    //     title: 'core:pages.turnips',
+    //     icon: <ShowChart />,
     // },
 }
 

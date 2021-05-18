@@ -27,7 +27,7 @@ export default function InfoDialogue(props: InfoDialogueProps) {
         </DialogContent>
         <DialogActions>
             <Button onClick={() => props.setOpen(false)}>
-                {t('core:button.dismiss')}
+                {t('core:ui.dismiss')}
             </Button>
         </DialogActions>
     </Dialog>
