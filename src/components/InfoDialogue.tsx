@@ -20,9 +20,9 @@ export default function InfoDialogue(props: InfoDialogueProps) {
         <DialogContent>
             <Trans i18nKey="core:info.description" t={t}>
                 You are currently viewing NookData revision
-                <span style={{ color: theme.palette.primary.main }}>
+                <a href={`https://github.com/Starwort/nookdata_v2/commit/${gitInfo.commit.hash}`} style={{ color: theme.palette.primary.main, textUnderlineOffset: 2 }}>
                     {{ gitRevision: gitInfo.commit.shortHash }}
-                </span>
+                </a>
             </Trans>
         </DialogContent>
         <DialogActions>
