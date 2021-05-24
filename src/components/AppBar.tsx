@@ -18,9 +18,10 @@ interface AppBarProps {
 }
 
 function AppBar(props: AppBarProps) {
-    const { t, i18n } = useTranslation('core');
+    const { i18n } = useTranslation('core');
     const [langOpen, setLangOpen] = React.useState(false);
     const [infoOpen, setInfoOpen] = React.useState(false);
+    const [theme, forceTheme] = React.useState(props.theme);
     return (
         <>
             <TopAppBar position="fixed">
@@ -39,13 +40,14 @@ function AppBar(props: AppBarProps) {
                     <IconButton color="inherit" onClick={() => setLangOpen(true)}>
                         <Language />
                     </IconButton>
-                    {props.theme == 'light'
+                    {theme === 'light'
                         ? <IconButton
                             color="inherit"
                             onClick={
                                 () => {
                                     window.localStorage.theme = 'dark';
-                                    props.setTheme('dark')
+                                    props.setTheme('dark');
+                                    forceTheme('dark');
                                 }
                             }><DarkModeIcon /></IconButton>
                         : <IconButton
@@ -53,7 +55,8 @@ function AppBar(props: AppBarProps) {
                             onClick={
                                 () => {
                                     window.localStorage.theme = 'light';
-                                    props.setTheme('light')
+                                    props.setTheme('light');
+                                    forceTheme('light');
                                 }
                             }><LightModeIcon /></IconButton>}
                 </Toolbar>
