@@ -1,32 +1,32 @@
 {
   "files": {
-    "static/js/0.c0683ee5.chunk.js": "/nookdata_v2/static/js/0.c0683ee5.chunk.js",
-    "static/js/0.c0683ee5.chunk.js.map": "/nookdata_v2/static/js/0.c0683ee5.chunk.js.map",
+    "static/js/0.3b3fa686.chunk.js": "/nookdata_v2/static/js/0.3b3fa686.chunk.js",
+    "static/js/0.3b3fa686.chunk.js.map": "/nookdata_v2/static/js/0.3b3fa686.chunk.js.map",
     "main.css": "/nookdata_v2/static/css/main.5d24a52f.chunk.css",
-    "main.js": "/nookdata_v2/static/js/main.59eabc73.chunk.js",
-    "main.js.map": "/nookdata_v2/static/js/main.59eabc73.chunk.js.map",
-    "runtime-main.js": "/nookdata_v2/static/js/runtime-main.c7a4c7fe.js",
-    "runtime-main.js.map": "/nookdata_v2/static/js/runtime-main.c7a4c7fe.js.map",
-    "static/js/3.05024969.chunk.js": "/nookdata_v2/static/js/3.05024969.chunk.js",
-    "static/js/3.05024969.chunk.js.map": "/nookdata_v2/static/js/3.05024969.chunk.js.map",
+    "main.js": "/nookdata_v2/static/js/main.e6174691.chunk.js",
+    "main.js.map": "/nookdata_v2/static/js/main.e6174691.chunk.js.map",
+    "runtime-main.js": "/nookdata_v2/static/js/runtime-main.e7d7450b.js",
+    "runtime-main.js.map": "/nookdata_v2/static/js/runtime-main.e7d7450b.js.map",
+    "static/js/3.5f94cd38.chunk.js": "/nookdata_v2/static/js/3.5f94cd38.chunk.js",
+    "static/js/3.5f94cd38.chunk.js.map": "/nookdata_v2/static/js/3.5f94cd38.chunk.js.map",
     "static/css/4.56b4bd23.chunk.css": "/nookdata_v2/static/css/4.56b4bd23.chunk.css",
-    "static/js/4.8c759d68.chunk.js": "/nookdata_v2/static/js/4.8c759d68.chunk.js",
-    "static/js/4.8c759d68.chunk.js.map": "/nookdata_v2/static/js/4.8c759d68.chunk.js.map",
-    "static/js/5.7d856589.chunk.js": "/nookdata_v2/static/js/5.7d856589.chunk.js",
-    "static/js/5.7d856589.chunk.js.map": "/nookdata_v2/static/js/5.7d856589.chunk.js.map",
+    "static/js/4.2f623798.chunk.js": "/nookdata_v2/static/js/4.2f623798.chunk.js",
+    "static/js/4.2f623798.chunk.js.map": "/nookdata_v2/static/js/4.2f623798.chunk.js.map",
+    "static/js/5.3ede283e.chunk.js": "/nookdata_v2/static/js/5.3ede283e.chunk.js",
+    "static/js/5.3ede283e.chunk.js.map": "/nookdata_v2/static/js/5.3ede283e.chunk.js.map",
     "index.html": "/nookdata_v2/index.html",
     "service-worker.js": "/nookdata_v2/service-worker.js",
     "service-worker.js.map": "/nookdata_v2/service-worker.js.map",
     "static/css/4.56b4bd23.chunk.css.map": "/nookdata_v2/static/css/4.56b4bd23.chunk.css.map",
     "static/css/main.5d24a52f.chunk.css.map": "/nookdata_v2/static/css/main.5d24a52f.chunk.css.map",
-    "static/js/3.05024969.chunk.js.LICENSE.txt": "/nookdata_v2/static/js/3.05024969.chunk.js.LICENSE.txt",
+    "static/js/3.5f94cd38.chunk.js.LICENSE.txt": "/nookdata_v2/static/js/3.5f94cd38.chunk.js.LICENSE.txt",
     "static/media/getFetch.cjs": "/nookdata_v2/static/media/getFetch.d7d6010d.cjs",
     "static/media/index.scss": "/nookdata_v2/static/media/humming.554d3bb8.ttf"
   },
   "entrypoints": [
-    "static/js/runtime-main.c7a4c7fe.js",
-    "static/js/3.05024969.chunk.js",
+    "static/js/runtime-main.e7d7450b.js",
+    "static/js/3.5f94cd38.chunk.js",
     "static/css/main.5d24a52f.chunk.css",
-    "static/js/main.59eabc73.chunk.js"
+    "static/js/main.e6174691.chunk.js"
   ]
 }
