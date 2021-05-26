@@ -1,4 +1,6 @@
-enum Pattern {
+import { Filter, zip } from "../../misc";
+
+export enum Pattern {
     FLUCTUATING,
     LARGE_SPIKE,
     DECREASING,
@@ -11,12 +13,12 @@ type PatternDictionary = {
     [K in Pattern]: number;
 };
 
-interface UserHourData {
+export interface UserHourData {
     am: number | null;
     pm: number | null;
 }
 
-interface UserTurnipsData {
+export interface UserTurnipsData {
     buy: number | null;
     mon: UserHourData;
     tue: UserHourData;
@@ -29,13 +31,13 @@ interface UserTurnipsData {
 }
 
 export interface TurnipsResult {
-    pattern: Pattern;
+    pattern: Filter<Pattern, Pattern.UNKNOWN>;
     chance: number;
     hours: { min: number, max: number, avg: number }[];
 }
 
 interface TurnipsIntermediateResult {
-    pattern: Pattern;
+    pattern: Filter<Pattern, Pattern.UNKNOWN>;
     chance: number;
     hours: number[][];
 }
@@ -147,7 +149,38 @@ function calculateSmallSpike(categoryChance: number, data: UserTurnipsData) {
     return [];
 }
 
-function calculate(data: UserTurnipsData): TurnipsResult[] {
+function flattenData(data: UserTurnipsData): (number | null)[] {
+    return [
+        data.buy,
+        data.mon.am,
+        data.mon.pm,
+        data.tue.am,
+        data.tue.pm,
+        data.wed.am,
+        data.wed.pm,
+        data.thu.am,
+        data.thu.pm,
+        data.fri.am,
+        data.fri.pm,
+        data.sat.am,
+        data.sat.pm,
+    ];
+}
+const minPossibleData = [90, 36, 32, 27, 23, 18, 14, 9, 27, 23, 18, 14, 9];
+const maxPossibleData = [110, 154, 154, 220, 660, 660, 660, 660, 660, 660, 660, 220, 219];
+export function dataMakesSense(data: UserTurnipsData): boolean {
+    for (let [min, max, user] of zip(minPossibleData, maxPossibleData, flattenData(data))) {
+        if (!user) {
+            continue;
+        }
+        if (user < min || user > max) {
+            return false;
+        }
+    }
+    return true;
+}
+
+export function calculate(data: UserTurnipsData): TurnipsResult[] {
     let chanceFluctuating = CHANCE_FLUCTUATING[data.previousPattern];
     let chanceLargeSpike = CHANCE_FLUCTUATING[data.previousPattern];
     let chanceDecreasing = CHANCE_FLUCTUATING[data.previousPattern];
@@ -162,7 +195,7 @@ function calculate(data: UserTurnipsData): TurnipsResult[] {
     return result;
 }
 
-const emptyWeek: UserTurnipsData = {
+export const emptyWeek: UserTurnipsData = {
     buy: null,
     mon: { am: null, pm: null },
     tue: { am: null, pm: null },
@@ -174,6 +207,11 @@ const emptyWeek: UserTurnipsData = {
     firstBuy: false,
 };
 
-export { Pattern, calculate, emptyWeek };
-export type { UserHourData, UserTurnipsData };
+export const PatternColours = {
+    [Pattern.AGGREGATE]: (chance: number) => `rgba(255, 255, 255, ${chance})`,
+    [Pattern.FLUCTUATING]: (chance: number) => `rgba(255, 0, 0, ${chance})`,
+    [Pattern.LARGE_SPIKE]: (chance: number) => `rgba(0, 255, 0, ${chance})`,
+    [Pattern.DECREASING]: (chance: number) => `rgba(0, 255, 255, ${chance})`,
+    [Pattern.SMALL_SPIKE]: (chance: number) => `rgba(127, 0, 255, ${chance})`,
+}
 
