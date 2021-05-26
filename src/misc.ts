@@ -63,3 +63,20 @@ export type DeepPartial<T> = {
 export function clone<T>(obj: T): T {
     return JSON.parse(JSON.stringify(obj));
 }
+export type Tuple<T extends unknown[]> = [...T];
+export type SoA<T extends unknown[]> = { [I in keyof T]: T[I][] };
+export function* zip<T extends unknown[]>(...arrays: SoA<T>) {
+    if (arrays.length < 1) {
+        return;
+    }
+    for (let i = 0; i < arrays.reduce((minLength, nextArr) => {
+        let len = nextArr.length;
+        return Math.min(minLength, len);
+    }, Infinity); i++) {
+        yield arrays.map((arr) => arr[i]) as Tuple<T>;
+    }
+}
+
+export type Filter<T, V> = {
+    [P in keyof T]: T[P] extends V ? never : T[P];
+}
