@@ -187,7 +187,7 @@ precacheAndRoute([
     {url: 'assets/fish/78.png', revision: 'e1d1bd'},
     {url: 'assets/fish/79.png', revision: '9a314f'},
     {url: 'assets/fonts/humming.ttf', revision: '59d14e'},
-    {url: 'assets/i18n/en/core.json', revision: 'c8a1f7'},
+    {url: 'assets/i18n/en/core.json', revision: '300e96'},
     {url: 'assets/i18n/en/critterpedia.json', revision: '94aaf0'},
     {url: 'assets/i18n/en/service.json', revision: 'e3f70c'},
     {url: 'assets/i18n/en/turnips.json', revision: '0654b7'},
