@@ -1,3 +1,5 @@
+import { ThemeName } from "./themes";
+
 declare global {
     interface String {
         capitalise: () => String;
@@ -24,6 +26,12 @@ Array.prototype.rotate = function (by: number) {
 declare module "react" {
     interface CSSProperties {
         '--progress'?: string | number;
+    }
+}
+
+declare module "@material-ui/core/styles/createMuiTheme" {
+    interface Theme {
+        name: ThemeName;
     }
 }
 
