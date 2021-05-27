@@ -7,16 +7,18 @@ import { NDContextProvider } from './context';
 import { booleanOr, valueOr } from './misc';
 import { Critterpedia, Turnips } from './pages';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import getTheme from './themes';
+import getTheme, { ThemeName } from './themes';
 import UserSettings from './user_settings';
 
 export function App() {
-    const themeSetting: "dark" | "light" = window.localStorage.theme || 'dark';
+    const themeSetting: ThemeName = window.localStorage.theme || 'dark';
     const [chosenTheme, setChosenThemeImpl] = React.useState<'dark' | 'light'>(themeSetting);
     function setChosenTheme(value: 'dark' | 'light') {
+        window.localStorage.theme = value;
         document.body.classList.add("no-transition");
-        setTimeout(() => setChosenThemeImpl(value), 10);
-        setTimeout(() => document.body.classList.remove("no-transition"), 20);
+        setChosenThemeImpl(value);
+        // document.body.classList.remove("no-transition");
+        setTimeout(() => document.body.classList.remove("no-transition"), 10);
     }
     const nameSetting: string = window.localStorage.playerName || 'PLAYER';
     const [chosenName, setChosenNameImpl] = React.useState(nameSetting);
@@ -70,10 +72,11 @@ export function App() {
     const [updateReady, setUpdateReady] = React.useState(false);
     const [worksOffline, setWorksOffline] = React.useState(false);
     serviceWorkerRegistration.register({ onUpdate: _ => setUpdateReady(true), onSuccess: _ => setWorksOffline(true) });
+    console.log(chosenTheme);
     return <ThemeProvider theme={theme}>
         <NDContextProvider settings={settings}>
             <CssBaseline />
-            <AppFrame theme={chosenTheme} setTheme={setChosenTheme}>
+            <AppFrame setTheme={setChosenTheme}>
                 <Suspense fallback={<Loading />}>
                     <Switch>
                         <Route path="/critterpedia/:type/:index" render={({ match }) => {
@@ -93,6 +96,9 @@ export function App() {
                         </Route>
                         <Route path="/turnips">
                             <Turnips />
+                        </Route>
+                        <Route path="/loading">
+                            <Loading />
                         </Route>
                     </Switch>
                 </Suspense>
