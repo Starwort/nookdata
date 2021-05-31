@@ -119,9 +119,19 @@
     },
     "info": {
         "title": "About",
-        "description": "You are currently viewing NookData revision <1>{{gitRevision}}</1>."
+        "description": "You are currently viewing NookData revision <1>{{gitRevision}}</1>.",
+        "contrib": {
+            "title": "NookData Contributors",
+            "subtitle": "and their contributions",
+            "tooltip": "Click to view {{name}}'s commits (opens in a new tab)",
+            "starwort": "Code and overall design",
+            "elolechan": "Bespoke art assets and localisation"
+        }
     },
     "money": {
         "value": "{{value}} bells"
+    },
+    "alt": {
+        "avatar": "{{name}}'s avatar"
     }
 }
