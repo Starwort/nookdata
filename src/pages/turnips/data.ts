@@ -199,7 +199,7 @@ function* calculateOneFluctuating(categoryChance: number, buy: number, data: Fla
                                     yield {
                                         pattern: Pattern.FLUCTUATING,
                                         chance: chance / hi23,
-                                        hours: [...phase1, ...phase2, ...phase3, ...phase4, ...phase5]
+                                        hours: [{ min: buy, max: buy, avg: buy }, ...phase1, ...phase2, ...phase3, ...phase4, ...phase5]
                                     };
                                 }
                             }
@@ -269,7 +269,7 @@ const minPossibleData = [90, 36, 32, 27, 23, 18, 14, 9, 27, 23, 18, 14, 9];
 const maxPossibleData = [110, 154, 154, 220, 660, 660, 660, 660, 660, 660, 660, 220, 219];
 export function dataMakesSense(data: UserTurnipsData): boolean {
     for (let [min, max, user] of zip(minPossibleData, maxPossibleData, flattenData(data))) {
-        if (!user) {
+        if (user === null) {
             continue;
         }
         if (user < min || user > max) {
@@ -310,11 +310,12 @@ export const emptyWeek: UserTurnipsData = {
     firstBuy: false,
 };
 
-export const PatternColours = {
+export const patternColours = {
     [Pattern.AGGREGATE]: (chance: number) => `rgba(255, 255, 255, ${chance})`,
     [Pattern.FLUCTUATING]: (chance: number) => `rgba(255, 0, 0, ${chance})`,
     [Pattern.LARGE_SPIKE]: (chance: number) => `rgba(0, 255, 0, ${chance})`,
     [Pattern.DECREASING]: (chance: number) => `rgba(0, 255, 255, ${chance})`,
     [Pattern.SMALL_SPIKE]: (chance: number) => `rgba(127, 0, 255, ${chance})`,
+    [Pattern.UNKNOWN]: (chance: number) => { throw new Error('wtf') },
 }
 

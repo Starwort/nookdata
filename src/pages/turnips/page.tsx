@@ -1,17 +1,25 @@
 import { Button, Card, CardContent, CardHeader, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select, TextField, Typography, useMediaQuery, useTheme } from "@material-ui/core";
 import { Warning } from "@material-ui/icons";
-import { areaSpline, line, spline } from 'billboard.js';
+// import Chart from 'react-billboardjs';
+import { areaSplineRange } from 'billboard.js';
 import deepmerge from "deepmerge";
 import React from "react";
-// import Chart from 'react-billboardjs';
 import { Helmet } from "react-helmet";
 import { useTranslation } from "react-i18next";
 import { Centred } from '../../components';
-import { clone, DeepPartial, getDefault } from "../../misc";
+import { clone, DeepPartial, Dict, getDefault } from "../../misc";
 import { Chart } from './components';
-import { calculate, dataMakesSense, emptyWeek, Pattern, TurnipsResult, UserTurnipsData } from "./data";
+import { calculate, dataMakesSense, emptyWeek, Pattern, patternColours, UserTurnipsData } from "./data";
 
 const weekDays: ('mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat')[] = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+
+const names = {
+    [Pattern.FLUCTUATING]: "turnips:pattern.fluctuating",
+    [Pattern.LARGE_SPIKE]: "turnips:pattern.large_spike",
+    [Pattern.DECREASING]: "turnips:pattern.decreasing",
+    [Pattern.SMALL_SPIKE]: "turnips:pattern.small_spike",
+    [Pattern.AGGREGATE]: "turnips:pattern.aggregate",
+}
 
 export default function Turnips() {
     const foundData = getDefault(window.localStorage.turnips, clone(emptyWeek));
@@ -19,7 +27,22 @@ export default function Turnips() {
     const [confirmOpen, setConfirmOpen] = React.useState(false);
     const [dontAsk, setDontAsk] = React.useState(false);
     const makesSense = dataMakesSense(data);
-    console.log(calculate(data));
+    const result = makesSense ? (console.log('calculating'), calculate(data)) : [];
+    console.log(result.length && 'hello');
+    let columns: [string, ...{ high: number, low: number, mid: number }[]][] = [];
+    let colours: Dict<string> = {}
+    let names: Dict<string> = {}
+    let n = 0;
+    for (let pattern of result) {
+        let column: [string, ...{ high: number, low: number, mid: number }[]] = [`data${n}`];
+        for (let hour of pattern.hours) {
+            column.push({ low: hour.min, high: hour.max, mid: hour.avg });
+        }
+        columns.push(column);
+        names[`data${n}`] = names[pattern.pattern];
+        colours[`data${n++}`] = patternColours[pattern.pattern](pattern.chance);
+    }
+    console.log(result);
     function confirm() {
         if (dontAsk) {
             window.localStorage.turnipDontConfirm = 'true';
@@ -32,7 +55,6 @@ export default function Turnips() {
         window.localStorage.turnips = JSON.stringify(toSet);
         setDataImpl(toSet);
     }
-    let result: TurnipsResult[] = [];
     function nextWeek() {
         if (getDefault<boolean>(window.localStorage.turnipDontConfirm, false)) {
             reset();
@@ -125,41 +147,44 @@ export default function Turnips() {
                             <Button style={{ height: '100%' }} fullWidth variant="contained" color="primary" onClick={nextWeek}>{t('turnips:ui.start_next')}</Button>
                         </Grid>
                     </Grid>
-                    <br />
-                    <Centred>
-                        <div
-                            style={{
-                                display: 'inline-flex',
-                                justifyContent: 'center',
-                                height: '100%',
-                                color: theme.palette.error.main,
-                                paddingRight: 8
-                            }}
-                        >
-                            <Warning />
-                        </div>
-                        <Typography color="error">{t('turnips:ui.bad_data')}</Typography>
-                    </Centred>
+                    {makesSense || <>
+                        <br />
+                        <Centred>
+                            <div
+                                style={{
+                                    display: 'inline-flex',
+                                    justifyContent: 'center',
+                                    height: '100%',
+                                    color: theme.palette.error.main,
+                                    paddingRight: 8
+                                }}
+                            >
+                                <Warning />
+                            </div>
+                            <Typography color="error">{t('turnips:ui.bad_data')}</Typography>
+                        </Centred>
+                    </>
+                    }
                 </CardContent>
             </Card>
-            <Card style={{ margin: 16 }}>
+            {!!result.length && <Card style={{ margin: 16 }}>
                 <CardContent>
                     <Chart
+                        isPure
                         className={`chart ${theme.name}`}
                         data={{
-                            columns: [
-                                ['data1', 30, 20, 50, 40, 60, 50],
-                                ['data2', 200, 130, 90, 240, 130, 220],
-                                ['data3', 300, 200, 160, 400, 250, 250],
-                            ],
-                            types: {
-                                data1: line(),
-                                data2: areaSpline(),
-                                data3: spline(),
-                            },
-                        }} />
+                            columns: columns as any,
+                            colors: colours,
+                            names,
+                            type: areaSplineRange(),
+                        }}
+                        legend={{
+                            // position: 'right',
+                            show: false
+                        }}
+                    />
                 </CardContent>
-            </Card>
+            </Card>}
         </div>
         <Dialog open={confirmOpen}>
             <DialogTitle>{t('turnips:ui.reset_dialogue.title')}</DialogTitle>
