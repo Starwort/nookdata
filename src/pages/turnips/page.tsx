@@ -143,18 +143,22 @@ export default function Turnips() {
                 </CardContent>
             </Card>
             <Card style={{ margin: 16 }}>
-                <Chart data={{
-                    columns: [
-                        ['data1', 30, 20, 50, 40, 60, 50],
-                        ['data2', 200, 130, 90, 240, 130, 220],
-                        ['data3', 300, 200, 160, 400, 250, 250],
-                    ],
-                    types: {
-                        data1: line(),
-                        data2: areaSpline(),
-                        data3: spline(),
-                    },
-                }} />
+                <CardContent>
+                    <Chart
+                        className={`chart ${theme.name}`}
+                        data={{
+                            columns: [
+                                ['data1', 30, 20, 50, 40, 60, 50],
+                                ['data2', 200, 130, 90, 240, 130, 220],
+                                ['data3', 300, 200, 160, 400, 250, 250],
+                            ],
+                            types: {
+                                data1: line(),
+                                data2: areaSpline(),
+                                data3: spline(),
+                            },
+                        }} />
+                </CardContent>
             </Card>
         </div>
         <Dialog open={confirmOpen}>
