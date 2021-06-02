@@ -28,6 +28,8 @@ export const pageData: Dict<PageData> = {
 interface AppFrameProps {
     setTheme: (value: ThemeName) => void;
     children: React.ReactNode;
+    updateReady: boolean;
+    worksOffline: boolean;
 }
 let initialRenders = 10;
 export default function AppFrame(props: AppFrameProps) {
@@ -49,18 +51,32 @@ export default function AppFrame(props: AppFrameProps) {
     const newTheme: ThemeName = theme.name === 'dark' ? 'light' : 'dark';
     return (
         <>
-            <AppBar setDrawerOpen={setDrawerOpen} drawerOpen={drawerOpen} title={<Typography variant="h6">
-                <div
-                    style={{
-                        color: theme.palette.winter.main,
-                        display: 'inline'
-                    }}>{t('title.a')}</div>
-                <div
-                    style={{
-                        color: theme.palette.summer.main,
-                        display: 'inline'
-                    }}>{t('title.b')}</div>
-            </Typography>} />
+            <AppBar
+                setDrawerOpen={setDrawerOpen}
+                drawerOpen={drawerOpen}
+                title={
+                    <Typography variant="h6">
+                        <div
+                            style={{
+                                color: theme.palette.winter.main,
+                                display: 'inline'
+                            }}
+                        >
+                            {t('title.a')}
+                        </div>
+                        <div
+                            style={{
+                                color: theme.palette.summer.main,
+                                display: 'inline'
+                            }}
+                        >
+                            {t('title.b')}
+                        </div>
+                    </Typography>
+                }
+                updateReady={props.updateReady}
+                worksOffline={props.worksOffline}
+            />
             <NavigationDrawer open={drawerOpen} setOpen={setDrawerOpen}>
                 <List>
                     {Object.entries(pageData).map(([route, data]) => (

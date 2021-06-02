@@ -13,12 +13,13 @@ import { calculate, dataMakesSense, emptyWeek, Pattern, patternColours, UserTurn
 
 const weekDays: ('mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat')[] = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 
-const names = {
+const patternNames = {
     [Pattern.FLUCTUATING]: "turnips:pattern.fluctuating",
     [Pattern.LARGE_SPIKE]: "turnips:pattern.large_spike",
     [Pattern.DECREASING]: "turnips:pattern.decreasing",
     [Pattern.SMALL_SPIKE]: "turnips:pattern.small_spike",
     [Pattern.AGGREGATE]: "turnips:pattern.aggregate",
+    [Pattern.UNKNOWN]: "Something went wrong. Sorry.",
 }
 
 export default function Turnips() {
@@ -39,7 +40,7 @@ export default function Turnips() {
             column.push({ low: hour.min, high: hour.max, mid: hour.avg });
         }
         columns.push(column);
-        names[`data${n}`] = names[pattern.pattern];
+        names[`data${n}`] = patternNames[pattern.pattern];
         colours[`data${n++}`] = patternColours[pattern.pattern](pattern.chance);
     }
     console.log(result);

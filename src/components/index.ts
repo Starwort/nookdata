@@ -8,11 +8,13 @@ import ListItemLink from './ListItemLink';
 import Loading from './Loading';
 import NavigationDrawer from './NavigationDrawer';
 import UpdateReadyDialogue from './UpdateReadyDialogue';
+import WithTooltip from './WithTooltip';
 import WorksOfflineDialogue from './WorksOfflineDialogue';
 
 export {
     AppBar,
     AppFrame,
+    Centred,
     DrawerAdjust,
     InfoDialogue,
     LanguageDialogue,
@@ -20,7 +22,6 @@ export {
     Loading,
     NavigationDrawer,
     UpdateReadyDialogue,
-    WorksOfflineDialogue
+    WithTooltip,
+    WorksOfflineDialogue,
 };
-export { Centred };
-

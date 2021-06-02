@@ -1,82 +1,71 @@
-import { CssBaseline, ThemeProvider } from '@material-ui/core';
+import { Button, CssBaseline, ThemeProvider } from '@material-ui/core';
 import React, { Suspense } from 'react';
 import { Route, Switch } from 'react-router';
 import { Redirect } from 'react-router-dom';
 import { AppFrame, Loading, UpdateReadyDialogue, WorksOfflineDialogue } from './components';
 import { NDContextProvider } from './context';
-import { booleanOr, valueOr } from './misc';
+import { updateData } from './data';
+import { valueOr } from './misc';
 import { Critterpedia, Turnips } from './pages';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import getTheme, { ThemeName } from './themes';
+import getTheme from './themes';
 import UserSettings from './user_settings';
 
 export function App() {
-    const themeSetting: ThemeName = window.localStorage.theme || 'dark';
-    const [chosenTheme, setChosenThemeImpl] = React.useState<'dark' | 'light'>(themeSetting);
-    function setChosenTheme(value: 'dark' | 'light') {
-        window.localStorage.theme = value;
+    updateData();
+    const foundSettings: UserSettings = JSON.parse(window.localStorage.settings);
+    const [settings, setSettingsImpl] = React.useState(foundSettings);
+    function setSettings(value: UserSettings) {
+        window.localStorage.settings = JSON.stringify(value);
+        setSettingsImpl(value);
+    }
+    function setTheme(value: 'dark' | 'light') {
         document.body.classList.add("no-transition");
-        setChosenThemeImpl(value);
+        setSettings({ ...settings, theme: value });
         // document.body.classList.remove("no-transition");
         setTimeout(() => document.body.classList.remove("no-transition"), 10);
     }
-    const nameSetting: string = window.localStorage.playerName || 'PLAYER';
-    const [chosenName, setChosenNameImpl] = React.useState(nameSetting);
-    function setChosenName(value: string) {
-        window.localStorage.playerName = value;
-        setChosenNameImpl(value);
+    function setPlayerName(value: string) {
+        setSettings({ ...settings, playerName: value });
     }
-    const islandNameSetting: string = window.localStorage.islandName || 'ISLAND';
-    const [chosenIslandName, setChosenIslandNameImpl] = React.useState(islandNameSetting);
-    function setChosenIslandName(value: string) {
-        window.localStorage.islandName = value;
-        setChosenIslandNameImpl(value);
+    function setIslandName(value: string) {
+        setSettings({ ...settings, islandName: value });
     }
-    const hemisphereSetting: "north" | "south" = window.localStorage.hemisphere || 'north';
-    const [chosenHemisphere, setChosenHemisphereImpl] = React.useState<'north' | 'south'>(hemisphereSetting);
-    function setChosenHemisphere(value: 'north' | 'south') {
-        window.localStorage.hemisphere = value;
-        setChosenHemisphereImpl(value);
+    function setHemisphere(value: 'north' | 'south') {
+        setSettings({ ...settings, hemisphere: value });
     }
-    const offsetSetting: number = valueOr(window.localStorage.timeOffset, 0);
-    const [chosenOffset, setChosenOffsetImpl] = React.useState(offsetSetting);
-    function setChosenOffset(value: number) {
-        window.localStorage.timeOffset = value;
-        setChosenOffsetImpl(value);
+    function setTimeOffset(value: number) {
+        setSettings({ ...settings, timeOffset: value });
     }
-    const systemTimeSetting: boolean = booleanOr(window.localStorage.useSystemTime, true);
-    const [chosenSystemTime, setChosenSystemTimeImpl] = React.useState(systemTimeSetting);
-    function setChosenSystemTime(value: boolean) {
-        window.localStorage.useSystemTime = value;
-        setChosenSystemTimeImpl(value);
+    function setUseSystemTime(value: boolean) {
+        setSettings({ ...settings, useSystemTime: value });
     }
-    const twelveHourTimeSetting: boolean = booleanOr(window.localStorage.useTwelveHourTime, false);
-    const [chosenTwelveHourTime, setChosenTwelveHourTimeImpl] = React.useState(twelveHourTimeSetting);
-    function setChosenTwelveHourTime(value: boolean) {
-        window.localStorage.useTwelveHourTime = value;
-        setChosenTwelveHourTimeImpl(value);
+    function setUseTwelveHourTime(value: boolean) {
+        setSettings({ ...settings, useTwelveHourTime: value });
     }
-    const settings: UserSettings = {
-        theme: chosenTheme,
-        hemisphere: chosenHemisphere,
-        islandName: chosenIslandName,
-        playerName: chosenName,
-        timeOffset: chosenOffset,
-        useSystemTime: chosenSystemTime,
-        useTwelveHourTime: chosenTwelveHourTime,
-    };
     const theme = React.useMemo(
-        () => getTheme(chosenTheme),
-        [chosenTheme]
+        () => getTheme(settings.theme),
+        [settings]
     );
-    const [updateReady, setUpdateReady] = React.useState(false);
-    const [worksOffline, setWorksOffline] = React.useState(false);
+    const [updateReady, setUpdateReadyImpl] = React.useState(false);
+    const [worksOffline, setWorksOfflineImpl] = React.useState(false);
+    const [updateReadyDialogueOpen, setUpdateReadyDialogueOpen] = React.useState(false);
+    const [worksOfflineDialogueOpen, setWorksOfflineDialogueOpen] = React.useState(false);
+    function setUpdateReady(value: boolean) {
+        console.log('setUpdateReady:', value);
+        setUpdateReadyImpl(value);
+        setUpdateReadyDialogueOpen(value);
+    }
+    function setWorksOffline(value: boolean) {
+        console.log('setWorksOffline:', value);
+        setWorksOfflineImpl(value);
+        setWorksOfflineDialogueOpen(value);
+    }
     serviceWorkerRegistration.register({ onUpdate: _ => setUpdateReady(true), onSuccess: _ => setWorksOffline(true) });
-    console.log(chosenTheme);
     return <ThemeProvider theme={theme}>
         <NDContextProvider settings={settings}>
             <CssBaseline />
-            <AppFrame setTheme={setChosenTheme}>
+            <AppFrame setTheme={setTheme} updateReady={updateReady} worksOffline={worksOffline}>
                 <Suspense fallback={<Loading />}>
                     <Switch>
                         <Route path="/critterpedia/:type/:index" render={({ match }) => {
@@ -100,11 +89,19 @@ export function App() {
                         <Route path="/loading">
                             <Loading />
                         </Route>
+                        <Route path="/test">
+                            <Button onClick={() => setUpdateReady(true)}>
+                                Toggle <code>updateReady</code> (currently <code>{'' + updateReady}</code>)
+                            </Button>
+                            <Button onClick={() => setWorksOffline(!worksOffline)}>
+                                Toggle <code>worksOffline</code> (currently <code>{'' + worksOffline}</code>)
+                            </Button>
+                        </Route>
                     </Switch>
                 </Suspense>
             </AppFrame>
-            <WorksOfflineDialogue open={worksOffline} setOpen={setWorksOffline} />
-            <UpdateReadyDialogue open={updateReady} setOpen={setUpdateReady} />
+            <WorksOfflineDialogue open={worksOfflineDialogueOpen} setOpen={setWorksOfflineDialogueOpen} />
+            <UpdateReadyDialogue open={updateReadyDialogueOpen} setOpen={setUpdateReadyDialogueOpen} />
         </NDContextProvider>
     </ThemeProvider>;
 }
