@@ -3,20 +3,11 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Trans, useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
+import { UserCritterData, UserCritterpediaData } from '../../data';
 import { range } from '../../misc';
 import CritterPanel from './components/CritterPanel';
 import { bugs, fish } from './data.json';
 import SearchParameters from './search_parameters';
-
-interface UserCritterData {
-    obtained: boolean;
-    modelled: boolean;
-}
-
-interface UserCritterpediaData {
-    bugs: UserCritterData[];
-    fish: UserCritterData[];
-}
 
 interface CritterpediaProps {
     load?: { type: 'bug' | 'fish', index: number }
@@ -25,17 +16,6 @@ interface CritterpediaProps {
 export default function Critterpedia(props: CritterpediaProps) {
     const { t } = useTranslation(['core', 'critterpedia']);
     const theme = useTheme();
-    if (!window.localStorage.critterpedia) {
-        let data: UserCritterpediaData = {
-            bugs: [],
-            fish: [],
-        };
-        for (let i = 0; i < 80; i++) {
-            data.bugs.push({ obtained: false, modelled: false });
-            data.fish.push({ obtained: false, modelled: false });
-        }
-        window.localStorage.critterpedia = JSON.stringify(data);
-    }
     const data: UserCritterpediaData = JSON.parse(window.localStorage.critterpedia);
     const [activeRequired, setActiveRequired] = React.useState<'now' | 'month' | 'until_next' | 'any'>('any');
     const [location, setLocation] = React.useState('');

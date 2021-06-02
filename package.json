@@ -1,5 +1,5 @@
 {
-  "name": "nookdata_js",
+  "name": "nookdata_v2",
   "version": "0.1.0",
   "private": true,
   "homepage": "https://starwort.github.io/nookdata_v2",
@@ -7,6 +7,8 @@
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
+    "@rescripts/cli": "0.0.16",
+    "@rescripts/rescript-use-babel-config": "0.0.12",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.7.1",
@@ -31,12 +33,12 @@
     "web-vitals": "^1.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "npm run update_assets && react-scripts build && npm run regenerate_docs && git push",
+    "start": "rescripts start",
+    "build": "npm run update_assets && rescripts build && npm run regenerate_docs && git push",
     "regenerate_docs": "rm -rf docs && cp -r build docs && touch docs/.nojekyll && cp 404.html docs && sleep 0.05 && git add -A docs && git commit -m \"Updated docs\"",
     "update_assets": "rm -rf public/assets && cp -r src/assets public && ./reformat_gifs && ./regenerate_asset_cache",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "rescripts test",
+    "eject": "rescripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -62,5 +64,21 @@
     "@types/react-router-dom": "^5.1.7",
     "react-git-info": "^2.0.0",
     "why-did-you-update": "^1.0.8"
-  }
+  },
+  "rescripts": [
+    [
+      "use-babel-config",
+      {
+        "presets": [
+          "react-app",
+          [
+            "@babel/preset-typescript",
+            {
+              "allowNamespaces": true
+            }
+          ]
+        ]
+      }
+    ]
+  ]
 }

@@ -1,4 +1,6 @@
+import { UserHourData, UserTurnipsData } from '../../data';
 import { all, Filter, range, zip } from "../../misc";
+export type { UserHourData, UserTurnipsData };
 
 export enum Pattern {
     FLUCTUATING,
@@ -12,23 +14,6 @@ export enum Pattern {
 type PatternDictionary = {
     [K in Pattern]: number;
 };
-
-export interface UserHourData {
-    am: number | null;
-    pm: number | null;
-}
-
-export interface UserTurnipsData {
-    buy: number | null;
-    mon: UserHourData;
-    tue: UserHourData;
-    wed: UserHourData;
-    thu: UserHourData;
-    fri: UserHourData;
-    sat: UserHourData;
-    previousPattern: Pattern;
-    firstBuy: boolean;
-}
 
 export interface Range {
     min: number;
