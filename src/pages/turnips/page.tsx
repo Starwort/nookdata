@@ -1,7 +1,9 @@
 import { Button, Card, CardContent, CardHeader, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select, TextField, Typography, useMediaQuery, useTheme } from "@material-ui/core";
 import { Warning } from "@material-ui/icons";
+import { areaSpline, line, spline } from 'billboard.js';
 import deepmerge from "deepmerge";
 import React from "react";
+// import Chart from 'react-billboardjs';
 import { Helmet } from "react-helmet";
 import { useTranslation } from "react-i18next";
 import { Centred } from '../../components';
@@ -147,7 +149,11 @@ export default function Turnips() {
                         ['data2', 200, 130, 90, 240, 130, 220],
                         ['data3', 300, 200, 160, 400, 250, 250],
                     ],
-                    type: 'line',
+                    types: {
+                        data1: line(),
+                        data2: areaSpline(),
+                        data3: spline(),
+                    },
                 }} />
             </Card>
         </div>

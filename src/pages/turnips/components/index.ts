@@ -1,1 +1,3 @@
-export { };
+import Chart from './Chart/index';
+export { Chart };
+
