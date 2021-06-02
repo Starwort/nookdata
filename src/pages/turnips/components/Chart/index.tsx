@@ -4,6 +4,7 @@ import {
 import 'billboard.js/dist/billboard.css';
 import React from 'react';
 import { Dict } from '../../../../misc';
+import './dark.scss';
 import { ChartProps } from './types';
 // lifted from react-billboardjs and modified to work in typescript
 /* MIT License
