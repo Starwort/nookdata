@@ -1,4 +1,4 @@
-import { Filter, zip } from "../../misc";
+import { all, Filter, range, zip } from "../../misc";
 
 export enum Pattern {
     FLUCTUATING,
@@ -30,10 +30,27 @@ export interface UserTurnipsData {
     firstBuy: boolean;
 }
 
+export interface Range {
+    min: number;
+    max: number;
+    avg: number;
+}
+
 export interface TurnipsResult {
     pattern: Filter<Pattern, Pattern.UNKNOWN>;
     chance: number;
-    hours: { min: number, max: number, avg: number }[];
+    hours: Range[];
+}
+
+function makeRange(min: number, max: number, base: number) {
+    let avg = (min + max) / 2 * base + 0.5;  // just trust me, this should be right
+    min = Math.ceil(min * base);
+    max = Math.ceil(max * base);
+    return { min, max, avg };
+}
+
+function rangeValid(range: Range, value: number | null) {
+    return (value === null) || (range.min <= value && value <= range.max);
 }
 
 interface TurnipsIntermediateResult {
@@ -41,6 +58,8 @@ interface TurnipsIntermediateResult {
     chance: number;
     hours: number[][];
 }
+
+type FlatData = (number | null)[];
 
 function intermediateToResult(result: TurnipsIntermediateResult): TurnipsResult {
     return {
@@ -107,49 +126,129 @@ const CHANCE_SMALL_SPIKE: PatternDictionary = {
     [Pattern.AGGREGATE]: 0.25,
 };
 
-function calculateOneFluctuating(categoryChance: number, data: UserTurnipsData) {
-    return [];
-}
-
-function calculateFluctuating(categoryChance: number, data: UserTurnipsData) {
-    if (data.buy !== null) {
-        return [...calculateOneFluctuating(categoryChance, data)];
+function* calculateFluctuatingHigh(buy: number, data: FlatData, offset: number, length: number) {
+    let range = makeRange(0.9, 1.4, buy);
+    let prices = data.slice(offset, offset + length);
+    if (!all(prices.map((price) => (rangeValid(range, price))))) {
+        return;
     }
+    yield prices.map((price) => (price ? { min: price, max: price, avg: price } : range));
+}
+
+function lowestRate(buy: number, price: number) {
+    return (price - 1) / buy;
+}
+function highestRate(buy: number, price: number) {
+    return price / buy;
+}
+
+function* calculateFluctuatingDec(buy: number, data: FlatData, offset: number, length: 2 | 3) {
+    let prices = data.slice(offset, offset + length);
+    let ranges: Range[] = [];
+    let minRates = [0.6];
+    let maxRates = [0.8];
+    let recalculate = false;
+    for (let i = 0; i < length; i++) {
+        let price = prices[i]
+        if (price) {
+            let minRate = lowestRate(buy, price);
+            let maxRate = highestRate(buy, price);
+            if (maxRate < minRates[i] || minRate > maxRates[i]) {
+                return;  // impossible pattern
+            }
+            ranges.push({ min: price, max: price, avg: price });
+            minRates[i] = minRate;
+            maxRates[i] = maxRate;
+            recalculate = true;  // need to ensure previous values make sense
+        } else {
+            ranges.push(makeRange(minRates[i], maxRates[i], buy));
+        }
+        minRates.push(minRates[i] - 0.1);
+        maxRates.push(maxRates[i] - 0.04);
+    }
+    if (recalculate) {
+        // make sure previous values make sense
+        for (let i = length - 2; i >= 0; i--) {
+            if (minRates[i] < minRates[i + 1]) {
+                minRates[i] = minRates[i + 1] + 0.04;  // increment it the smallest amount to be valid
+                ranges[i].min = Math.ceil(minRates[i] * buy);
+                ranges[i].avg = (minRates[i] + maxRates[i]) / 2 * buy;
+            }
+        }
+    }
+    yield ranges;
+}
+
+function* calculateOneFluctuating(categoryChance: number, buy: number, data: FlatData) {
+    // generator abuse!!!!
+    const chance = categoryChance / (
+        7 // hi1 and hi23
+        * 2 // dec1 and dec2
+    )
+    for (let hi1 = 0; hi1 <= 6; hi1++) {
+        const hi23 = 7 - hi1;
+        for (let phase1 of calculateFluctuatingHigh(buy, data, 1, hi1)) {
+            for (let _dec1 of [2, 3]) {
+                const dec1 = _dec1 as (2 | 3);
+                const dec2 = 5 - dec1 as (2 | 3);
+                for (let phase2 of calculateFluctuatingDec(buy, data, 1 + hi1, dec1)) {
+                    for (let hi3 = 0; hi3 < hi23; hi3++) {
+                        for (let phase3 of calculateFluctuatingHigh(buy, data, 1 + hi1 + dec1, hi23 - hi3)) {
+                            for (let phase4 of calculateFluctuatingDec(buy, data, 8 + dec1 - hi3, dec2)) {
+                                for (let phase5 of calculateFluctuatingHigh(buy, data, 13 - hi3, hi3)) {
+                                    yield {
+                                        pattern: Pattern.FLUCTUATING,
+                                        chance: chance / hi23,
+                                        hours: [...phase1, ...phase2, ...phase3, ...phase4, ...phase5]
+                                    };
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+function calculateFluctuating(categoryChance: number, data: FlatData) {
+    if (data[0] !== null) {
+        return [...calculateOneFluctuating(categoryChance, data[0], data)];
+    }
+    return range(90, 111).map(i => [...calculateOneFluctuating(categoryChance / 20, i, data)]).flat();
+}
+
+function calculateOneLargeSpike(categoryChance: number, data: FlatData) {
     //
     return [];
 }
 
-function calculateOneLargeSpike(categoryChance: number, data: UserTurnipsData) {
+function calculateLargeSpike(categoryChance: number, data: FlatData) {
     //
     return [];
 }
 
-function calculateLargeSpike(categoryChance: number, data: UserTurnipsData) {
+function calculateOneDecreasing(categoryChance: number, data: FlatData) {
     //
     return [];
 }
 
-function calculateOneDecreasing(categoryChance: number, data: UserTurnipsData) {
+function calculateDecreasing(categoryChance: number, data: FlatData) {
     //
     return [];
 }
 
-function calculateDecreasing(categoryChance: number, data: UserTurnipsData) {
+function calculateOneSmallSpike(categoryChance: number, data: FlatData) {
     //
     return [];
 }
 
-function calculateOneSmallSpike(categoryChance: number, data: UserTurnipsData) {
+function calculateSmallSpike(categoryChance: number, data: FlatData) {
     //
     return [];
 }
 
-function calculateSmallSpike(categoryChance: number, data: UserTurnipsData) {
-    //
-    return [];
-}
-
-function flattenData(data: UserTurnipsData): (number | null)[] {
+function flattenData(data: UserTurnipsData): FlatData {
     return [
         data.buy,
         data.mon.am,
@@ -181,15 +280,19 @@ export function dataMakesSense(data: UserTurnipsData): boolean {
 }
 
 export function calculate(data: UserTurnipsData): TurnipsResult[] {
+    if (!dataMakesSense(data)) {
+        return [];
+    }
     let chanceFluctuating = CHANCE_FLUCTUATING[data.previousPattern];
     let chanceLargeSpike = CHANCE_FLUCTUATING[data.previousPattern];
     let chanceDecreasing = CHANCE_FLUCTUATING[data.previousPattern];
     let chanceSmallSpike = CHANCE_FLUCTUATING[data.previousPattern];
+    let flatData = flattenData(data);
     let result = [
-        ...calculateFluctuating(chanceFluctuating, data),
-        ...calculateLargeSpike(chanceLargeSpike, data),
-        ...calculateDecreasing(chanceDecreasing, data),
-        ...calculateSmallSpike(chanceSmallSpike, data),
+        ...calculateFluctuating(chanceFluctuating, flatData),
+        ...calculateLargeSpike(chanceLargeSpike, flatData),
+        ...calculateDecreasing(chanceDecreasing, flatData),
+        ...calculateSmallSpike(chanceSmallSpike, flatData),
     ]
     // result.push(aggregate(result));
     return result;

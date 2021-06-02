@@ -44,19 +44,26 @@ export function booleanOr(data: String | undefined, defaultValue: boolean) {
     }
 }
 
-// export function range(start: number, stop: number | undefined = undefined, step: number = 1): Array<number> {
-//     if (stop === undefined) {
-//         stop = start;
-//         start = 0;
-//     }
-//     return Array(
-//         Math.ceil((stop! - start) / step)
-//     ).fill(start).map((x, y) => x + y * step)
-// }
-
-export function range(stop: number) {
-    return Array.from(Array(stop).keys());
+export function range(start: number, stop: number | undefined = undefined, step: number = 1): Array<number> {
+    if (stop === undefined) {
+        stop = start;
+        start = 0;
+        if (step == 1) {  // benefit from optimisation where I don't use two-arg range
+            return Array.from(Array(stop).keys());
+        }
+    }
+    return Array(
+        Math.ceil((stop! - start) / step)
+    ).fill(start).map((x, y) => x + y * step);
 }
+
+export function all(values: boolean[]) {
+    return values.reduce((res, valid) => (res && valid), true);
+}
+export function any(values: boolean[]) {
+    return values.reduce((res, valid) => (res || valid), false);
+}
+
 export type DeepPartial<T> = {
     [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
 };

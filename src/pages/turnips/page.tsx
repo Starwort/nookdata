@@ -1,11 +1,13 @@
-import { Button, Card, CardContent, CardHeader, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select, TextField, useMediaQuery, useTheme } from "@material-ui/core";
+import { Button, Card, CardContent, CardHeader, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select, TextField, Typography, useMediaQuery, useTheme } from "@material-ui/core";
+import { Warning } from "@material-ui/icons";
 import deepmerge from "deepmerge";
 import React from "react";
 import { Helmet } from "react-helmet";
 import { useTranslation } from "react-i18next";
 import { Centred } from '../../components';
 import { clone, DeepPartial, getDefault } from "../../misc";
-import { emptyWeek, Pattern, TurnipsResult, UserTurnipsData } from "./data";
+import { Chart } from './components';
+import { calculate, dataMakesSense, emptyWeek, Pattern, TurnipsResult, UserTurnipsData } from "./data";
 
 const weekDays: ('mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat')[] = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 
@@ -14,6 +16,8 @@ export default function Turnips() {
     const [data, setDataImpl] = React.useState(foundData);
     const [confirmOpen, setConfirmOpen] = React.useState(false);
     const [dontAsk, setDontAsk] = React.useState(false);
+    const makesSense = dataMakesSense(data);
+    console.log(calculate(data));
     function confirm() {
         if (dontAsk) {
             window.localStorage.turnipDontConfirm = 'true';
@@ -119,7 +123,32 @@ export default function Turnips() {
                             <Button style={{ height: '100%' }} fullWidth variant="contained" color="primary" onClick={nextWeek}>{t('turnips:ui.start_next')}</Button>
                         </Grid>
                     </Grid>
+                    <br />
+                    <Centred>
+                        <div
+                            style={{
+                                display: 'inline-flex',
+                                justifyContent: 'center',
+                                height: '100%',
+                                color: theme.palette.error.main,
+                                paddingRight: 8
+                            }}
+                        >
+                            <Warning />
+                        </div>
+                        <Typography color="error">{t('turnips:ui.bad_data')}</Typography>
+                    </Centred>
                 </CardContent>
+            </Card>
+            <Card style={{ margin: 16 }}>
+                <Chart data={{
+                    columns: [
+                        ['data1', 30, 20, 50, 40, 60, 50],
+                        ['data2', 200, 130, 90, 240, 130, 220],
+                        ['data3', 300, 200, 160, 400, 250, 250],
+                    ],
+                    type: 'line',
+                }} />
             </Card>
         </div>
         <Dialog open={confirmOpen}>
