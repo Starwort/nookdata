@@ -87,3 +87,20 @@ export function* zip<T extends unknown[]>(...arrays: SoA<T>) {
 export type Filter<T, V> = {
     [P in keyof T]: T[P] extends V ? never : T[P];
 }
+
+export function fsum(input: Array<number>) {
+    // a translation of NeumaierSum
+    // source: https://en.wikipedia.org/wiki/Kahan_summation_algorithm#Further_enhancements
+    let sum = 0;
+    let c = 0;  // A running compensation for lost low-order bits.
+    for (let value of input) {
+        let t = sum + value;
+        if (Math.abs(sum) >= Math.abs(value)) {
+            c += (sum - t) + value;  // If sum is bigger, low-order digits of value are lost
+        } else {
+            c += (value - t) + sum;  // Else low-order digits of sum are lost.
+        }
+        sum = t;
+    }
+    return sum + c;  // Correction only applied once in the very end.
+}
