@@ -1,8 +1,6 @@
 {
     "prices": {
         "title": "Prices this week",
-        "am": "{{day}} morning",
-        "pm": "{{day}} afternoon",
         "buy": "Buy price (Sunday)",
         "first_buy": {
             "checkbox": "First time buying",
@@ -15,7 +13,14 @@
         "large_spike": "Large spike",
         "decreasing": "Decreasing",
         "small_spike": "Small spike",
-        "unknown": "I don't know",
+        "unknown": "I don't know"
+    },
+    "graph": {
+        "buy": "Buy (Sun.)",
+        "fluctuating": "Fluctuating ({{patternChance}}%)",
+        "large_spike": "Large spike ({{patternChance}}%)",
+        "decreasing": "Decreasing ({{patternChance}}%)",
+        "small_spike": "Small spike ({{patternChance}}%)",
         "aggregate": "All trends"
     },
     "ui": {

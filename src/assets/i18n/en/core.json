@@ -86,6 +86,20 @@
                 "short": "Sun.",
                 "long": "Sunday"
             }
+        },
+        "meridian": {
+            "am": {
+                "short": "A.M.",
+                "long": "morning",
+                "short_day": "{{day}} A.M.",
+                "long_day": "{{day}} morning"
+            },
+            "pm": {
+                "short": "P.M.",
+                "long": "afternoon",
+                "short_day": "{{day}} P.M.",
+                "long_day": "{{day}} afternoon"
+            }
         }
     },
     "pages": {

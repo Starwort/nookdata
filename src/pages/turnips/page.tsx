@@ -76,10 +76,10 @@ export default function Turnips() {
                         {weekDays.map((day) => (
                             <>
                                 <Grid item xs={12} sm={6}>
-                                    <TextField type="number" fullWidth value={data[day].am} onChange={(event) => setData({ [day]: { am: event.target.value ? +event.target.value : null } })} label={t('turnips:prices.am', { day: t(`core:time.weekday.${day}.long`) })} />
+                                    <TextField type="number" fullWidth value={data[day].am} onChange={(event) => setData({ [day]: { am: event.target.value ? +event.target.value : null } })} label={t('core:time.meridian.am.long_day', { day: t(`core:time.weekday.${day}.long`) })} />
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
-                                    <TextField type="number" fullWidth value={data[day].pm} onChange={(event) => setData({ [day]: { pm: event.target.value ? +event.target.value : null } })} label={t('turnips:prices.pm', { day: t(`core:time.weekday.${day}.long`) })} />
+                                    <TextField type="number" fullWidth value={data[day].pm} onChange={(event) => setData({ [day]: { pm: event.target.value ? +event.target.value : null } })} label={t('core:time.meridian.pm.long_day', { day: t(`core:time.weekday.${day}.long`) })} />
                                 </Grid>
                             </>
                         ))}
