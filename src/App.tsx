@@ -64,49 +64,47 @@ export function App() {
         serviceWorkerRegistration.register({ onUpdate: _ => setUpdateReady(true), onSuccess: _ => setWorksOffline(true) });
     }, []);
     return <ThemeProvider theme={theme}>
-        <SettingsContextProvider settings={settings}>
-            <CssBaseline />
-            <AppFrame setTheme={setTheme} updateReady={updateReady} worksOffline={worksOffline}>
-                <Suspense fallback={<Loading />}>
-                    <Switch>
-                        <Route path="/critterpedia/:type/:index" render={({ match }) => {
-                            let type = match.params.type;
-                            let index = valueOr(match.params.index, -1);
-                            if (!(type === 'bug' || type === 'fish') || index < 0 || index > 79) {
-                                return <Redirect to="/critterpedia" />;
-                            }
-                            return <TimeContextProvider>
-                                <Critterpedia load={{ type, index }} />
-                            </TimeContextProvider>;
-                        }}>
-                        </Route>
-                        <Route path="/critterpedia" exact>
-                            <TimeContextProvider>
+        <TimeContextProvider>
+            <SettingsContextProvider settings={settings}>
+                <CssBaseline />
+                <AppFrame setTheme={setTheme} updateReady={updateReady} worksOffline={worksOffline}>
+                    <Suspense fallback={<Loading />}>
+                        <Switch>
+                            <Route path="/critterpedia/:type/:index" render={({ match }) => {
+                                let type = match.params.type;
+                                let index = valueOr(match.params.index, -1);
+                                if (!(type === 'bug' || type === 'fish') || index < 0 || index > 79) {
+                                    return <Redirect to="/critterpedia" />;
+                                }
+                                return <Critterpedia load={{ type, index }} />;
+                            }}>
+                            </Route>
+                            <Route path="/critterpedia" exact>
                                 <Critterpedia />
-                            </TimeContextProvider>
-                        </Route>
-                        <Route path="/critterpedia">
-                            <Redirect to="/critterpedia" />
-                        </Route>
-                        <Route path="/turnips">
-                            <Turnips />
-                        </Route>
-                        <Route path="/loading">
-                            <Loading />
-                        </Route>
-                        <Route path="/test">
-                            <Button onClick={() => setUpdateReady(!updateReady)}>
-                                Toggle <code>updateReady</code> (currently <code>{'' + updateReady}</code>)
+                            </Route>
+                            <Route path="/critterpedia">
+                                <Redirect to="/critterpedia" />
+                            </Route>
+                            <Route path="/turnips">
+                                <Turnips />
+                            </Route>
+                            <Route path="/loading">
+                                <Loading />
+                            </Route>
+                            <Route path="/test">
+                                <Button onClick={() => setUpdateReady(!updateReady)}>
+                                    Toggle <code>updateReady</code> (currently <code>{'' + updateReady}</code>)
                             </Button>
-                            <Button onClick={() => setWorksOffline(!worksOffline)}>
-                                Toggle <code>worksOffline</code> (currently <code>{'' + worksOffline}</code>)
+                                <Button onClick={() => setWorksOffline(!worksOffline)}>
+                                    Toggle <code>worksOffline</code> (currently <code>{'' + worksOffline}</code>)
                             </Button>
-                        </Route>
-                    </Switch>
-                </Suspense>
-            </AppFrame>
-            <WorksOfflineDialogue open={worksOfflineDialogueOpen} setOpen={setWorksOfflineDialogueOpen} />
-            <UpdateReadyDialogue open={updateReadyDialogueOpen} setOpen={setUpdateReadyDialogueOpen} />
-        </SettingsContextProvider>
+                            </Route>
+                        </Switch>
+                    </Suspense>
+                </AppFrame>
+                <WorksOfflineDialogue open={worksOfflineDialogueOpen} setOpen={setWorksOfflineDialogueOpen} />
+                <UpdateReadyDialogue open={updateReadyDialogueOpen} setOpen={setUpdateReadyDialogueOpen} />
+            </SettingsContextProvider>
+        </TimeContextProvider>
     </ThemeProvider>;
 }
