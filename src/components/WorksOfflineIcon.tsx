@@ -1,4 +1,5 @@
 import { OfflinePin } from "@material-ui/icons";
+import React from 'react';
 import { useTranslation } from "react-i18next";
 import WithTooltip from "./WithTooltip";
 

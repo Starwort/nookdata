@@ -80,7 +80,7 @@ export default function AppFrame(props: AppFrameProps) {
             <NavigationDrawer open={drawerOpen} setOpen={setDrawerOpen}>
                 <List>
                     {Object.entries(pageData).map(([route, data]) => (
-                        <ListItemLink to={route} icon={data.icon} primary={t(data.title)} />
+                        <ListItemLink key={route} to={route} icon={data.icon} primary={t(data.title)} />
                     ))}
                 </List>
                 <div style={{ flexGrow: 1 }} />

@@ -1,5 +1,5 @@
 import { UserHourData, UserTurnipsData } from '../../data';
-import { all, Filter, range, zip } from "../../misc";
+import { all, Filter, zip } from "../../misc";
 export type { UserHourData, UserTurnipsData };
 
 export enum Pattern {
@@ -196,41 +196,37 @@ function* calculateOneFluctuating(categoryChance: number, buy: number, data: Fla
     }
 }
 
-function calculateFluctuating(categoryChance: number, data: FlatData) {
+function* calculateFluctuating(categoryChance: number, data: FlatData) {
     if (data[0] !== null) {
-        return [...calculateOneFluctuating(categoryChance, data[0], data)];
+        yield* calculateOneFluctuating(categoryChance, data[0], data);
     }
-    return range(90, 111).map(i => [...calculateOneFluctuating(categoryChance / 20, i, data)]).flat();
+    for (let i = 90; i <= 110; i++) {
+        yield* calculateOneFluctuating(categoryChance / 20, i, data);
+    }
 }
 
-function calculateOneLargeSpike(categoryChance: number, data: FlatData) {
+function* calculateOneLargeSpike(categoryChance: number, data: FlatData) {
     //
-    return [];
 }
 
-function calculateLargeSpike(categoryChance: number, data: FlatData) {
+function* calculateLargeSpike(categoryChance: number, data: FlatData) {
     //
-    return [];
 }
 
-function calculateOneDecreasing(categoryChance: number, data: FlatData) {
+function* calculateOneDecreasing(categoryChance: number, data: FlatData) {
     //
-    return [];
 }
 
-function calculateDecreasing(categoryChance: number, data: FlatData) {
+function* calculateDecreasing(categoryChance: number, data: FlatData) {
     //
-    return [];
 }
 
-function calculateOneSmallSpike(categoryChance: number, data: FlatData) {
+function* calculateOneSmallSpike(categoryChance: number, data: FlatData) {
     //
-    return [];
 }
 
-function calculateSmallSpike(categoryChance: number, data: FlatData) {
+function* calculateSmallSpike(categoryChance: number, data: FlatData) {
     //
-    return [];
 }
 
 function flattenData(data: UserTurnipsData): FlatData {
@@ -281,6 +277,33 @@ export function calculate(data: UserTurnipsData): TurnipsResult[] {
     ]
     // result.push(aggregate(result));
     return result;
+}
+
+export function knownPattern(data: UserTurnipsData): Pattern {
+    if (!dataMakesSense(data)) {
+        return Pattern.UNKNOWN;
+    }
+    let chanceFluctuating = CHANCE_FLUCTUATING[data.previousPattern];
+    let chanceLargeSpike = CHANCE_FLUCTUATING[data.previousPattern];
+    let chanceDecreasing = CHANCE_FLUCTUATING[data.previousPattern];
+    let chanceSmallSpike = CHANCE_FLUCTUATING[data.previousPattern];
+    let flatData = flattenData(data);
+    const isFluctuating = !calculateFluctuating(chanceFluctuating, flatData).next().done;
+    const isLargeSpike = !calculateLargeSpike(chanceLargeSpike, flatData).next().done;
+    const isDecreasing = !calculateDecreasing(chanceDecreasing, flatData).next().done;
+    const isSmallSpike = !calculateSmallSpike(chanceSmallSpike, flatData).next().done;
+    switch ([isFluctuating, isLargeSpike, isDecreasing, isSmallSpike]) {
+        case [true, false, false, false]:
+            return Pattern.FLUCTUATING;
+        case [false, true, false, false]:
+            return Pattern.LARGE_SPIKE;
+        case [false, false, true, false]:
+            return Pattern.DECREASING;
+        case [false, false, false, true]:
+            return Pattern.SMALL_SPIKE;
+        default:
+            return Pattern.UNKNOWN;
+    }
 }
 
 export const emptyWeek: UserTurnipsData = {

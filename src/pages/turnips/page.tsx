@@ -1,26 +1,15 @@
 import { Button, Card, CardContent, CardHeader, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select, TextField, Typography, useMediaQuery, useTheme } from "@material-ui/core";
 import { Warning } from "@material-ui/icons";
-// import Chart from 'react-billboardjs';
-import { areaSplineRange } from 'billboard.js';
 import deepmerge from "deepmerge";
-import React from "react";
+import React, { Suspense } from "react";
 import { Helmet } from "react-helmet";
 import { useTranslation } from "react-i18next";
-import { Centred } from '../../components';
-import { clone, DeepPartial, Dict, getDefault } from "../../misc";
-import { Chart } from './components';
-import { calculate, dataMakesSense, emptyWeek, Pattern, patternColours, UserTurnipsData } from "./data";
+import { Centred, Loading } from '../../components';
+import { clone, DeepPartial, getDefault } from "../../misc";
+import { TurnipGraph } from "./components";
+import { dataMakesSense, emptyWeek, knownPattern, Pattern, UserTurnipsData } from "./data";
 
 const weekDays: ('mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat')[] = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
-
-const patternNames = {
-    [Pattern.FLUCTUATING]: "turnips:pattern.fluctuating",
-    [Pattern.LARGE_SPIKE]: "turnips:pattern.large_spike",
-    [Pattern.DECREASING]: "turnips:pattern.decreasing",
-    [Pattern.SMALL_SPIKE]: "turnips:pattern.small_spike",
-    [Pattern.AGGREGATE]: "turnips:pattern.aggregate",
-    [Pattern.UNKNOWN]: "Something went wrong. Sorry.",
-}
 
 export default function Turnips() {
     const foundData = getDefault(window.localStorage.turnips, clone(emptyWeek));
@@ -28,22 +17,6 @@ export default function Turnips() {
     const [confirmOpen, setConfirmOpen] = React.useState(false);
     const [dontAsk, setDontAsk] = React.useState(false);
     const makesSense = dataMakesSense(data);
-    const result = makesSense ? (console.log('calculating'), calculate(data)) : [];
-    console.log(result.length && 'hello');
-    let columns: [string, ...{ high: number, low: number, mid: number }[]][] = [];
-    let colours: Dict<string> = {}
-    let names: Dict<string> = {}
-    let n = 0;
-    for (let pattern of result) {
-        let column: [string, ...{ high: number, low: number, mid: number }[]] = [`data${n}`];
-        for (let hour of pattern.hours) {
-            column.push({ low: hour.min, high: hour.max, mid: hour.avg });
-        }
-        columns.push(column);
-        names[`data${n}`] = patternNames[pattern.pattern];
-        colours[`data${n++}`] = patternColours[pattern.pattern](pattern.chance);
-    }
-    console.log(result);
     function confirm() {
         if (dontAsk) {
             window.localStorage.turnipDontConfirm = 'true';
@@ -65,22 +38,7 @@ export default function Turnips() {
     }
     function reset() {
         let newData = clone(emptyWeek);
-        newData.previousPattern = result.map((result) => result.pattern).reduce((aggregate, next) => {
-            if (aggregate === Pattern.UNKNOWN) {
-                return Pattern.UNKNOWN;
-            }
-            if (aggregate === Pattern.AGGREGATE) {
-                return next;
-            }
-            if (next === Pattern.AGGREGATE) {
-                return aggregate;
-            }
-            if (aggregate !== next) {
-                return Pattern.UNKNOWN;
-            } else {
-                return next;
-            }
-        }, Pattern.UNKNOWN);
+        newData.previousPattern = knownPattern(data);
         setData(newData);
     }
     const { t } = useTranslation(['core', 'turnips']);
@@ -168,24 +126,9 @@ export default function Turnips() {
                     }
                 </CardContent>
             </Card>
-            {!!result.length && <Card style={{ margin: 16 }}>
-                <CardContent>
-                    <Chart
-                        isPure
-                        className={`chart ${theme.name}`}
-                        data={{
-                            columns: columns as any,
-                            colors: colours,
-                            names,
-                            type: areaSplineRange(),
-                        }}
-                        legend={{
-                            // position: 'right',
-                            show: false
-                        }}
-                    />
-                </CardContent>
-            </Card>}
+            <Suspense fallback={<Loading />}>
+                <TurnipGraph data={data} />
+            </Suspense>
         </div>
         <Dialog open={confirmOpen}>
             <DialogTitle>{t('turnips:ui.reset_dialogue.title')}</DialogTitle>

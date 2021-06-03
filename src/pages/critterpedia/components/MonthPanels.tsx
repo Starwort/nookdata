@@ -98,6 +98,7 @@ export default function MonthPanels(props: MonthPanelsProps) {
     return <Grid container>
         {range(12).map(i =>
             <MonthPanel
+                key={i}
                 months={props.months}
                 month={i}
                 active={props.activeMonth == i}
