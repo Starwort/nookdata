@@ -159,7 +159,7 @@ export default function Critterpedia(props: CritterpediaProps) {
                             {
                                 range(5).map(
                                     (y) =>
-                                        <tr>
+                                        <tr key={y}>
                                             {
                                                 range(16).map(
                                                     (x) => {
@@ -214,7 +214,7 @@ export default function Critterpedia(props: CritterpediaProps) {
                             {
                                 range(5).map(
                                     (y) =>
-                                        <tr>
+                                        <tr key={y}>
                                             {
                                                 range(16).map(
                                                     (x) => {

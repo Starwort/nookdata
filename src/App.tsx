@@ -3,7 +3,7 @@ import React, { Suspense } from 'react';
 import { Route, Switch } from 'react-router';
 import { Redirect } from 'react-router-dom';
 import { AppFrame, Loading, UpdateReadyDialogue, WorksOfflineDialogue } from './components';
-import { NDContextProvider } from './context';
+import { SettingsContextProvider, TimeContextProvider } from './context';
 import { updateData } from './data';
 import { valueOr } from './misc';
 import { Critterpedia, Turnips } from './pages';
@@ -13,8 +13,7 @@ import UserSettings from './user_settings';
 
 export function App() {
     updateData();
-    const foundSettings: UserSettings = JSON.parse(window.localStorage.settings);
-    const [settings, setSettingsImpl] = React.useState(foundSettings);
+    const [settings, setSettingsImpl] = React.useState(() => JSON.parse(window.localStorage.settings));
     function setSettings(value: UserSettings) {
         window.localStorage.settings = JSON.stringify(value);
         setSettingsImpl(value);
@@ -61,9 +60,11 @@ export function App() {
         setWorksOfflineImpl(value);
         setWorksOfflineDialogueOpen(value);
     }
-    serviceWorkerRegistration.register({ onUpdate: _ => setUpdateReady(true), onSuccess: _ => setWorksOffline(true) });
+    React.useEffect(() => {
+        serviceWorkerRegistration.register({ onUpdate: _ => setUpdateReady(true), onSuccess: _ => setWorksOffline(true) });
+    }, []);
     return <ThemeProvider theme={theme}>
-        <NDContextProvider settings={settings}>
+        <SettingsContextProvider settings={settings}>
             <CssBaseline />
             <AppFrame setTheme={setTheme} updateReady={updateReady} worksOffline={worksOffline}>
                 <Suspense fallback={<Loading />}>
@@ -74,11 +75,15 @@ export function App() {
                             if (!(type === 'bug' || type === 'fish') || index < 0 || index > 79) {
                                 return <Redirect to="/critterpedia" />;
                             }
-                            return <Critterpedia load={{ type, index }} />;
+                            return <TimeContextProvider>
+                                <Critterpedia load={{ type, index }} />
+                            </TimeContextProvider>;
                         }}>
                         </Route>
                         <Route path="/critterpedia" exact>
-                            <Critterpedia />
+                            <TimeContextProvider>
+                                <Critterpedia />
+                            </TimeContextProvider>
                         </Route>
                         <Route path="/critterpedia">
                             <Redirect to="/critterpedia" />
@@ -90,7 +95,7 @@ export function App() {
                             <Loading />
                         </Route>
                         <Route path="/test">
-                            <Button onClick={() => setUpdateReady(true)}>
+                            <Button onClick={() => setUpdateReady(!updateReady)}>
                                 Toggle <code>updateReady</code> (currently <code>{'' + updateReady}</code>)
                             </Button>
                             <Button onClick={() => setWorksOffline(!worksOffline)}>
@@ -102,6 +107,6 @@ export function App() {
             </AppFrame>
             <WorksOfflineDialogue open={worksOfflineDialogueOpen} setOpen={setWorksOfflineDialogueOpen} />
             <UpdateReadyDialogue open={updateReadyDialogueOpen} setOpen={setUpdateReadyDialogueOpen} />
-        </NDContextProvider>
+        </SettingsContextProvider>
     </ThemeProvider>;
 }

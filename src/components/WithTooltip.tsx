@@ -1,3 +1,4 @@
+import React from 'react';
 interface WithTooltipProps {
     tooltip: string;
     children: React.ReactNode;
