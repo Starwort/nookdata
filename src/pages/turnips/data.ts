@@ -271,7 +271,6 @@ function postProcess(result: TurnipsResult[]) {
     let totalProbability = fsum(result.map(i => i.chance));
     let newResult = result.map(i => ({ ...i, chance: i.chance / totalProbability }));
     let aggregate = newResult.reduce((aggregate: AggregateIntermediateResult[], value: TurnipsResult) => {
-        console.log(aggregate, value);
         let result: AggregateIntermediateResult[] = [];
         for (let [aggregateHour, resultHour] of zip(aggregate, value.hours)) {
             result.push({
