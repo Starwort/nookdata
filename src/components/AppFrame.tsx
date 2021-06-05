@@ -1,5 +1,5 @@
 import { List, ListItem, ListItemIcon, ListItemText, Typography, useMediaQuery, useTheme } from '@material-ui/core';
-import { EmojiNature, Info, Language } from '@material-ui/icons';
+import { EmojiNature, Info, Language, ShowChart } from '@material-ui/icons';
 import DarkModeIcon from '@material-ui/icons/Brightness4';
 import LightModeIcon from '@material-ui/icons/Brightness7';
 import React from 'react';
@@ -19,10 +19,10 @@ export const pageData: Dict<PageData> = {
         title: 'core:pages.critterpedia',
         icon: <EmojiNature />,
     },
-    // '/turnips': {
-    //     title: 'core:pages.turnips',
-    //     icon: <ShowChart />,
-    // },
+    '/turnips': {
+        title: 'core:pages.turnips',
+        icon: <ShowChart />,
+    },
 }
 
 interface AppFrameProps {
@@ -30,6 +30,7 @@ interface AppFrameProps {
     children: React.ReactNode;
     updateReady: boolean;
     worksOffline: boolean;
+    setWorksOffline: (value: boolean) => void;
 }
 let initialRenders = 10;
 export default function AppFrame(props: AppFrameProps) {
@@ -76,6 +77,7 @@ export default function AppFrame(props: AppFrameProps) {
                 }
                 updateReady={props.updateReady}
                 worksOffline={props.worksOffline}
+                setWorksOffline={props.setWorksOffline}
             />
             <NavigationDrawer open={drawerOpen} setOpen={setDrawerOpen}>
                 <List>

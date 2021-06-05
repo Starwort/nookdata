@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 export default function UpdateReadyIcon() {
     const { t } = useTranslation('service');
     const theme = useTheme();
-    return <Tooltip title={t('service:available_update.title') as string} aria-label={t('service:available_update.title')}>
+    return <Tooltip title={t('service:available_update.frame_button') as string} aria-label={t('service:available_update.title')}>
         <IconButton onClick={() => (window.location.replace(window.location.href))}>
             <GetApp style={{ color: theme.palette.success.main }} />
         </IconButton>

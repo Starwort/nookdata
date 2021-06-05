@@ -11,6 +11,7 @@ interface AppBarProps {
     title: React.ReactNode;
     updateReady: boolean;
     worksOffline: boolean;
+    setWorksOffline: (value: boolean) => void;
 }
 
 function AppBar(props: AppBarProps) {
@@ -27,7 +28,7 @@ function AppBar(props: AppBarProps) {
                         {props.title}
                     </div>
                     {props.updateReady && <UpdateReadyIcon />}
-                    {props.worksOffline && <WorksOfflineIcon />}
+                    {props.worksOffline && <WorksOfflineIcon setStatus={props.setWorksOffline} />}
                 </Toolbar>
             </TopAppBar>
             <Toolbar />

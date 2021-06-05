@@ -8,7 +8,6 @@ import ListItemLink from './ListItemLink';
 import Loading from './Loading';
 import NavigationDrawer from './NavigationDrawer';
 import UpdateReadyDialogue from './UpdateReadyDialogue';
-import WithTooltip from './WithTooltip';
 import WorksOfflineDialogue from './WorksOfflineDialogue';
 
 export {
@@ -22,6 +21,5 @@ export {
     Loading,
     NavigationDrawer,
     UpdateReadyDialogue,
-    WithTooltip,
     WorksOfflineDialogue,
 };

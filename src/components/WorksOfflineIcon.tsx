@@ -1,11 +1,13 @@
+import { IconButton, Tooltip } from "@material-ui/core";
 import { OfflinePin } from "@material-ui/icons";
 import React from 'react';
 import { useTranslation } from "react-i18next";
-import WithTooltip from "./WithTooltip";
 
-export default function WorksOfflineIcon() {
+export default function WorksOfflineIcon({ setStatus }: { setStatus: (value: boolean) => void }) {
     const { t } = useTranslation('service');
-    return <WithTooltip tooltip={t('service:available_update.title')}>
-        <OfflinePin />
-    </WithTooltip>;
+    return <Tooltip title={t('service:available_offline.frame_button') as string}>
+        <IconButton onClick={() => setStatus(false)}>
+            <OfflinePin />
+        </IconButton>
+    </Tooltip>;
 }

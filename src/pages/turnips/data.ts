@@ -268,6 +268,9 @@ interface AggregateIntermediateResult {
 }
 
 function postProcess(result: TurnipsResult[]) {
+    if (!result.length) {
+        return result;
+    }
     let totalProbability = fsum(result.map(i => i.chance));
     let newResult = result.map(i => ({ ...i, chance: i.chance / totalProbability }));
     let aggregate = newResult.reduce((aggregate: AggregateIntermediateResult[], value: TurnipsResult) => {
@@ -286,8 +289,8 @@ function postProcess(result: TurnipsResult[]) {
         chance: 1,
         hours: aggregate.map(({ min, max, sum }) => ({ min, max, avg: sum, rawMin: 0, rawMax: 0 })),
     });
-    newResult = newResult.filter(i => i.chance > minChance);
-    return newResult;
+    // newResult = newResult.filter(i => i.chance > minChance);
+    return newResult.sort((a, b) => (b.chance - a.chance));
 }
 
 export function calculate(data: UserTurnipsData): TurnipsResult[] {
@@ -295,9 +298,9 @@ export function calculate(data: UserTurnipsData): TurnipsResult[] {
         return [];
     }
     let chanceFluctuating = CHANCE_FLUCTUATING[data.previousPattern];
-    let chanceLargeSpike = CHANCE_FLUCTUATING[data.previousPattern];
-    let chanceDecreasing = CHANCE_FLUCTUATING[data.previousPattern];
-    let chanceSmallSpike = CHANCE_FLUCTUATING[data.previousPattern];
+    let chanceLargeSpike = CHANCE_LARGE_SPIKE[data.previousPattern];
+    let chanceDecreasing = CHANCE_DECREASING[data.previousPattern];
+    let chanceSmallSpike = CHANCE_SMALL_SPIKE[data.previousPattern];
     let flatData = flattenData(data);
     let result = [
         ...calculateFluctuating(chanceFluctuating, flatData),
