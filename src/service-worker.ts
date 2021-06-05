@@ -189,7 +189,7 @@ precacheAndRoute([
     {url: 'assets/fonts/humming.ttf', revision: '59d14e'},
     {url: 'assets/i18n/en/core.json', revision: '759c68'},
     {url: 'assets/i18n/en/critterpedia.json', revision: '94aaf0'},
-    {url: 'assets/i18n/en/service.json', revision: 'e3f70c'},
+    {url: 'assets/i18n/en/service.json', revision: '2f0f55'},
     {url: 'assets/i18n/en/turnips.json', revision: 'e8caf9'},
     {url: 'assets/i18n/fr/core.json', revision: '4543cd'},
     {url: 'assets/i18n/fr/critterpedia.json', revision: '784a85'},
