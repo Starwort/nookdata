@@ -14,3 +14,7 @@ body {
 .no-transition * {
     transition: none !important;
 }
+
+.MuiTooltip-tooltip {
+    white-space: pre-line;
+}
