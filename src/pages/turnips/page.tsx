@@ -14,6 +14,9 @@ import {
     InputLabel,
     MenuItem,
     Select,
+
+
+
     TextField,
     Tooltip,
     Typography,
@@ -29,7 +32,7 @@ import { useTranslation } from "react-i18next";
 import { Centred } from '../../components';
 import { clone, DeepPartial, Dict, fsum, getDefault, range } from "../../misc";
 import { Chart } from './components';
-import { calculate, dataMakesSense, emptyWeek, knownPattern, Pattern, patternColours, UserTurnipsData } from "./data";
+import { calculate, dataMakesSense, emptyWeek, knownPattern, Pattern, patternColours, TurnipsResult, UserTurnipsData } from "./data";
 
 const patternNames = {
     [Pattern.FLUCTUATING]: "turnips:graph.fluctuating",
@@ -42,62 +45,14 @@ const patternNames = {
 
 const weekDays: ('mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat')[] = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 
-export default function Turnips() {
-    const foundData = getDefault(window.localStorage.turnips, clone(emptyWeek));
-    const [data, setDataImpl] = React.useState(foundData);
-    const [confirmOpen, setConfirmOpen] = React.useState(false);
-    const [dontAsk, setDontAsk] = React.useState(false);
-    let makesSense = dataMakesSense(data);
-    function confirm() {
-        if (dontAsk) {
-            window.localStorage.turnipDontConfirm = 'true';
-        }
-        setConfirmOpen(false);
-        reset();
-    }
-    function setData(newData: DeepPartial<UserTurnipsData>) {
-        let toSet: UserTurnipsData = deepmerge<UserTurnipsData>(data, newData as Partial<UserTurnipsData>);
-        window.localStorage.turnips = JSON.stringify(toSet);
-        setDataImpl(toSet);
-    }
-    function nextWeek() {
-        if (getDefault<boolean>(window.localStorage.turnipDontConfirm, false)) {
-            reset();
-        } else {
-            setConfirmOpen(true);
-        }
-    }
-    function reset() {
-        let newData = clone(emptyWeek);
-        newData.previousPattern = knownPattern(data);
-        setData(newData);
-    }
+function Graph({ result }: { result: TurnipsResult[] }) {
     const { t } = useTranslation(['core', 'turnips']);
     const theme = useTheme();
-    const isXs = !useMediaQuery(theme.breakpoints.up('sm'));
-    const firstBuy = <Grid item xs={12} sm={6}>
-        <Centred>
-            <Tooltip
-                title={t('turnips:prices.first_buy.hover') as string}
-            >
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            checked={data.firstBuy}
-                            onChange={(event) => setData({ firstBuy: event.target.checked })}
-                            color="primary"
-                        />
-                    }
-                    label={t('turnips:prices.first_buy.checkbox')}
-                />
-            </Tooltip>
-        </Centred>
-    </Grid>;
-    const result = React.useMemo(
-        () => dataMakesSense(data) ? calculate(data) : [],
-        [data]
-    );
-    let graph;
+    // const [filterableResult, setFilterableResult] = React.useState(() => result.map(item => ({ ...item, show: true })));
+    // const filteredResult = React.useMemo(
+    //     () => filterableResult.filter(item => item.show).map(({ show, ...item }) => item),
+    //     [filterableResult],
+    // )
     if (result.length) {
         let xValues = [
             t('turnips:graph.buy'),
@@ -120,6 +75,7 @@ export default function Turnips() {
         let names: Dict<string> = {}
         let n = 0;
         for (let pattern of result) {
+            // for (let pattern of filteredResult) {
             let column: [string, ...{ high: number, low: number, mid: string }[]] = [`data${n}`];
             for (let hour of pattern.hours) {
                 column.push({ low: hour.min, high: hour.max, mid: hour.avg.toFixed(2) });
@@ -128,7 +84,7 @@ export default function Turnips() {
             names[`data${n}`] = t(patternNames[pattern.pattern], { patternChance: (pattern.chance * 100).toFixed(2) });
             colours[`data${n++}`] = patternColours[theme.name][pattern.pattern](pattern.chance);
         }
-        graph = <>
+        return <>
             <Card style={{ margin: 16 }}>
                 <CardContent>
                     <Chart
@@ -187,18 +143,89 @@ export default function Turnips() {
                                 <CardContent>
                                     <Centred>
                                         {(fsum(result.filter(result => result.pattern === pattern).map(result => result.chance)) * 100).toFixed(2)}%
-                        </Centred>
+                                    </Centred>
                                 </CardContent>
                             </Card>
                         </Grid>
                     )}
                 </Grid>
             </div>
+            {/* <Card style={{ margin: 16 }}>
+                <CardContent>
+                    <TableContainer>
+                        <Table>
+                            <TableHead>
+                                //
+                            </TableHead>
+                        </Table>
+                    </TableContainer>
+                </CardContent>
+            </Card> */}
         </>;
     } else {
-        graph = null;
+        return null;
+    }
+}
+
+export default function Turnips() {
+    const foundData = getDefault(window.localStorage.turnips, clone(emptyWeek));
+    const [data, setDataImpl] = React.useState(foundData);
+    const [confirmOpen, setConfirmOpen] = React.useState(false);
+    const [dontAsk, setDontAsk] = React.useState(false);
+    let makesSense = dataMakesSense(data);
+    function confirm() {
+        if (dontAsk) {
+            window.localStorage.turnipDontConfirm = 'true';
+        }
+        setConfirmOpen(false);
+        reset();
+    }
+    function setData(newData: DeepPartial<UserTurnipsData>) {
+        let toSet: UserTurnipsData = deepmerge<UserTurnipsData>(data, newData as Partial<UserTurnipsData>);
+        window.localStorage.turnips = JSON.stringify(toSet);
+        setDataImpl(toSet);
+    }
+    function nextWeek() {
+        if (getDefault<boolean>(window.localStorage.turnipDontConfirm, false)) {
+            reset();
+        } else {
+            setConfirmOpen(true);
+        }
+    }
+    function reset() {
+        let newData = clone(emptyWeek);
+        newData.previousPattern = knownPattern(data);
+        setData(newData);
+    }
+    const { t } = useTranslation(['core', 'turnips']);
+    const theme = useTheme();
+    const isXs = !useMediaQuery(theme.breakpoints.up('sm'));
+    const firstBuy = <Grid item xs={12} sm={6}>
+        <Centred>
+            <Tooltip
+                title={t('turnips:prices.first_buy.hover') as string}
+            >
+                <FormControlLabel
+                    control={
+                        <Checkbox
+                            checked={data.firstBuy}
+                            onChange={(event) => setData({ firstBuy: event.target.checked })}
+                            color="primary"
+                        />
+                    }
+                    label={t('turnips:prices.first_buy.checkbox')}
+                />
+            </Tooltip>
+        </Centred>
+    </Grid>;
+    const result = React.useMemo(
+        () => dataMakesSense(data) ? calculate(data) : [],
+        [data]
+    );
+    if (!result.length) {
         makesSense = false;
     }
+    let graph = <Graph result={result} />
     return <>
         <Helmet>
             <title>{t('core:title.browser.page', { pageTitle: t('core:pages.turnips') })}</title>
