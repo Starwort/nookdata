@@ -161,30 +161,38 @@ export default function Turnips() {
                     />
                 </CardContent>
             </Card>
-            <div style={{ display: 'flex', flexDirection: 'row', margin: '0 8px 16px' }}>
-                {[Pattern.SMALL_SPIKE, Pattern.LARGE_SPIKE, Pattern.FLUCTUATING, Pattern.DECREASING].map(pattern =>
-                    <Card
-                        style={{
-                            margin: '0 8px',
-                            backgroundColor: theme.name === 'light' ? patternColours.light[pattern](1) : undefined,
-                            color: theme.name === 'light' ? undefined : patternColours.dark[pattern](1),
-                        }}
-                    >
-                        <CardHeader title={{
-                            [Pattern.SMALL_SPIKE]: t('turnips:pattern.small_spike'),
-                            [Pattern.LARGE_SPIKE]: t('turnips:pattern.large_spike'),
-                            [Pattern.FLUCTUATING]: t('turnips:pattern.fluctuating'),
-                            [Pattern.DECREASING]: t('turnips:pattern.decreasing'),
-                            [Pattern.AGGREGATE]: 'Something went wrong',
-                            [Pattern.UNKNOWN]: 'Something went wrong',
-                        }[pattern]} />
-                        <CardContent>
-                            <Centred>
-                                {(fsum(result.filter(result => result.pattern === pattern).map(result => result.chance)) * 100).toFixed(2)}%
+            <div style={{ margin: '0 16px' }}>
+                <Grid container spacing={2}>
+                    {[Pattern.SMALL_SPIKE, Pattern.LARGE_SPIKE, Pattern.FLUCTUATING, Pattern.DECREASING].map(pattern =>
+                        <Grid item xs={12} sm={6} lg={3}>
+                            <Card
+                                style={{
+                                    backgroundColor: theme.name === 'light' ? patternColours.light[pattern](1) : undefined,
+                                    color: theme.name === 'light' ? undefined : patternColours.dark[pattern](1),
+                                }}
+                            >
+                                <CardHeader
+                                    title={{
+                                        [Pattern.SMALL_SPIKE]: t('turnips:pattern.small_spike'),
+                                        [Pattern.LARGE_SPIKE]: t('turnips:pattern.large_spike'),
+                                        [Pattern.FLUCTUATING]: t('turnips:pattern.fluctuating'),
+                                        [Pattern.DECREASING]: t('turnips:pattern.decreasing'),
+                                        [Pattern.AGGREGATE]: 'Something went wrong',
+                                        [Pattern.UNKNOWN]: 'Something went wrong',
+                                    }[pattern]}
+                                    titleTypographyProps={{
+                                        variant: 'h6',
+                                    }}
+                                />
+                                <CardContent>
+                                    <Centred>
+                                        {(fsum(result.filter(result => result.pattern === pattern).map(result => result.chance)) * 100).toFixed(2)}%
                         </Centred>
-                        </CardContent>
-                    </Card>
-                )}
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                    )}
+                </Grid>
             </div>
         </>;
     } else {
