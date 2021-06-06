@@ -77,6 +77,13 @@ const CHANCE_SMALL_SPIKE: PatternDictionary = {
     [Pattern.AGGREGATE]: 0.25,
 };
 
+function* calculateOneRange(buy: number, price: number | null, minRate: number, maxRate: number) {
+    let range = makeRange(minRate, maxRate, buy);
+    if (!rangeValid(range, price)) {
+        return;
+    }
+    yield price ? { min: price, max: price, avg: price } : range;
+}
 function* calculateFluctuatingPeriod(buy: number, data: FlatData, offset: number, length: number, minRate: number, maxRate: number) {
     let range = makeRange(minRate, maxRate, buy);
     let prices = data.slice(offset, offset + length);
@@ -181,7 +188,30 @@ function* calculateFluctuating(categoryChance: number, data: FlatData) {
 }
 
 function* calculateOneLargeSpike(categoryChance: number, buy: number, data: FlatData) {
-    //
+    for (let peakStart = 1; peakStart <= 7; peakStart++) {
+        for (let phase1 of calculateDecreasingPeriod(buy, data, 1, peakStart, 0.85, 0.9, 0.03, 0.05)) {
+            for (let peak1 of calculateOneRange(buy, data[1 + peakStart], 0.9, 1.4)) {
+                for (let peak2 of calculateOneRange(buy, data[2 + peakStart], 1.4, 2)) {
+                    for (let peak3 of calculateOneRange(buy, data[3 + peakStart], 2, 6)) {
+                        for (let peak4 of calculateOneRange(buy, data[4 + peakStart], 1.4, 2)) {
+                            for (let peak5 of calculateOneRange(buy, data[5 + peakStart], 0.9, 1.4)) {
+                                for (let phase3 of calculateFluctuatingPeriod(buy, data, 6 + peakStart, 7 - peakStart, 0.4, 0.9)) {
+                                    yield {
+                                        pattern: Pattern.LARGE_SPIKE,
+                                        chance: categoryChance / (
+                                            7
+                                            // * (7 - peakStart)
+                                        ),
+                                        hours: [{ min: buy, max: buy, avg: buy }, ...phase1, peak1, peak2, peak3, peak4, peak5, ...phase3]
+                                    };
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 function* calculateLargeSpike(categoryChance: number, data: FlatData) {
@@ -215,7 +245,34 @@ function* calculateDecreasing(categoryChance: number, data: FlatData) {
 }
 
 function* calculateOneSmallSpike(categoryChance: number, buy: number, data: FlatData) {
-    //
+    for (let peakStart = 0; peakStart <= 7; peakStart++) {
+        for (let phase1 of calculateDecreasingPeriod(buy, data, 1, peakStart, 0.4, 0.9, 0.03, 0.05)) {
+            for (let phase2 of calculateFluctuatingPeriod(buy, data, 1 + peakStart, 2, 0.9, 1.4)) {
+                // ok what
+                // I'm just going to let it fluctuate for now
+                for (let peak of calculateFluctuatingPeriod(buy, data, 3 + peakStart, 3, 1.4, 2)) {
+                    const [start, spike, end] = peak;
+                    start.min -= 1;
+                    start.max -= 1;
+                    start.avg -= 1;
+                    end.min -= 1;
+                    end.max -= 1;
+                    end.avg -= 1;
+                    for (let phase3 of calculateDecreasingPeriod(buy, data, 6 + peakStart, 7 - peakStart, 0.4, 0.9, 0.03, 0.05)) {
+                        yield {
+                            pattern: Pattern.SMALL_SPIKE,
+                            chance: categoryChance / (
+                                8 // peakStart
+                                // * 2 // fluctuating period
+                                // * 3 // peak
+                            ),
+                            hours: [{ min: buy, max: buy, avg: buy }, ...phase1, ...phase2, start, spike, end, ...phase3]
+                        };
+                    }
+                }
+            }
+        }
+    }
 }
 
 function* calculateSmallSpike(categoryChance: number, data: FlatData) {
@@ -223,7 +280,7 @@ function* calculateSmallSpike(categoryChance: number, data: FlatData) {
         yield* calculateOneSmallSpike(categoryChance, data[0], data);
     } else {
         for (let i = 90; i <= 110; i++) {
-            yield* calculateOneSmallSpike(categoryChance / 20, i, data);
+            yield* calculateOneSmallSpike(categoryChance / 21, i, data);
         }
     }
 }
