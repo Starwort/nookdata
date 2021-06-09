@@ -11,12 +11,11 @@ export default function LanguageDialogue(props: LanguageDialogueProps) {
     return <Dialog aria-labelledby="lang-dialogue-title" open={props.open} PaperProps={{ style: { width: 250 } }}>
         <DialogTitle style={{ textAlign: 'center' }} id="lang-dialogue-title">{t('core:lang.choose')}</DialogTitle>
         <List>
-            <ListItem style={{ textAlign: 'center' }} button onClick={() => props.setLang('en')}>
-                <ListItemText primary={t('core:lang.en')} />
-            </ListItem>
-            <ListItem style={{ textAlign: 'center' }} button onClick={() => props.setLang('fr')}>
-                <ListItemText primary={t('core:lang.fr')} />
-            </ListItem>
+            {['en', 'fr', 'ja'].map(lang =>
+                <ListItem key={lang} style={{ textAlign: 'center' }} button onClick={() => props.setLang(lang)}>
+                    <ListItemText primary={t(`core:lang.${lang}`)} />
+                </ListItem>
+            )}
         </List>
     </Dialog>;
 }
