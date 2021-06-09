@@ -118,7 +118,8 @@
     "lang": {
         "choose": "Site language",
         "en": "English (English)",
-        "fr": "French (français)"
+        "fr": "French (français)",
+        "ja": "Japanese (日本語)"
     },
     "ui": {
         "dismiss": "Dismiss",
@@ -129,7 +130,8 @@
     "sidebar": {
         "about": "About NookData",
         "lang": "Set Language",
-        "theme": "Toggle Theme"
+        "theme": "Toggle Theme",
+        "support": "Get Support"
     },
     "info": {
         "title": "About",
@@ -138,8 +140,8 @@
             "title": "NookData Contributors",
             "subtitle": "and their contributions",
             "tooltip": "Click to view {{name}}'s commits (opens in a new tab)",
-            "starwort": "Code and overall design",
-            "elolechan": "Bespoke art assets and localisation"
+            "starwort": "Code and overall design, English and Japanese localisations",
+            "elolechan": "Bespoke art assets, French localisation"
         }
     },
     "money": {
