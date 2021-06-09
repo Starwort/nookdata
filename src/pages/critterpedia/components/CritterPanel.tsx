@@ -1,6 +1,5 @@
 import { Card, CardActionArea, Tooltip, useTheme } from "@material-ui/core";
 import { Help, Warning } from "@material-ui/icons";
-import React from "react";
 import { useTranslation } from "react-i18next";
 import { useNDContext } from "../../../context";
 import '../../../prototype_mods';

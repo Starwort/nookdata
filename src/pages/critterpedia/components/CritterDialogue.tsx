@@ -1,6 +1,5 @@
 import { Card, Checkbox, createStyles, Dialog, DialogActions, DialogContent, DialogTitle, Divider, FormControlLabel, Grid, IconButton, makeStyles, Toolbar, Tooltip, useTheme } from "@material-ui/core";
 import { ChevronLeft, ChevronRight, Cloud, WbSunny } from "@material-ui/icons";
-import React from "react";
 import { Helmet } from "react-helmet";
 import { useTranslation } from "react-i18next";
 import { useNDContext } from "../../../context";

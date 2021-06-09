@@ -1,5 +1,4 @@
 import { useTheme } from '@material-ui/core';
-import React from 'react';
 import './Loading.scss';
 export default function Loading() {
     const theme = useTheme();

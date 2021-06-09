@@ -1,6 +1,5 @@
 import { IconButton, Tooltip } from "@material-ui/core";
 import { OfflinePin } from "@material-ui/icons";
-import React from 'react';
 import { useTranslation } from "react-i18next";
 
 export default function WorksOfflineIcon({ setStatus }: { setStatus: (value: boolean) => void }) {
