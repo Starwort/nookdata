@@ -14,9 +14,6 @@ import {
     InputLabel,
     MenuItem,
     Select,
-
-
-
     TextField,
     Tooltip,
     Typography,
@@ -48,11 +45,6 @@ const weekDays: ('mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat')[] = ['mon', 'tue
 function Graph({ result }: { result: TurnipsResult[] }) {
     const { t } = useTranslation(['core', 'turnips']);
     const theme = useTheme();
-    // const [filterableResult, setFilterableResult] = React.useState(() => result.map(item => ({ ...item, show: true })));
-    // const filteredResult = React.useMemo(
-    //     () => filterableResult.filter(item => item.show).map(({ show, ...item }) => item),
-    //     [filterableResult],
-    // )
     if (result.length) {
         let xValues = [
             t('turnips:graph.buy'),
@@ -150,17 +142,6 @@ function Graph({ result }: { result: TurnipsResult[] }) {
                     )}
                 </Grid>
             </div>
-            {/* <Card style={{ margin: 16 }}>
-                <CardContent>
-                    <TableContainer>
-                        <Table>
-                            <TableHead>
-                                //
-                            </TableHead>
-                        </Table>
-                    </TableContainer>
-                </CardContent>
-            </Card> */}
         </>;
     } else {
         return null;
