@@ -118,7 +118,8 @@
     "lang": {
         "choose": "Langue du site",
         "en": "Anglais (English)",
-        "fr": "Français (français)"
+        "fr": "Français (français)",
+        "ja": "Japonais (日本語)"
     },
     "ui": {
         "dismiss": "Fermer",
@@ -138,8 +139,8 @@
             "title": "Contributeurs de NookData",
             "subtitle": "et leurs contributions",
             "tooltip": "Cliquez pour voir les commits de {{name}} (nouvel onglet)",
-            "starwort": "Code et design global",
-            "elolechan": "Assets sur mesure et localisation"
+            "starwort": "Code et design global, localisation anglaise et japonaise",
+            "elolechan": "Assets sur mesure et localisation française"
         }
     },
     "money": {
