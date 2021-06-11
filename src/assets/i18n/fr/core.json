@@ -130,7 +130,8 @@
     "sidebar": {
         "about": "A propos de NookData",
         "lang": "Changer la langue",
-        "theme": "Changer le thème"
+        "theme": "Changer le thème",
+        "support": "Besoin d'aide ?"
     },
     "info": {
         "title": "Plus d'info",
