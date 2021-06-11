@@ -181,7 +181,7 @@
             "flowers": "花に",
             "flowers_white": "白い花に",
             "underground": "地中（可聴、それを見つけるために発掘）",
-            "water": "On ponds and rivers",
+            "water": "池や川に",
             "food": "On spoilt turnips",
             "junk": "On spoilt turnips and fishing junk",
             "heads": "On islanders' heads",
@@ -355,14 +355,14 @@
             "coelacanth": "<big><big>Blast from the past!</big></big><br>I caught a coelacanth! Think positive! Be a coela-CAN!"
         },
         "location": {
-            "river": "In rivers",
-            "river_cliff": "In clifftop rivers",
-            "river_mouth": "In the mouths of rivers",
+            "river": "川中に",
+            "river_cliff": "川に崖の上",
+            "river_mouth": "川の口中に",
             "salmon": "In the mouths of rivers during the first half of September;\nAnywhere in rivers during the second half of September",
-            "pond": "In ponds",
-            "waterfall": "Near waterfalls",
-            "ocean": "In the sea",
-            "pier": "By the pier"
+            "pond": "池中に",
+            "waterfall": "近い滝に",
+            "ocean": "海に中に",
+            "pier": "埠頭でに"
         },
         "size": {
             "one": "一",
