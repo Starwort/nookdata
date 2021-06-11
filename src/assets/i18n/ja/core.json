@@ -1,12 +1,12 @@
 {
     "time": {
         "twelve_hour": {
-            "am": "{{h12}}時:{{m}}分午前",
-            "pm": "{{h12}}時:{{m}}分午後",
+            "am": "{{h12}}時{{m}}分午前",
+            "pm": "{{h12}}時{{m}}分午後",
             "am_short": "{{h12}}時午前",
             "pm_short": "{{h12}}時午後"
         },
-        "twenty_four_hour": "{{pad}}{{h24}}時:{{m}}分",
+        "twenty_four_hour": "{{pad}}{{h24}}時{{m}}分",
         "month": {
             "jan": {
                 "short": "一",
