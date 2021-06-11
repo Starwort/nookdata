@@ -1,10 +1,13 @@
 {
     "available_offline": {
+        "frame_button": "Ready to use offline!\nClick here to dismiss.",
         "title": "NookData is now available offline!",
         "content": "NookData's assets and code have been saved to your device's cache; you can continue to use NookData, even offline!"
     },
     "available_update": {
+        "frame_button": "Update ready!\nClick here to update now.\n\nIf you receive another\n'Update ready' message, you\nshould ensure all other NookData\ntabs are closed.",
         "title": "Update ready",
+        "reload": "Update now",
         "content": "An update has been downloaded; when you're ready to update, close all open NookData tabs before opening a new one to use the new version."
     }
 }

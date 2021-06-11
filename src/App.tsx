@@ -67,7 +67,7 @@ export function App() {
         <TimeContextProvider>
             <SettingsContextProvider settings={settings}>
                 <CssBaseline />
-                <AppFrame setTheme={setTheme} updateReady={updateReady} worksOffline={worksOffline}>
+                <AppFrame setTheme={setTheme} updateReady={updateReady} worksOffline={worksOffline} setWorksOffline={setWorksOffline}>
                     <Suspense fallback={<Loading />}>
                         <Switch>
                             <Route path="/critterpedia/:type/:index" render={({ match }) => {

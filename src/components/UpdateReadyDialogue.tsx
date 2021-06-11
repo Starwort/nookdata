@@ -1,5 +1,4 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 interface UpdateReadyDialogueProps {
     open: boolean;
@@ -14,6 +13,7 @@ export default function UpdateReadyDialogue(props: UpdateReadyDialogueProps) {
             {t('service:available_update.content')}
         </DialogContent>
         <DialogActions>
+            <Button variant="text" onClick={() => (window.location.replace(window.location.href))}>{t('service:available_update.reload')}</Button>
             <Button variant="text" onClick={() => props.setOpen(false)}>{t('core:ui.dismiss')}</Button>
         </DialogActions>
     </Dialog>

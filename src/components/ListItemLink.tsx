@@ -7,16 +7,16 @@ interface ListItemLinkProps {
     primary: string;
     to: string;
     exact?: boolean;
+    onSelect?: () => void;
 }
-export default function ListItemLink(props: ListItemLinkProps) {
-    const { icon, primary, to, exact } = props;
+export default function ListItemLink({ icon, primary, to, exact, onSelect }: ListItemLinkProps) {
     const renderLink = React.useMemo(
         () => React.forwardRef<any, Omit<NavLinkProps, 'to'>>((itemProps, ref) => (
             <NavLink to={to} ref={ref} {...itemProps} activeClassName="Mui-selected" exact={exact} />
         )),
         [to]
     );
-    return <ListItem button component={renderLink}>
+    return <ListItem button component={renderLink} onClick={onSelect}>
         {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
         <ListItemText primary={primary} />
     </ListItem>;

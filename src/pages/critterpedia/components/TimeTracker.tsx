@@ -1,5 +1,4 @@
 import { useTheme } from '@material-ui/core';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNDContext } from '../../../context';
 import { getTextWidth } from '../../../misc';
