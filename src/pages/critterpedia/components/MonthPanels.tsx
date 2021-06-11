@@ -1,5 +1,4 @@
 import { Card, CardContent, Grid, Theme, useMediaQuery, useTheme } from "@material-ui/core";
-import React from "react";
 import { useTranslation } from "react-i18next";
 import { useNDContext } from "../../../context";
 import { range } from "../../../misc";

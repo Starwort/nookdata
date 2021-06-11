@@ -9,7 +9,7 @@ import { root } from './misc';
 
 if (process.env.NODE_ENV !== 'production') {
     const { whyDidYouUpdate } = require('why-did-you-update');
-    // whyDidYouUpdate(React);
+    whyDidYouUpdate(React);
 }
 
 ReactDOM.render(

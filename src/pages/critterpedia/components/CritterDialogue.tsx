@@ -1,6 +1,5 @@
-import { Card, Checkbox, createStyles, Dialog, DialogActions, DialogContent, DialogTitle, Divider, FormControlLabel, Grid, IconButton, makeStyles, Toolbar, useTheme } from "@material-ui/core";
+import { Card, Checkbox, createStyles, Dialog, DialogActions, DialogContent, DialogTitle, Divider, FormControlLabel, Grid, IconButton, makeStyles, Toolbar, Tooltip, useTheme } from "@material-ui/core";
 import { ChevronLeft, ChevronRight, Cloud, WbSunny } from "@material-ui/icons";
-import React from "react";
 import { Helmet } from "react-helmet";
 import { useTranslation } from "react-i18next";
 import { useNDContext } from "../../../context";
@@ -142,28 +141,38 @@ export default function CritterDialogue(props: CritterDialogueProps) {
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <div className="info">
-                                    {props.data.dry && <div
-                                        className="dry"
-                                        title={t('critterpedia:dialogue.details.dry')}
-                                    >
-                                        <WbSunny
-                                            style={{
-                                                color: theme.palette.summer.main
-                                            }}
-                                        />
-                                    </div>}
+                                    {props.data.dry &&
+                                        <Tooltip
+                                            title={t('critterpedia:dialogue.details.dry') as string}
+                                        >
+                                            <div
+                                                className="dry"
+                                            >
+                                                <WbSunny
+                                                    style={{
+                                                        color: theme.palette.summer.main
+                                                    }}
+                                                />
+                                            </div>
+                                        </Tooltip>
+                                    }
                                     <div className="lfound">{t('critterpedia:dialogue.details.found')}</div>
                                     <div className="lsell">{t('critterpedia:dialogue.details.price')}</div>
-                                    {props.data.rain && <div
-                                        className="rain"
-                                        title={t('critterpedia:dialogue.details.rain')}
-                                    >
-                                        <Cloud
-                                            style={{
-                                                color: theme.palette.winter.main
-                                            }}
-                                        />
-                                    </div>}
+                                    {props.data.rain &&
+                                        <Tooltip
+                                            title={t('critterpedia:dialogue.details.rain') as string}
+                                        >
+                                            <div
+                                                className="rain"
+                                            >
+                                                <Cloud
+                                                    style={{
+                                                        color: theme.palette.winter.main
+                                                    }}
+                                                />
+                                            </div>
+                                        </Tooltip>
+                                    }
                                     <div className="found">{getCritterLocation(props.data, props.type, t)}</div>
                                     <div className="sell">{t('core:money.value', { value: props.data.price })}</div>
                                 </div>

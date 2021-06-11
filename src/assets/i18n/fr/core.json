@@ -56,10 +56,55 @@
                 "short": "Dec.",
                 "long": "Décembre"
             }
+        },
+        "weekday": {
+            "mon": {
+                "short": "Lun.",
+                "long": "Lundi"
+            },
+            "tue": {
+                "short": "Mar.",
+                "long": "Mardi"
+            },
+            "wed": {
+                "short": "Mer.",
+                "long": "Mercredi"
+            },
+            "thu": {
+                "short": "Jeu.",
+                "long": "Jeudi"
+            },
+            "fri": {
+                "short": "Ven.",
+                "long": "Vendredi"
+            },
+            "sat": {
+                "short": "Sam.",
+                "long": "Samedi"
+            },
+            "sun": {
+                "short": "Dim.",
+                "long": "Dimanche"
+            }
+        },
+        "meridian": {
+            "am": {
+                "short": "mat.",
+                "long": "matin",
+                "short_day": "{{day}} mat.",
+                "long_day": "{{day}} matin"
+            },
+            "pm": {
+                "short": "aprem",
+                "long": "après-midi",
+                "short_day": "{{day}} aprem",
+                "long_day": "{{day}} après-midi"
+            }
         }
     },
     "pages": {
-        "critterpedia": "Bébêtopédie"
+        "critterpedia": "Bébêtopédie",
+        "turnips": "Prix des navets"
     },
     "title": {
         "a": "Nook",
@@ -73,16 +118,35 @@
     "lang": {
         "choose": "Langue du site",
         "en": "Anglais (English)",
-        "fr": "Français (français)"
+        "fr": "Français (français)",
+        "ja": "Japonais (日本語)"
     },
     "ui": {
-        "dismiss": "Fermer"
+        "dismiss": "Fermer",
+        "cancel": "Annuler",
+        "confirm": "Confirmer",
+        "dont_ask": "Ne plus demander"
+    },
+    "sidebar": {
+        "about": "A propos de NookData",
+        "lang": "Changer la langue",
+        "theme": "Changer le thème"
     },
     "info": {
         "title": "Plus d'info",
-        "description": "Vous utilisez actuellement la révision <1>{{gitRevision}}</1> de NookData."
+        "description": "Vous utilisez actuellement la révision <1>{{gitRevision}}</1> de NookData.",
+        "contrib": {
+            "title": "Contributeurs de NookData",
+            "subtitle": "et leurs contributions",
+            "tooltip": "Cliquez pour voir les commits de {{name}} (nouvel onglet)",
+            "starwort": "Code et design global, localisation anglaise et japonaise",
+            "elolechan": "Assets sur mesure et localisation française"
+        }
     },
     "money": {
         "value": "{{value}} clochettes"
+    },
+    "alt": {
+        "avatar": "Avatar de {{name}}"
     }
 }

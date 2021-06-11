@@ -1,6 +1,5 @@
-import { Card, CardActionArea, useTheme } from "@material-ui/core";
+import { Card, CardActionArea, Tooltip, useTheme } from "@material-ui/core";
 import { Help, Warning } from "@material-ui/icons";
-import React from "react";
 import { useTranslation } from "react-i18next";
 import { useNDContext } from "../../../context";
 import '../../../prototype_mods';
@@ -93,65 +92,66 @@ function CritterPanel(props: CritterPanelProps) {
     ].filter((elem) => !!elem).join('\n');
 
     return <>
-        <Card
-            className="critter-panel"
-            title={title}
-            style={
-                {
-                    backgroundColor: props.modelled
-                        ? palette.modelled.transparent
-                        : (
-                            props.obtained
-                                ? palette.primary.transparent
-                                : (
-                                    activeMonth
-                                        ? undefined
-                                        : palette.error.transparent
-                                )
-                        ),
-                    borderColor: props.modelled
-                        ? palette.modelled.main
-                        : (
-                            activeMonth
-                                ? (
-                                    props.obtained
-                                        ? palette.primary.main
-                                        : undefined
-                                )
-                                : palette.error.main
-                        ),
-                    opacity: match ? 1 : theme.palette.opacity,
+        <Tooltip title={title}>
+            <Card
+                className="critter-panel"
+                style={
+                    {
+                        backgroundColor: props.modelled
+                            ? palette.modelled.transparent
+                            : (
+                                props.obtained
+                                    ? palette.primary.transparent
+                                    : (
+                                        activeMonth
+                                            ? undefined
+                                            : palette.error.transparent
+                                    )
+                            ),
+                        borderColor: props.modelled
+                            ? palette.modelled.main
+                            : (
+                                activeMonth
+                                    ? (
+                                        props.obtained
+                                            ? palette.primary.main
+                                            : undefined
+                                    )
+                                    : palette.error.main
+                            ),
+                        opacity: match ? 1 : theme.palette.opacity,
+                    }
                 }
-            }
-        >
-            <CardActionArea onClick={() => props.setOpenDialogue(props.data.index)}>
-                {
-                    leavingSoon
-                        ? <Warning style={{
-                            color: props.modelled
-                                ? palette.modelled.main
-                                : palette.error.main,
-                        }} />
-                        : <Help style={{
-                            color: props.modelled
-                                ? palette.modelled.main
-                                : (
-                                    activeMonth
-                                        ? (
-                                            props.obtained
-                                                ? palette.primary.main
-                                                : undefined
-                                        )
-                                        : palette.error.main
-                                ),
-                        }} />
-                }
-                <img src={
-                    `assets/${props.type}/${props.data.index.toString().padStart(2, '0')
-                    }.png`
-                } />
-            </CardActionArea>
-        </Card>
+            >
+                <CardActionArea onClick={() => props.setOpenDialogue(props.data.index)}>
+                    {
+                        leavingSoon
+                            ? <Warning style={{
+                                color: props.modelled
+                                    ? palette.modelled.main
+                                    : palette.error.main,
+                            }} />
+                            : <Help style={{
+                                color: props.modelled
+                                    ? palette.modelled.main
+                                    : (
+                                        activeMonth
+                                            ? (
+                                                props.obtained
+                                                    ? palette.primary.main
+                                                    : undefined
+                                            )
+                                            : palette.error.main
+                                    ),
+                            }} />
+                    }
+                    <img src={
+                        `assets/${props.type}/${props.data.index.toString().padStart(2, '0')
+                        }.png`
+                    } />
+                </CardActionArea>
+            </Card>
+        </Tooltip>
         <CritterDialogue {...props} />
     </>;
 }

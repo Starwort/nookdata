@@ -1,0 +1,152 @@
+{
+    "time": {
+        "twelve_hour": {
+            "am": "{{h12}}:{{m}}午前",
+            "pm": "{{h12}}:{{m}}午後",
+            "am_short": "{{h12}}午前",
+            "pm_short": "{{h12}}午後"
+        },
+        "twenty_four_hour": "{{pad}}{{h24}}:{{m}}",
+        "month": {
+            "jan": {
+                "short": "一",
+                "long": "一月"
+            },
+            "feb": {
+                "short": "二",
+                "long": "二月"
+            },
+            "mar": {
+                "short": "三",
+                "long": "三月"
+            },
+            "apr": {
+                "short": "四",
+                "long": "四月"
+            },
+            "may": {
+                "short": "五",
+                "long": "五月"
+            },
+            "jun": {
+                "short": "六",
+                "long": "六月"
+            },
+            "jul": {
+                "short": "七",
+                "long": "七月"
+            },
+            "aug": {
+                "short": "八",
+                "long": "八月"
+            },
+            "sep": {
+                "short": "九",
+                "long": "九月"
+            },
+            "oct": {
+                "short": "十",
+                "long": "十月"
+            },
+            "nov": {
+                "short": "十一",
+                "long": "十一月"
+            },
+            "dec": {
+                "short": "十二",
+                "long": "十二月"
+            }
+        },
+        "weekday": {
+            "mon": {
+                "short": "月曜日",
+                "long": "月曜日"
+            },
+            "tue": {
+                "short": "火曜日",
+                "long": "火曜日"
+            },
+            "wed": {
+                "short": "水曜日",
+                "long": "水曜日"
+            },
+            "thu": {
+                "short": "木曜日",
+                "long": "木曜日"
+            },
+            "fri": {
+                "short": "金曜日",
+                "long": "金曜日"
+            },
+            "sat": {
+                "short": "土曜日",
+                "long": "土曜日"
+            },
+            "sun": {
+                "short": "日曜日",
+                "long": "日曜日"
+            }
+        },
+        "meridian": {
+            "am": {
+                "short": "午前",
+                "long": "午前",
+                "short_day": "{{day}}午前",
+                "long_day": "{{day}}午前"
+            },
+            "pm": {
+                "short": "午後",
+                "long": "午後",
+                "short_day": "{{day}}午後",
+                "long_day": "{{day}}午後"
+            }
+        }
+    },
+    "pages": {
+        "critterpedia": "いきもの図鑑",
+        "turnips": "カブの未来"
+    },
+    "title": {
+        "a": "タヌキ",
+        "b": "心得",
+        "browser": {
+            "generic": "タヌキ心得",
+            "page": "{{pageTitle}}・タヌキ心得",
+            "page_data": "{{pageTitle}}・{{pageData}}・タヌキ心得"
+        }
+    },
+    "lang": {
+        "choose": "ウェブサイトの言語",
+        "en": "英語 (English）",
+        "fr": "フランス語 (français）",
+        "ja": "日本語（日本語）"
+    },
+    "ui": {
+        "dismiss": "閉じる",
+        "cancel": "キャンセル",
+        "confirm": "コンファーム",
+        "dont_ask": "今後表示しない"
+    },
+    "sidebar": {
+        "about": "タヌキ心得について",
+        "lang": "拳固を選択",
+        "theme": "スワップ配色"
+    },
+    "info": {
+        "title": "ついて",
+        "description": "現在、タヌキ心得リビジョン番号<1>{{gitRevision}}</1>を使用しています",
+        "contrib": {
+            "title": "タヌキ心得のコントリビューター",
+            "subtitle": "とそのコントリビューション",
+            "tooltip": "クリックして{{name}}のコミットをコミット",
+            "starwort": "開発も設計、英語訳、日本語訳",
+            "elolechan": "オーダーメイドのアートアセット、フランス語訳"
+        }
+    },
+    "money": {
+        "value": "{{value}}ベル"
+    },
+    "alt": {
+        "avatar": "{{name}}のアバター"
+    }
+}

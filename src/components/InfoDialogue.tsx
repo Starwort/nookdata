@@ -1,4 +1,4 @@
-import { Avatar, Button, Dialog, DialogActions, DialogContent, DialogTitle, List, ListItem, ListItemAvatar, ListItemText, Typography, useTheme } from '@material-ui/core';
+import { Avatar, Button, Dialog, DialogActions, DialogContent, DialogTitle, List, ListItem, ListItemAvatar, ListItemText, Tooltip, Typography, useTheme } from '@material-ui/core';
 import React from 'react';
 import GitInfo from 'react-git-info/macro';
 import { Trans, useTranslation } from 'react-i18next';
@@ -12,21 +12,24 @@ interface ContribInfoProps {
     t: (key: string, props?: Object) => string;
 }
 function ContribInfo({ name, avatarUrl, t }: ContribInfoProps) {
-    return <ListItem
-        style={{
-            padding: "8px 32px"
-        }}
-        button
-        component="a"
-        href={`https://github.com/Starwort/nookdata_v2/commits?author=${name}`}
-        target="_blank"
-        title={t('core:info.contrib.tooltip', { name })}
+    return <Tooltip
+        title={t('core:info.contrib.tooltip', { name }) as string}
     >
-        <ListItemAvatar>
-            <Avatar alt={t('core:alt.avatar', { name })} src={avatarUrl} />
-        </ListItemAvatar>
-        <ListItemText primary={name} secondary={t(`core:info.contrib.${name.toLowerCase()}`)} />
-    </ListItem>;
+        <ListItem
+            style={{
+                padding: "8px 32px"
+            }}
+            button
+            component="a"
+            href={`https://github.com/Starwort/nookdata_v2/commits?author=${name}`}
+            target="_blank"
+        >
+            <ListItemAvatar>
+                <Avatar alt={t('core:alt.avatar', { name })} src={avatarUrl} />
+            </ListItemAvatar>
+            <ListItemText primary={name} secondary={t(`core:info.contrib.${name.toLowerCase()}`)} />
+        </ListItem>
+    </Tooltip>;
 }
 
 interface InfoDialogueProps {
