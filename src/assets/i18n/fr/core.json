@@ -104,7 +104,7 @@
     },
     "pages": {
         "critterpedia": "Bébêtopédie",
-        "turnips": "Prix des navets"
+        "turnips": "Cours du navet"
     },
     "title": {
         "a": "Nook",
@@ -128,20 +128,21 @@
         "dont_ask": "Ne plus demander"
     },
     "sidebar": {
-        "about": "A propos de NookData",
-        "lang": "Changer la langue",
-        "theme": "Changer le thème",
+        "about": "À propos de NookData",
+        "lang": "Langue",
+        "theme": "Thème clair/sombre",
         "support": "Besoin d'aide ?"
     },
     "info": {
-        "title": "Plus d'info",
+        "title": "Plus d'infos",
         "description": "Vous utilisez actuellement la révision <1>{{gitRevision}}</1> de NookData.",
         "contrib": {
             "title": "Contributeurs de NookData",
             "subtitle": "et leurs contributions",
             "tooltip": "Cliquez pour voir les commits de {{name}} (nouvel onglet)",
             "starwort": "Code et design global, localisation anglaise et japonaise",
-            "elolechan": "Assets sur mesure et localisation française"
+            "elolechan": "Assets sur mesure et localisation française",
+            "hevy5125": "Aide pour la localisation japonaise"
         }
     },
     "money": {
