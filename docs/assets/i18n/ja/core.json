@@ -107,12 +107,12 @@
         "turnips": "カブの未来"
     },
     "title": {
-        "a": "タヌキ",
+        "a": "たぬき",
         "b": "心得",
         "browser": {
-            "generic": "タヌキ心得",
-            "page": "{{pageTitle}}・タヌキ心得",
-            "page_data": "{{pageTitle}}・{{pageData}}・タヌキ心得"
+            "generic": "たぬき心得",
+            "page": "{{pageTitle}}・たぬき心得",
+            "page_data": "{{pageTitle}}・{{pageData}}・たぬき心得"
         }
     },
     "lang": {
@@ -128,15 +128,16 @@
         "dont_ask": "今後表示しない"
     },
     "sidebar": {
-        "about": "タヌキ心得について",
+        "about": "たぬき心得について",
         "lang": "拳固を選択",
-        "theme": "スワップ配色"
+        "theme": "スワップ配色",
+        "support": "支持を得ます"
     },
     "info": {
         "title": "ついて",
-        "description": "現在、タヌキ心得リビジョン番号<1>{{gitRevision}}</1>を使用しています",
+        "description": "現在、たぬき心得リビジョン番号<1>{{gitRevision}}</1>を使用しています",
         "contrib": {
-            "title": "タヌキ心得のコントリビューター",
+            "title": "たぬき心得のコントリビューター",
             "subtitle": "とそのコントリビューション",
             "tooltip": "クリックして{{name}}のコミットをコミット",
             "starwort": "開発も設計、英語訳、日本語訳",
