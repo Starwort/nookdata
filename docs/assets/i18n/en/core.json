@@ -142,7 +142,7 @@
             "tooltip": "Click to view {{name}}'s commits (opens in a new tab)",
             "starwort": "Code and overall design, English and Japanese localisations",
             "elolechan": "Bespoke art assets, French localisation",
-            "hevy5125": "Improvements to and completion of Japanese localisation"
+            "hevy5125": "Improvements to Japanese localisation"
         }
     },
     "money": {
@@ -150,5 +150,8 @@
     },
     "alt": {
         "avatar": "{{name}}'s avatar"
+    },
+    "misc": {
+        "code": "en"
     }
 }
