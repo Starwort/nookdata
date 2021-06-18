@@ -1,10 +1,13 @@
 {
     "available_offline": {
-        "title": "NookData est à présent disponible hors-ligne !",
+        "frame_button": "Prêt à être utilisé hors-ligne ! Cliquez ici pour ignorer.",
+        "title": "NookData est disponible hors-ligne !",
         "content": "Les ressources et le code de NookData ont été sauvegardé dans le cache de votre appareil : vous pouvez continuer d'utiliser NookData, même hors-ligne !"
     },
     "available_update": {
-        "title": "Mise à jour prête",
-        "content": "Une mise à jour a été téléchargée ; lorsque vous êtes prêt à mettre à jour, fermez tous les onglets de NookData, et ouvrez-en un nouveau pour utiliser la nouvelle version."
+        "frame_button": "Mise à jour prête !\nCliquez ici pour mettre à jour.\n\nSi vous recevez un autre\n'message disant 'MAJ prête',\nassurez-vous que tout\nles onglets NookData sont fermés.",
+        "title": "MAJ prête",
+        "reload": "Mettre à jour",
+        "content": "Une mise à jour a été téléchargée. Pour utiliser la nouvelle version, fermez tout les onglets NookData avant d'en ouvrir un nouveau."
     }
 }
