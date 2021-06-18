@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, Cloud, WbSunny } from "@material-ui/icons";
 import { Helmet } from "react-helmet";
 import { useTranslation } from "react-i18next";
 import { useNDContext } from "../../../context";
+import { numberFormatters } from "../../../i18n";
 import { getCritterLocation, getCritterName, getCritterQuote } from "../data";
 import { bugs, fish } from '../data.json';
 import './CritterDialogue.scss';
@@ -18,6 +19,17 @@ const useStyles = makeStyles((theme) => createStyles({
     },
 }));
 
+const shadows = [
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "six_fin",
+    "six_narrow",
+];
+
 interface CritterDialogueProps {
     data: (typeof bugs[0]) | (typeof fish[0]);
     type: 'bug' | 'fish';
@@ -30,6 +42,7 @@ interface CritterDialogueProps {
 }
 export default function CritterDialogue(props: CritterDialogueProps) {
     const { t } = useTranslation('critterpedia');
+    const numberFormatter = numberFormatters[t('core:misc.code')];
     const { time, settings } = useNDContext();
     const hours = (
         settings.hemisphere == 'north' ?
@@ -108,7 +121,7 @@ export default function CritterDialogue(props: CritterDialogueProps) {
                     textAlign: 'center'
                 }}
             >
-                {t(`critterpedia:dialogue.type.${props.type}`, { index: props.data.index + 1 })}
+                {t(`critterpedia:dialogue.type.${props.type}`, { index: numberFormatter(props.data.index + 1) })}
                 <br />
                 <Divider style={{ marginTop: 8, marginBottom: 8 }} />
                 <div
@@ -158,6 +171,7 @@ export default function CritterDialogue(props: CritterDialogueProps) {
                                     }
                                     <div className="lfound">{t('critterpedia:dialogue.details.found')}</div>
                                     <div className="lsell">{t('critterpedia:dialogue.details.price')}</div>
+                                    {shadow && <div className="lshadow">{t('critterpedia:dialogue.details.shadow')}</div>}
                                     {props.data.rain &&
                                         <Tooltip
                                             title={t('critterpedia:dialogue.details.rain') as string}
@@ -174,7 +188,8 @@ export default function CritterDialogue(props: CritterDialogueProps) {
                                         </Tooltip>
                                     }
                                     <div className="found">{getCritterLocation(props.data, props.type, t)}</div>
-                                    <div className="sell">{t('core:money.value', { value: props.data.price })}</div>
+                                    <div className="sell">{t('core:money.value', { value: numberFormatter(props.data.price) })}</div>
+                                    {shadow && <div className="shadow">{shadow}</div>}
                                 </div>
                             </Grid>
                         </Grid>

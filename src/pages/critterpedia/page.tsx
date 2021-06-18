@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 import { Trans, useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 import { UserCritterData, UserCritterpediaData } from '../../data';
+import { numberFormatters } from '../../i18n';
 import { range } from '../../misc';
 import CritterPanel from './components/CritterPanel';
 import { bugs, fish } from './data.json';
@@ -15,6 +16,7 @@ interface CritterpediaProps {
 
 export default function Critterpedia(props: CritterpediaProps) {
     const { t } = useTranslation(['core', 'critterpedia']);
+    const numberFormatter = numberFormatters[t('core:misc.code')];
     const theme = useTheme();
     const data: UserCritterpediaData = JSON.parse(window.localStorage.critterpedia);
     const [activeRequired, setActiveRequired] = React.useState<'now' | 'month' | 'until_next' | 'any'>('any');
@@ -139,18 +141,20 @@ export default function Critterpedia(props: CritterpediaProps) {
                         Bugs <span style={{ color: theme.palette.primary.main }}>
                             ({
                                 {
-                                    obtained: bugsData.reduce(
-                                        (total, bug) => total + (+bug.obtained), 0),
+                                    obtained: numberFormatter(bugsData.reduce(
+                                        (total, bug) => total + (+bug.obtained), 0
+                                    )),
                                 }
                             } / 80)
-                    </span> <span style={{ color: theme.palette.modelled.main }}>
+                        </span> <span style={{ color: theme.palette.modelled.main }}>
                             ({
                                 {
-                                    modelled: bugsData.reduce(
-                                        (total, bug) => total + (+bug.modelled), 0),
+                                    modelled: numberFormatter(bugsData.reduce(
+                                        (total, bug) => total + (+bug.modelled), 0
+                                    )),
                                 }
                             } / 80)
-                    </span>
+                        </span>
                     </Trans>
                 } />
                 <CardContent style={{ overflowX: 'auto' }}>
@@ -194,15 +198,17 @@ export default function Critterpedia(props: CritterpediaProps) {
                         Fish <span style={{ color: theme.palette.primary.main }}>
                             ({
                                 {
-                                    obtained: fishData.reduce(
-                                        (total, fish) => total + (+fish.obtained), 0),
+                                    obtained: numberFormatter(fishData.reduce(
+                                        (total, fish) => total + (+fish.obtained), 0
+                                    )),
                                 }
                             } / 80)
                         </span> <span style={{ color: theme.palette.modelled.main }}>
                             ({
                                 {
-                                    modelled: fishData.reduce(
-                                        (total, fish) => total + (+fish.modelled), 0),
+                                    modelled: numberFormatter(fishData.reduce(
+                                        (total, fish) => total + (+fish.modelled), 0
+                                    )),
                                 }
                             } / 80)
                         </span>

@@ -149,5 +149,8 @@
     },
     "alt": {
         "avatar": "{{name}}のアバター"
+    },
+    "misc": {
+        "code": "ja"
     }
 }

@@ -149,5 +149,8 @@
     },
     "alt": {
         "avatar": "Avatar de {{name}}"
+    },
+    "misc": {
+        "code": "fr"
     }
 }

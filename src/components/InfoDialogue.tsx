@@ -1,8 +1,8 @@
 import { Avatar, Button, Dialog, DialogActions, DialogContent, DialogTitle, List, ListItem, ListItemAvatar, ListItemText, Tooltip, Typography, useTheme } from '@material-ui/core';
-import React from 'react';
 import GitInfo from 'react-git-info/macro';
 import { Trans, useTranslation } from 'react-i18next';
 import { Centred } from '.';
+import { numberFormatters } from '../i18n';
 
 const gitInfo = GitInfo();
 
@@ -48,7 +48,7 @@ export default function InfoDialogue(props: InfoDialogueProps) {
             <Trans i18nKey="core:info.description" t={t}>
                 You are currently viewing NookData revision
                 <a href={`https://github.com/Starwort/nookdata_v2/commit/${gitInfo.commit.hash}`} style={{ color: theme.palette.primary.main, textUnderlineOffset: 2 }}>
-                    {{ gitRevision: gitInfo.commit.shortHash }}
+                    {{ gitRevision: numberFormatters[t('core:misc.code')](gitInfo.commit.shortHash) }}
                 </a>.
             </Trans>
             <br />
@@ -63,6 +63,7 @@ export default function InfoDialogue(props: InfoDialogueProps) {
         <List>
             <ContribInfo name="Starwort" avatarUrl={"https://avatars.githubusercontent.com/u/16487249"} t={t} />
             <ContribInfo name="EloLeChan" avatarUrl={"https://avatars.githubusercontent.com/u/83836335"} t={t} />
+            <ContribInfo name="Hevy5125" avatarUrl={"https://avatars.githubusercontent.com/u/85719789"} t={t} />
         </List>
         <DialogActions>
             <Button onClick={() => props.setOpen(false)}>

@@ -428,6 +428,7 @@
         "details": {
             "dry": "Available during dry weather",
             "rain": "Available during rain",
+            "shadow": "Shadow size:",
             "found": "Found:",
             "price": "Sells for:"
         },
