@@ -1,9 +1,27 @@
-@font-face {
-    font-family: "ACNH";
-    font-style: normal;
-    font-weight: 400;
-    src: url(assets/fonts/humming.ttf) format("truetype");
-    font-display: swap;
+// @font-face {
+//     font-family: "ACNH";
+//     font-style: normal;
+//     font-weight: 400;
+//     src: url(assets/fonts/humming.ttf) format("truetype");
+//     font-display: swap;
+// }
+$ranges: (
+    "latin": "U+0000-024F",
+    "greek": "U+0370-03FF",
+    "cyrillic": "U+0400-052F",
+    "cjk": "U+3000-9FEF,U+FE30-FFEF,U+20000-2FFFF",
+    "misc": "U+0250-036F,U+2000-2BFF,U+9FF0-FE2F",
+);
+@each $name, $range in $ranges {
+    @font-face {
+        font-family: "ACNH";
+        font-style: normal;
+        font-weight: 400;
+        src: url(assets/fonts/humming-#{$name}.woff2) format("woff2"),
+            url(assets/fonts/humming-#{$name}.woff) format("woff");
+        unicode-range: unquote($range);
+        font-display: swap;
+    }
 }
 * {
     font-family: "ACNH" !important;
