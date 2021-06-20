@@ -383,14 +383,18 @@ export function knownPattern(data: UserTurnipsData): Pattern {
     const isLargeSpike = !calculateLargeSpike(chanceLargeSpike, flatData).next().done;
     const isDecreasing = !calculateDecreasing(chanceDecreasing, flatData).next().done;
     const isSmallSpike = !calculateSmallSpike(chanceSmallSpike, flatData).next().done;
-    switch ([isFluctuating, isLargeSpike, isDecreasing, isSmallSpike]) {
-        case [true, false, false, false]:
+    const toMatch = [isFluctuating, isLargeSpike, isDecreasing, isSmallSpike];
+    if (toMatch.count(true) != 1) {
+        return Pattern.UNKNOWN
+    }
+    switch (toMatch.indexOf(true)) {
+        case 0:
             return Pattern.FLUCTUATING;
-        case [false, true, false, false]:
+        case 1:
             return Pattern.LARGE_SPIKE;
-        case [false, false, true, false]:
+        case 2:
             return Pattern.DECREASING;
-        case [false, false, false, true]:
+        case 3:
             return Pattern.SMALL_SPIKE;
         default:
             return Pattern.UNKNOWN;

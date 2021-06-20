@@ -7,6 +7,7 @@ declare global {
     interface Array<T> {
         rotated: (by: number) => Array<T>;
         rotate: (by: number) => Array<T>;
+        count: (elem: T) => number;
     }
 }
 String.prototype.capitalise = function () {
@@ -21,6 +22,9 @@ Array.prototype.rotate = function (by: number) {
     while (this.length && by < 0) by += this.length;
     this.push.apply(this, this.splice(0, by));
     return this;
+}
+Array.prototype.count = function (elem) {
+    return this.filter(item => item === elem).length;
 }
 
 declare module "react" {

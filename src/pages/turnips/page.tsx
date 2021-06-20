@@ -42,9 +42,21 @@ const patternNames = {
 
 const weekDays: ('mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat')[] = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 
+function transform(length: number) {
+    return Math.log2(length) + 1;
+}
+
 function Graph({ result }: { result: TurnipsResult[] }) {
     const { t } = useTranslation(['core', 'turnips']);
     const theme = useTheme();
+    const patterns = {
+        [Pattern.FLUCTUATING]: result.filter(result => result.pattern === Pattern.FLUCTUATING),
+        [Pattern.LARGE_SPIKE]: result.filter(result => result.pattern === Pattern.LARGE_SPIKE),
+        [Pattern.DECREASING]: result.filter(result => result.pattern === Pattern.DECREASING),
+        [Pattern.SMALL_SPIKE]: result.filter(result => result.pattern === Pattern.SMALL_SPIKE),
+        [Pattern.AGGREGATE]: [result[0]],
+        [Pattern.UNKNOWN]: [] as TurnipsResult[],
+    }
     if (result.length) {
         let xValues = [
             t('turnips:graph.buy'),
@@ -74,7 +86,7 @@ function Graph({ result }: { result: TurnipsResult[] }) {
             }
             columns.push(column);
             names[`data${n}`] = t(patternNames[pattern.pattern], { patternChance: (pattern.chance * 100).toFixed(2) });
-            colours[`data${n++}`] = patternColours[theme.name][pattern.pattern](pattern.chance);
+            colours[`data${n++}`] = patternColours[theme.name][pattern.pattern](pattern.chance * transform(patterns[pattern.pattern].length));
         }
         return <>
             <Card style={{ margin: 16 }}>
@@ -134,7 +146,7 @@ function Graph({ result }: { result: TurnipsResult[] }) {
                                 />
                                 <CardContent>
                                     <Centred>
-                                        {(fsum(result.filter(result => result.pattern === pattern).map(result => result.chance)) * 100).toFixed(2)}%
+                                        {(fsum(patterns[pattern].map(result => result.chance)) * 100).toFixed(2)}%
                                     </Centred>
                                 </CardContent>
                             </Card>
