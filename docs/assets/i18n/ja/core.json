@@ -91,14 +91,14 @@
             "am": {
                 "short": "午前",
                 "long": "午前",
-                "short_day": "{{day}}午前",
-                "long_day": "{{day}}午前"
+                "short_day": "{{day}}の午前",
+                "long_day": "{{day}}の午前"
             },
             "pm": {
                 "short": "午後",
                 "long": "午後",
-                "short_day": "{{day}}午後",
-                "long_day": "{{day}}午後"
+                "short_day": "{{day}}の午後",
+                "long_day": "{{day}}の午後"
             }
         }
     },
