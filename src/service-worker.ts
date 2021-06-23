@@ -206,7 +206,7 @@ precacheAndRoute([
     {url: 'assets/i18n/fr/critterpedia.json', revision: 'dbf7fe'},
     {url: 'assets/i18n/fr/service.json', revision: '6433f4'},
     {url: 'assets/i18n/fr/turnips.json', revision: '22993e'},
-    {url: 'assets/i18n/ja/core.json', revision: 'acbd0b'},
+    {url: 'assets/i18n/ja/core.json', revision: '7e644c'},
     {url: 'assets/i18n/ja/critterpedia.json', revision: '62fe8e'},
     {url: 'assets/i18n/ja/service.json', revision: '2f0f55'},
     {url: 'assets/i18n/ja/turnips.json', revision: 'e8caf9'},
