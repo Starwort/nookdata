@@ -431,6 +431,7 @@
             "price": "販売価格："
         },
         "obtained": "捕まえた",
-        "modelled": "立像"
+        "modelled": "立像",
+        "stored": "ストレージに"
     }
 }
