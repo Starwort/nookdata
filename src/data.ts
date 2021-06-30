@@ -15,7 +15,7 @@ function _upgrade0() {
         });
     }
     if (!window.localStorage.critterpedia) {
-        let data: UserCritterpediaData = {
+        let data: Versions.ND_0_1_0.UserCritterpediaData = {
             bugs: [],
             fish: [],
         };
@@ -42,6 +42,18 @@ function _upgrade0() {
     _upgrade1();
 }
 function _upgrade1() {
+    let data: Versions.ND_0_2_0.UserCritterpediaData = JSON.parse(window.localStorage.critterpedia); // guaranteed to exist due to _upgrade0
+    for (let i = 0; i < 80; i++) {
+        data.bugs[i].stored = 0;
+        data.fish[i].stored = 0;
+    }
+    window.localStorage.critterpedia = JSON.stringify(data);
+    let settings: Versions.ND_0_2_0.UserSettings = JSON.parse(window.localStorage.settings);
+    settings.dataLastUpdated = (new Date(0)).toISOString(); // always be the oldest data when converting
+    settings.token = ''; // when updating, we don't have a token
+
+}
+function _upgrade2() {
     // latest version at time of writing
 }
 
@@ -126,19 +138,65 @@ namespace Versions {
 
         export const upgrade = _upgrade1;
     }
-}
-export type UserHourData = Versions.ND_0_1_0.UserHourData;
-export type UserTurnipsData = Versions.ND_0_1_0.UserTurnipsData;
-export type UserCritterData = Versions.ND_0_1_0.UserCritterData;
-export type UserCritterpediaData = Versions.ND_0_1_0.UserCritterpediaData;
-export type UserSettings = Versions.ND_0_1_0.UserSettings;
-export function updateData() {
-    if (window.localStorage.dataVersion === VERSION) {
-        return;
+    export namespace ND_0_2_0 {
+        export interface UserHourData {
+            am: number | null;
+            pm: number | null;
+        }
+
+        export interface UserTurnipsData {
+            buy: number | null;
+            mon: UserHourData;
+            tue: UserHourData;
+            wed: UserHourData;
+            thu: UserHourData;
+            fri: UserHourData;
+            sat: UserHourData;
+            previousPattern: Pattern;
+            firstBuy: boolean;
+        }
+
+        export interface UserCritterData {
+            obtained: boolean;
+            modelled: boolean;
+            stored: number;
+        }
+
+        export interface UserCritterpediaData {
+            bugs: UserCritterData[];
+            fish: UserCritterData[];
+        }
+
+        export interface UserSettings {
+            theme: ThemeName;
+            hemisphere: "north" | "south";
+            playerName: string;
+            islandName: string;
+            timeOffset: number;
+            useSystemTime: boolean;
+            useTwelveHourTime: boolean;
+            dataLastUpdated: string;
+            token: string;
+        }
+
+        export const upgrade = _upgrade2;
     }
+}
+export type UserHourData = Versions.ND_0_2_0.UserHourData;
+export type UserTurnipsData = Versions.ND_0_2_0.UserTurnipsData;
+export type UserCritterData = Versions.ND_0_2_0.UserCritterData;
+export type UserCritterpediaData = Versions.ND_0_2_0.UserCritterpediaData;
+export type UserSettings = Versions.ND_0_2_0.UserSettings;
+export function updateData() {
     switch (window.localStorage.dataVersion) {
         case undefined:
             Versions.PreNumber.upgrade();
+            break;
+        case '0.1.0':
+            Versions.ND_0_1_0.upgrade();
+            break;
+        case '0.2.0':
+            Versions.ND_0_2_0.upgrade();
             break;
         default:
             console.log("Please do not mess with your data!");

@@ -9,6 +9,8 @@ const defaultSettings: UserSettings = {
     timeOffset: 0,
     useSystemTime: true,
     useTwelveHourTime: true,
+    dataLastUpdated: '1970-01-01T00:00:00.000Z',
+    token: '',
 };
 const defaultTime = new Date();
 export const SettingsContext = React.createContext<UserSettings>(defaultSettings);

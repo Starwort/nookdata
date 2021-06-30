@@ -1,7 +1,8 @@
-import {Card, Checkbox, createStyles, Dialog, DialogActions, DialogContent, DialogTitle, Divider, FormControlLabel, Grid, IconButton, makeStyles, Toolbar, Tooltip, useTheme} from "@material-ui/core";
+import {Button, Card, Checkbox, createStyles, Dialog, DialogActions, DialogContent, DialogTitle, Divider, FormControlLabel, Grid, IconButton, makeStyles, TextField, Toolbar, Tooltip, useTheme} from "@material-ui/core";
 import {ChevronLeft, ChevronRight, Cloud, WbSunny} from "@material-ui/icons";
 import {Helmet} from "react-helmet";
 import {useTranslation} from "react-i18next";
+import {Centred} from "../../../components";
 import {useNDContext} from "../../../context";
 import {numberFormatters} from "../../../i18n";
 import {getCritterLocation, getCritterName, getCritterQuote} from "../data";
@@ -35,8 +36,10 @@ interface CritterDialogueProps {
     type: 'bug' | 'fish';
     obtained: boolean;
     modelled: boolean;
+    stored: number;
     setObtained: (value: boolean) => void;
     setModelled: (value: boolean) => void;
+    setStored: (value: number) => void;
     open: boolean;
     setOpenDialogue: (value: number | null) => void;
 }
@@ -144,81 +147,101 @@ export default function CritterDialogue(props: CritterDialogueProps) {
                 <TimeTracker
                     hours={hours[time.getMonth()]}
                 />
-                <Card variant="outlined">
-                    <>
-                        <Grid container>
-                            <Grid item xs={12} sm={6}>
-                                <img src={
-                                    `assets/${props.type}/${index}.png`
-                                } />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <div className="info">
-                                    {props.data.dry &&
-                                        <Tooltip
-                                            title={t('critterpedia:dialogue.details.dry') as string}
-                                        >
-                                            <div
-                                                className="dry"
-                                            >
-                                                <WbSunny
-                                                    style={{
-                                                        color: theme.palette.summer.main
-                                                    }}
-                                                />
-                                            </div>
-                                        </Tooltip>
-                                    }
-                                    <div className="lfound">{t('critterpedia:dialogue.details.found')}</div>
-                                    <div className="lsell">{t('critterpedia:dialogue.details.price')}</div>
-                                    {shadow && <div className="lshadow">{t('critterpedia:dialogue.details.shadow')}</div>}
-                                    {props.data.rain &&
-                                        <Tooltip
-                                            title={t('critterpedia:dialogue.details.rain') as string}
-                                        >
-                                            <div
-                                                className="rain"
-                                            >
-                                                <Cloud
-                                                    style={{
-                                                        color: theme.palette.winter.main
-                                                    }}
-                                                />
-                                            </div>
-                                        </Tooltip>
-                                    }
-                                    <div className="found">{getCritterLocation(props.data, props.type, t)}</div>
-                                    <div className="sell">{t('core:money.value', {value: numberFormatter(props.data.price)})}</div>
-                                    {shadow && <div className="shadow">{shadow}</div>}
-                                </div>
-                            </Grid>
+                <Card variant="outlined" style={{marginBottom: 8}}>
+                    <Grid container>
+                        <Grid item xs={12} sm={6}>
+                            <img src={
+                                `assets/${props.type}/${index}.png`
+                            } />
                         </Grid>
-                    </>
+                        <Grid item xs={12} sm={6}>
+                            <div className="info">
+                                {props.data.dry &&
+                                    <Tooltip
+                                        title={t('critterpedia:dialogue.details.dry') as string}
+                                    >
+                                        <div
+                                            className="dry"
+                                        >
+                                            <WbSunny
+                                                style={{
+                                                    color: theme.palette.summer.main
+                                                }}
+                                            />
+                                        </div>
+                                    </Tooltip>
+                                }
+                                <div className="lfound">{t('critterpedia:dialogue.details.found')}</div>
+                                <div className="lsell">{t('critterpedia:dialogue.details.price')}</div>
+                                {shadow && <div className="lshadow">{t('critterpedia:dialogue.details.shadow')}</div>}
+                                {props.data.rain &&
+                                    <Tooltip
+                                        title={t('critterpedia:dialogue.details.rain') as string}
+                                    >
+                                        <div
+                                            className="rain"
+                                        >
+                                            <Cloud
+                                                style={{
+                                                    color: theme.palette.winter.main
+                                                }}
+                                            />
+                                        </div>
+                                    </Tooltip>
+                                }
+                                <div className="found">{getCritterLocation(props.data, props.type, t)}</div>
+                                <div className="sell">{t('core:money.value', {value: numberFormatter(props.data.price)})}</div>
+                                {shadow && <div className="shadow">{shadow}</div>}
+                            </div>
+                        </Grid>
+                    </Grid>
                 </Card>
+                <Grid container>
+                    <Grid item xs={12} sm={4}>
+                        <TextField
+                            value={props.stored.toString()}
+                            onChange={(event) => props.setStored(+event.target.value)}
+                            type="number"
+                            label={t('critterpedia:dialogue.stored')}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <Centred>
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        checked={props.obtained}
+                                        onChange={(event) => props.setObtained(event.target.checked)}
+                                        color="primary"
+                                    />
+                                }
+                                label={t('critterpedia:dialogue.obtained')}
+                            />
+                        </Centred>
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <Centred>
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        className={useStyles(theme).modelled}
+                                        checked={props.modelled}
+                                        disabled={!props.obtained}
+                                        onChange={(event) => props.setModelled(event.target.checked)}
+                                        color="default"
+                                    />
+                                }
+                                label={t('critterpedia:dialogue.modelled')}
+                            />
+                        </Centred>
+                    </Grid>
+                </Grid>
             </DialogContent>
             <DialogActions>
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            checked={props.obtained}
-                            onChange={(event) => props.setObtained(event.target.checked)}
-                            color="primary"
-                        />
-                    }
-                    label={t('critterpedia:dialogue.obtained')}
-                />
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            className={useStyles(theme).modelled}
-                            checked={props.modelled}
-                            disabled={!props.obtained}
-                            onChange={(event) => props.setModelled(event.target.checked)}
-                            color="default"
-                        />
-                    }
-                    label={t('critterpedia:dialogue.modelled')}
-                />
+                <Button
+                    variant="text"
+                    onClick={() => props.setOpenDialogue(null)}
+                >{t('core:ui.dismiss')}</Button>
             </DialogActions>
         </Dialog>
     </>;

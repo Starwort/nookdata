@@ -14,8 +14,10 @@ interface CritterPanelProps {
     type: 'bug' | 'fish';
     obtained: boolean;
     modelled: boolean;
+    stored: number;
     setObtained: (value: boolean) => void;
     setModelled: (value: boolean) => void;
+    setStored: (value: number) => void;
     searchParameters: SearchParameters;
     open: boolean;
     setOpenDialogue: (value: number | null) => void;

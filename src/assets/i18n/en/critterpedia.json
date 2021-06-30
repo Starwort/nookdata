@@ -432,6 +432,7 @@
             "price": "Sells for:"
         },
         "obtained": "Obtained",
-        "modelled": "Modelled"
+        "modelled": "Modelled",
+        "stored": "In storage"
     }
 }
