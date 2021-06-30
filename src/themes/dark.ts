@@ -1,6 +1,6 @@
 import { createMuiTheme } from '@material-ui/core/styles';
+import '../prototype_mods';
 import { commonProps } from './common_theme_data';
-import './prototype_mods';
 
 
 // Dark theme
