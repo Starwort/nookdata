@@ -94,10 +94,10 @@ export function App() {
                             <Route path="/test">
                                 <Button onClick={() => setUpdateReady(!updateReady)}>
                                     Toggle <code>updateReady</code> (currently <code>{'' + updateReady}</code>)
-                            </Button>
+                                </Button>
                                 <Button onClick={() => setWorksOffline(!worksOffline)}>
                                     Toggle <code>worksOffline</code> (currently <code>{'' + worksOffline}</code>)
-                            </Button>
+                                </Button>
                             </Route>
                         </Switch>
                     </Suspense>
