@@ -1,6 +1,6 @@
-import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import {ListItem, ListItemIcon, ListItemText} from '@material-ui/core';
 import React from 'react';
-import { NavLink, NavLinkProps } from 'react-router-dom';
+import {NavLink, NavLinkProps} from 'react-router-dom';
 
 interface ListItemLinkProps {
     icon?: React.ReactNode;
@@ -9,7 +9,7 @@ interface ListItemLinkProps {
     exact?: boolean;
     onSelect?: () => void;
 }
-export default function ListItemLink({ icon, primary, to, exact, onSelect }: ListItemLinkProps) {
+export default function ListItemLink({icon, primary, to, exact, onSelect}: ListItemLinkProps) {
     const renderLink = React.useMemo(
         () => React.forwardRef<any, Omit<NavLinkProps, 'to'>>((itemProps, ref) => (
             <NavLink to={to} ref={ref} {...itemProps} activeClassName="Mui-selected" exact={exact} />

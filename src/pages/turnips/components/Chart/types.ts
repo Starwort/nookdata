@@ -1,7 +1,7 @@
-import { ChartOptions, Data } from 'billboard.js';
+import {ChartOptions, Data} from 'billboard.js';
 type objectOf<V> = {
     [key: string]: V;
-}
+};
 type bool = boolean;
 type func = any;
 type AREA_SHAPE = {

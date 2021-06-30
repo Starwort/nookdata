@@ -7,7 +7,7 @@ light.name = 'light';
 const themes = {
     light,
     dark,
-}
+};
 
 export type ThemeName = keyof typeof themes;
 

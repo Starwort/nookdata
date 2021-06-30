@@ -1,8 +1,8 @@
-import { Typography, useMediaQuery, useTheme } from '@material-ui/core';
+import {Typography, useMediaQuery, useTheme} from '@material-ui/core';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { AppBar, DrawerAdjust, NavigationDrawer } from '.';
-import { ThemeName } from '../themes';
+import {useTranslation} from 'react-i18next';
+import {AppBar, DrawerAdjust, NavigationDrawer} from '.';
+import {ThemeName} from '../themes';
 import InfoDialogue from './InfoDialogue';
 import LanguageDialogue from './LanguageDialogue';
 
@@ -20,7 +20,7 @@ export default function AppFrame(props: AppFrameProps) {
     const startOpen = useMediaQuery(theme.breakpoints.up('lg'));
     const [drawerOpen, setDrawerOpen] = React.useState(false);
     if (initialRenders) {
-        console.log(initialRenders, startOpen)
+        console.log(initialRenders, startOpen);
         if (startOpen && !drawerOpen) {
             initialRenders = 0;
             setDrawerOpen(true);
@@ -28,7 +28,7 @@ export default function AppFrame(props: AppFrameProps) {
             initialRenders--;
         }
     }
-    const { t, i18n } = useTranslation('core');
+    const {t, i18n} = useTranslation('core');
     const [langOpen, setLangOpen] = React.useState(false);
     const [infoOpen, setInfoOpen] = React.useState(false);
     return (

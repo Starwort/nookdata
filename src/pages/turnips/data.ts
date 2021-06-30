@@ -1,7 +1,7 @@
-import { UserHourData, UserTurnipsData } from '../../data';
-import { all, Filter, fsum, range, zip } from "../../misc";
-import { ThemeName } from '../../themes';
-export type { UserHourData, UserTurnipsData };
+import {UserHourData, UserTurnipsData} from '../../data';
+import {all, Filter, fsum, range, zip} from "../../misc";
+import {ThemeName} from '../../themes';
+export type {UserHourData, UserTurnipsData};
 
 export enum Pattern {
     FLUCTUATING,
@@ -32,7 +32,7 @@ function makeRange(min: number, max: number, base: number) {
     let avg = (min + max) / 2 * base + 0.5;  // just trust me, this should be right
     min = Math.ceil(min * base);
     max = Math.ceil(max * base);
-    return { min, max, avg };
+    return {min, max, avg};
 }
 
 function rangeValid(range: Range, value: number | null) {
@@ -82,7 +82,7 @@ function* calculateOneRange(buy: number, price: number | null, minRate: number, 
     if (!rangeValid(range, price)) {
         return;
     }
-    yield price ? { min: price, max: price, avg: price } : range;
+    yield price ? {min: price, max: price, avg: price} : range;
 }
 function* calculateFluctuatingPeriod(buy: number, data: FlatData, offset: number, length: number, minRate: number, maxRate: number) {
     let range = makeRange(minRate, maxRate, buy);
@@ -90,7 +90,7 @@ function* calculateFluctuatingPeriod(buy: number, data: FlatData, offset: number
     if (!all(prices.map((price) => (rangeValid(range, price))))) {
         return;
     }
-    yield prices.map((price) => (price ? { min: price, max: price, avg: price } : range));
+    yield prices.map((price) => (price ? {min: price, max: price, avg: price} : range));
 }
 
 function lowestRate(buy: number, price: number) {
@@ -123,7 +123,7 @@ function* calculateDecreasingPeriod(
             if (maxRate < minRates[i] || minRate > maxRates[i]) {
                 return;  // impossible pattern
             }
-            ranges.push({ min: price, max: price, avg: price });
+            ranges.push({min: price, max: price, avg: price});
             minRates[i] = minRate;
             maxRates[i] = maxRate;
             recalculate = true;  // need to ensure previous values make sense
@@ -151,7 +151,7 @@ function* calculateOneFluctuating(categoryChance: number, buy: number, data: Fla
     const chance = categoryChance / (
         7 // hi1 and hi23
         * 2 // dec1 and dec2
-    )
+    );
     for (let hi1 = 0; hi1 <= 6; hi1++) {
         const hi23 = 7 - hi1;
         for (let phase1 of calculateFluctuatingPeriod(buy, data, 1, hi1, 0.9, 1.4)) {
@@ -165,7 +165,7 @@ function* calculateOneFluctuating(categoryChance: number, buy: number, data: Fla
                                     yield {
                                         pattern: Pattern.FLUCTUATING,
                                         chance: chance / hi23,
-                                        hours: [{ min: buy, max: buy, avg: buy }, ...phase1, ...phase2, ...phase3, ...phase4, ...phase5]
+                                        hours: [{min: buy, max: buy, avg: buy}, ...phase1, ...phase2, ...phase3, ...phase4, ...phase5]
                                     };
                                 }
                             }
@@ -202,7 +202,7 @@ function* calculateOneLargeSpike(categoryChance: number, buy: number, data: Flat
                                             7
                                             // * (7 - peakStart)
                                         ),
-                                        hours: [{ min: buy, max: buy, avg: buy }, ...phase1, peak1, peak2, peak3, peak4, peak5, ...phase3]
+                                        hours: [{min: buy, max: buy, avg: buy}, ...phase1, peak1, peak2, peak3, peak4, peak5, ...phase3]
                                     };
                                 }
                             }
@@ -229,8 +229,8 @@ function* calculateOneDecreasing(categoryChance: number, buy: number, data: Flat
         yield {
             pattern: Pattern.DECREASING,
             chance: categoryChance,
-            hours: [{ rawMin: buy, rawMax: buy, min: buy, max: buy, avg: buy }, ...hours]
-        }
+            hours: [{rawMin: buy, rawMax: buy, min: buy, max: buy, avg: buy}, ...hours]
+        };
     }
 }
 
@@ -266,7 +266,7 @@ function* calculateOneSmallSpike(categoryChance: number, buy: number, data: Flat
                                 // * 2 // fluctuating period
                                 // * 3 // peak
                             ),
-                            hours: [{ min: buy, max: buy, avg: buy }, ...phase1, ...phase2, start, spike, end, ...phase3]
+                            hours: [{min: buy, max: buy, avg: buy}, ...phase1, ...phase2, start, spike, end, ...phase3]
                         };
                     }
                 }
@@ -329,7 +329,7 @@ function postProcess(result: TurnipsResult[]) {
         return result;
     }
     let totalProbability = fsum(result.map(i => i.chance));
-    let newResult = result.map(i => ({ ...i, chance: i.chance / totalProbability }));
+    let newResult = result.map(i => ({...i, chance: i.chance / totalProbability}));
     let aggregate = newResult.reduce((aggregate: AggregateIntermediateResult[], value: TurnipsResult) => {
         let result: AggregateIntermediateResult[] = [];
         for (let [aggregateHour, resultHour] of zip(aggregate, value.hours)) {
@@ -337,14 +337,14 @@ function postProcess(result: TurnipsResult[]) {
                 min: Math.min(aggregateHour.min, resultHour.min),
                 max: Math.max(aggregateHour.max, resultHour.max),
                 sum: aggregateHour.sum + resultHour.avg * value.chance,
-            })
+            });
         }
         return result;
-    }, range(13).map(i => ({ min: Infinity, max: 0, sum: 0 })));
+    }, range(13).map(i => ({min: Infinity, max: 0, sum: 0})));
     newResult.push({
         pattern: Pattern.AGGREGATE,
         chance: 1,
-        hours: aggregate.map(({ min, max, sum }) => ({ min, max, avg: sum, rawMin: 0, rawMax: 0 })),
+        hours: aggregate.map(({min, max, sum}) => ({min, max, avg: sum, rawMin: 0, rawMax: 0})),
     });
     // newResult = newResult.filter(i => i.chance > minChance);
     return newResult.sort((a, b) => (b.chance - a.chance));
@@ -364,7 +364,7 @@ export function calculate(data: UserTurnipsData): TurnipsResult[] {
         ...calculateLargeSpike(chanceLargeSpike, flatData),
         ...calculateDecreasing(chanceDecreasing, flatData),
         ...calculateSmallSpike(chanceSmallSpike, flatData),
-    ]
+    ];
     // result.push(aggregate(result));
     return postProcess(result);
     // return result;
@@ -385,7 +385,7 @@ export function knownPattern(data: UserTurnipsData): Pattern {
     const isSmallSpike = !calculateSmallSpike(chanceSmallSpike, flatData).next().done;
     const toMatch = [isFluctuating, isLargeSpike, isDecreasing, isSmallSpike];
     if (toMatch.count(true) != 1) {
-        return Pattern.UNKNOWN
+        return Pattern.UNKNOWN;
     }
     switch (toMatch.indexOf(true)) {
         case 0:
@@ -403,12 +403,12 @@ export function knownPattern(data: UserTurnipsData): Pattern {
 
 export const emptyWeek: UserTurnipsData = {
     buy: null,
-    mon: { am: null, pm: null },
-    tue: { am: null, pm: null },
-    wed: { am: null, pm: null },
-    thu: { am: null, pm: null },
-    fri: { am: null, pm: null },
-    sat: { am: null, pm: null },
+    mon: {am: null, pm: null},
+    tue: {am: null, pm: null},
+    wed: {am: null, pm: null},
+    thu: {am: null, pm: null},
+    fri: {am: null, pm: null},
+    sat: {am: null, pm: null},
     previousPattern: Pattern.UNKNOWN,
     firstBuy: false,
 };
@@ -424,7 +424,7 @@ export const patternColours: {
         [Pattern.LARGE_SPIKE]: (chance: number) => `rgba(0, 255, 0, ${chance})`,
         [Pattern.DECREASING]: (chance: number) => `rgba(0, 255, 255, ${chance})`,
         [Pattern.SMALL_SPIKE]: (chance: number) => `rgba(127, 0, 255, ${chance})`,
-        [Pattern.UNKNOWN]: (chance: number) => { throw new Error('wtf') },
+        [Pattern.UNKNOWN]: (chance: number) => {throw new Error('wtf');},
     },
     light: {
         [Pattern.AGGREGATE]: (chance: number) => `rgba(0, 0, 0, ${chance})`,
@@ -432,7 +432,7 @@ export const patternColours: {
         [Pattern.LARGE_SPIKE]: (chance: number) => `rgba(0, 255, 0, ${chance})`,
         [Pattern.DECREASING]: (chance: number) => `rgba(0, 255, 255, ${chance})`,
         [Pattern.SMALL_SPIKE]: (chance: number) => `rgba(127, 0, 255, ${chance})`,
-        [Pattern.UNKNOWN]: (chance: number) => { throw new Error('wtf') },
+        [Pattern.UNKNOWN]: (chance: number) => {throw new Error('wtf');},
     },
-}
+};
 

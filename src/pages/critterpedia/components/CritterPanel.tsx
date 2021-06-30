@@ -1,10 +1,10 @@
-import { Card, CardActionArea, Tooltip, useTheme } from "@material-ui/core";
-import { Help, Warning } from "@material-ui/icons";
-import { useTranslation } from "react-i18next";
-import { useNDContext } from "../../../context";
+import {Card, CardActionArea, Tooltip, useTheme} from "@material-ui/core";
+import {Help, Warning} from "@material-ui/icons";
+import {useTranslation} from "react-i18next";
+import {useNDContext} from "../../../context";
 import '../../../prototype_mods';
-import { getCritterLocation, getCritterName } from '../data';
-import { bugs, fish } from '../data.json';
+import {getCritterLocation, getCritterName} from '../data';
+import {bugs, fish} from '../data.json';
 import SearchParameters from "../search_parameters";
 import CritterDialogue from "./CritterDialogue";
 import './CritterPanel.scss';
@@ -21,8 +21,8 @@ interface CritterPanelProps {
     setOpenDialogue: (value: number | null) => void;
 }
 function CritterPanel(props: CritterPanelProps) {
-    const { t } = useTranslation('critterpedia');
-    const { time, settings } = useNDContext();
+    const {t} = useTranslation('critterpedia');
+    const {time, settings} = useNDContext();
     const hours = (
         settings.hemisphere == 'north' ?
             props.data.hours :
@@ -32,7 +32,7 @@ function CritterPanel(props: CritterPanelProps) {
     const activeNow = hours[time.getMonth()][time.getHours()];
     const activeMonth = hours[time.getMonth()].reduce((a, b) => a || b);
     const leavingSoon = activeMonth && !hours[(time.getMonth() + 1) % 12].reduce((a, b) => a || b);
-    const { palette } = useTheme();
+    const {palette} = useTheme();
     const {
         activeRequired,
         location,
@@ -84,7 +84,7 @@ function CritterPanel(props: CritterPanelProps) {
     }
 
     const title = [
-        t(`critterpedia:panel.type.${props.type}`, { name: getCritterName(props.data, props.type, t).capitalise(), index: props.data.index + 1 }),
+        t(`critterpedia:panel.type.${props.type}`, {name: getCritterName(props.data, props.type, t).capitalise(), index: props.data.index + 1}),
         (activeMonth ? (leavingSoon ? t('critterpedia:panel.status.leaving_soon') : '') : t('critterpedia:panel.status.unavailable')),
         (activeNow ? t('critterpedia:panel.status.now') : ''),
         (props.modelled ? t('critterpedia:panel.status.modelled') : ''),

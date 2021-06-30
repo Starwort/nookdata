@@ -1,2 +1,2 @@
-import { UserSettings } from './data';
+import {UserSettings} from './data';
 export default UserSettings;

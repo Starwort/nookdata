@@ -1,6 +1,6 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import {createMuiTheme} from '@material-ui/core/styles';
 import '../prototype_mods';
-import { commonProps } from './common_theme_data';
+import {commonProps} from './common_theme_data';
 
 // Normal or default theme
 const theme = createMuiTheme({
@@ -8,16 +8,16 @@ const theme = createMuiTheme({
         type: 'light',
         opacity: 0.6,
         elevations: {
-            0: { main: '#ffffff' },
-            1: { main: '#ffffff' },
-            2: { main: '#ffffff' },
-            3: { main: '#ffffff' },
-            4: { main: '#ffffff' },
-            6: { main: '#ffffff' },
-            8: { main: '#ffffff' },
-            12: { main: '#ffffff' },
-            16: { main: '#ffffff' },
-            24: { main: '#ffffff' },
+            0: {main: '#ffffff'},
+            1: {main: '#ffffff'},
+            2: {main: '#ffffff'},
+            3: {main: '#ffffff'},
+            4: {main: '#ffffff'},
+            6: {main: '#ffffff'},
+            8: {main: '#ffffff'},
+            12: {main: '#ffffff'},
+            16: {main: '#ffffff'},
+            24: {main: '#ffffff'},
         },
         modelled: {
             main: '#fbc02d',

@@ -1,8 +1,8 @@
-import { Avatar, Button, Dialog, DialogActions, DialogContent, DialogTitle, List, ListItem, ListItemAvatar, ListItemText, Tooltip, Typography, useTheme } from '@material-ui/core';
+import {Avatar, Button, Dialog, DialogActions, DialogContent, DialogTitle, List, ListItem, ListItemAvatar, ListItemText, Tooltip, Typography, useTheme} from '@material-ui/core';
 import GitInfo from 'react-git-info/macro';
-import { Trans, useTranslation } from 'react-i18next';
-import { Centred } from '.';
-import { numberFormatters } from '../i18n';
+import {Trans, useTranslation} from 'react-i18next';
+import {Centred} from '.';
+import {numberFormatters} from '../i18n';
 
 const gitInfo = GitInfo();
 
@@ -11,9 +11,9 @@ interface ContribInfoProps {
     avatarUrl: string;
     t: (key: string, props?: Object) => string;
 }
-function ContribInfo({ name, avatarUrl, t }: ContribInfoProps) {
+function ContribInfo({name, avatarUrl, t}: ContribInfoProps) {
     return <Tooltip
-        title={t('core:info.contrib.tooltip', { name }) as string}
+        title={t('core:info.contrib.tooltip', {name}) as string}
     >
         <ListItem
             style={{
@@ -25,7 +25,7 @@ function ContribInfo({ name, avatarUrl, t }: ContribInfoProps) {
             target="_blank"
         >
             <ListItemAvatar>
-                <Avatar alt={t('core:alt.avatar', { name })} src={avatarUrl} />
+                <Avatar alt={t('core:alt.avatar', {name})} src={avatarUrl} />
             </ListItemAvatar>
             <ListItemText primary={name} secondary={t(`core:info.contrib.${name.toLowerCase()}`)} />
         </ListItem>
@@ -38,7 +38,7 @@ interface InfoDialogueProps {
 }
 
 export default function InfoDialogue(props: InfoDialogueProps) {
-    const { t } = useTranslation('core');
+    const {t} = useTranslation('core');
     const theme = useTheme();
     return <Dialog open={props.open} onClose={() => props.setOpen(false)}>
         <DialogTitle>
@@ -47,8 +47,8 @@ export default function InfoDialogue(props: InfoDialogueProps) {
         <DialogContent>
             <Trans i18nKey="core:info.description" t={t}>
                 You are currently viewing NookData revision
-                <a href={`https://github.com/Starwort/nookdata_v2/commit/${gitInfo.commit.hash}`} style={{ color: theme.palette.primary.main, textUnderlineOffset: 2 }}>
-                    {{ gitRevision: numberFormatters[t('core:misc.code')](gitInfo.commit.shortHash) }}
+                <a href={`https://github.com/Starwort/nookdata_v2/commit/${gitInfo.commit.hash}`} style={{color: theme.palette.primary.main, textUnderlineOffset: 2}}>
+                    {{gitRevision: numberFormatters[t('core:misc.code')](gitInfo.commit.shortHash)}}
                 </a>.
             </Trans>
             <br />
@@ -70,5 +70,5 @@ export default function InfoDialogue(props: InfoDialogueProps) {
                 {t('core:ui.dismiss')}
             </Button>
         </DialogActions>
-    </Dialog>
+    </Dialog>;
 }

@@ -1,8 +1,8 @@
 import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import Backend from 'i18next-http-backend';
-import { initReactI18next } from 'react-i18next';
-import { Dict } from './misc';
+import {initReactI18next} from 'react-i18next';
+import {Dict} from './misc';
 
 export const availableLocalisations = ['en', 'fr', 'ja'];
 
@@ -28,13 +28,13 @@ export const numberFormatters: Dict<(value: number | string) => string> = {
     'en': (value) => value.toString(),
     'fr': (value) => value.toString(),
     'ja': (value) => value.toString().replace(/[012456789abcdef]/g, (m) => jaCharMap[m]),
-}
+};
 
 i18n.use(Backend)
     .use(LanguageDetector)
     .use(initReactI18next)
     .init({
-        backend: { loadPath: '/nookdata_v2/assets/i18n/{{lng}}/{{ns}}.json' },
+        backend: {loadPath: '/nookdata_v2/assets/i18n/{{lng}}/{{ns}}.json'},
         fallbackLng: 'en',
         debug: process.env.NODE_ENV == 'development',
 

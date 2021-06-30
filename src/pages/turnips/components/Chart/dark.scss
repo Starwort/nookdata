@@ -1,8 +1,9 @@
 .chart.dark.bb {
-        & text {
+    & text {
         fill: rgba(255, 255, 255, 0.87);
     }
-    & line, & path {
+    & line,
+    & path {
         stroke: rgba(255, 255, 255, 0.87);
     }
     & .bb-tooltip {

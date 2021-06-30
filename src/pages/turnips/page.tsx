@@ -20,16 +20,16 @@ import {
     useMediaQuery,
     useTheme
 } from "@material-ui/core";
-import { Warning } from "@material-ui/icons";
-import { areaSplineRange } from 'billboard.js';
+import {Warning} from "@material-ui/icons";
+import {areaSplineRange} from 'billboard.js';
 import deepmerge from "deepmerge";
 import React from "react";
-import { Helmet } from "react-helmet";
-import { useTranslation } from "react-i18next";
-import { Centred } from '../../components';
-import { clone, DeepPartial, Dict, fsum, getDefault, range } from "../../misc";
-import { Chart } from './components';
-import { calculate, dataMakesSense, emptyWeek, knownPattern, Pattern, patternColours, TurnipsResult, UserTurnipsData } from "./data";
+import {Helmet} from "react-helmet";
+import {useTranslation} from "react-i18next";
+import {Centred} from '../../components';
+import {clone, DeepPartial, Dict, fsum, getDefault, range} from "../../misc";
+import {Chart} from './components';
+import {calculate, dataMakesSense, emptyWeek, knownPattern, Pattern, patternColours, TurnipsResult, UserTurnipsData} from "./data";
 
 const patternNames = {
     [Pattern.FLUCTUATING]: "turnips:graph.fluctuating",
@@ -38,7 +38,7 @@ const patternNames = {
     [Pattern.SMALL_SPIKE]: "turnips:graph.small_spike",
     [Pattern.AGGREGATE]: "turnips:graph.aggregate",
     [Pattern.UNKNOWN]: "Something went wrong. Sorry.",
-}
+};
 
 const weekDays: ('mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat')[] = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 
@@ -46,8 +46,8 @@ function transform(length: number) {
     return Math.log2(length) + 1;
 }
 
-function Graph({ result }: { result: TurnipsResult[] }) {
-    const { t } = useTranslation(['core', 'turnips']);
+function Graph({result}: {result: TurnipsResult[];}) {
+    const {t} = useTranslation(['core', 'turnips']);
     const theme = useTheme();
     const patterns = {
         [Pattern.FLUCTUATING]: result.filter(result => result.pattern === Pattern.FLUCTUATING),
@@ -56,40 +56,40 @@ function Graph({ result }: { result: TurnipsResult[] }) {
         [Pattern.SMALL_SPIKE]: result.filter(result => result.pattern === Pattern.SMALL_SPIKE),
         [Pattern.AGGREGATE]: [result[0]],
         [Pattern.UNKNOWN]: [] as TurnipsResult[],
-    }
+    };
     if (result.length) {
         let xValues = [
             t('turnips:graph.buy'),
-            t('core:time.meridian.am.short_day', { day: t(`core:time.weekday.mon.short`) }),
-            t('core:time.meridian.pm.short_day', { day: t(`core:time.weekday.mon.short`) }),
-            t('core:time.meridian.am.short_day', { day: t(`core:time.weekday.tue.short`) }),
-            t('core:time.meridian.pm.short_day', { day: t(`core:time.weekday.tue.short`) }),
-            t('core:time.meridian.am.short_day', { day: t(`core:time.weekday.wed.short`) }),
-            t('core:time.meridian.pm.short_day', { day: t(`core:time.weekday.wed.short`) }),
-            t('core:time.meridian.am.short_day', { day: t(`core:time.weekday.thu.short`) }),
-            t('core:time.meridian.pm.short_day', { day: t(`core:time.weekday.thu.short`) }),
-            t('core:time.meridian.am.short_day', { day: t(`core:time.weekday.fri.short`) }),
-            t('core:time.meridian.pm.short_day', { day: t(`core:time.weekday.fri.short`) }),
-            t('core:time.meridian.am.short_day', { day: t(`core:time.weekday.sat.short`) }),
-            t('core:time.meridian.pm.short_day', { day: t(`core:time.weekday.sat.short`) }),
+            t('core:time.meridian.am.short_day', {day: t(`core:time.weekday.mon.short`)}),
+            t('core:time.meridian.pm.short_day', {day: t(`core:time.weekday.mon.short`)}),
+            t('core:time.meridian.am.short_day', {day: t(`core:time.weekday.tue.short`)}),
+            t('core:time.meridian.pm.short_day', {day: t(`core:time.weekday.tue.short`)}),
+            t('core:time.meridian.am.short_day', {day: t(`core:time.weekday.wed.short`)}),
+            t('core:time.meridian.pm.short_day', {day: t(`core:time.weekday.wed.short`)}),
+            t('core:time.meridian.am.short_day', {day: t(`core:time.weekday.thu.short`)}),
+            t('core:time.meridian.pm.short_day', {day: t(`core:time.weekday.thu.short`)}),
+            t('core:time.meridian.am.short_day', {day: t(`core:time.weekday.fri.short`)}),
+            t('core:time.meridian.pm.short_day', {day: t(`core:time.weekday.fri.short`)}),
+            t('core:time.meridian.am.short_day', {day: t(`core:time.weekday.sat.short`)}),
+            t('core:time.meridian.pm.short_day', {day: t(`core:time.weekday.sat.short`)}),
         ];
-        let columns: [string, ...{ high: number, low: number, mid: string }[]][] = [
+        let columns: [string, ...{high: number, low: number, mid: string;}[]][] = [
         ];
-        let colours: Dict<string> = {}
-        let names: Dict<string> = {}
+        let colours: Dict<string> = {};
+        let names: Dict<string> = {};
         let n = 0;
         for (let pattern of result) {
             // for (let pattern of filteredResult) {
-            let column: [string, ...{ high: number, low: number, mid: string }[]] = [`data${n}`];
+            let column: [string, ...{high: number, low: number, mid: string;}[]] = [`data${n}`];
             for (let hour of pattern.hours) {
-                column.push({ low: hour.min, high: hour.max, mid: hour.avg.toFixed(2) });
+                column.push({low: hour.min, high: hour.max, mid: hour.avg.toFixed(2)});
             }
             columns.push(column);
-            names[`data${n}`] = t(patternNames[pattern.pattern], { patternChance: (pattern.chance * 100).toFixed(2) });
+            names[`data${n}`] = t(patternNames[pattern.pattern], {patternChance: (pattern.chance * 100).toFixed(2)});
             colours[`data${n++}`] = patternColours[theme.name][pattern.pattern](pattern.chance * transform(patterns[pattern.pattern].length));
         }
         return <>
-            <Card style={{ margin: 16 }}>
+            <Card style={{margin: 16}}>
                 <CardContent>
                     <Chart
                         key={theme.name}  // this is very hacky but if I don't do it switching theme completely breaks the graph
@@ -121,7 +121,7 @@ function Graph({ result }: { result: TurnipsResult[] }) {
                     />
                 </CardContent>
             </Card>
-            <div style={{ margin: '0 16px' }}>
+            <div style={{margin: '0 16px'}}>
                 <Grid container spacing={2}>
                     {[Pattern.SMALL_SPIKE, Pattern.LARGE_SPIKE, Pattern.FLUCTUATING, Pattern.DECREASING].map(pattern =>
                         <Grid item xs={12} sm={6} lg={3}>
@@ -190,7 +190,7 @@ export default function Turnips() {
         newData.previousPattern = knownPattern(data);
         setData(newData);
     }
-    const { t } = useTranslation(['core', 'turnips']);
+    const {t} = useTranslation(['core', 'turnips']);
     const theme = useTheme();
     const isXs = !useMediaQuery(theme.breakpoints.up('sm'));
     const firstBuy = <Grid item xs={12} sm={6}>
@@ -202,7 +202,7 @@ export default function Turnips() {
                     control={
                         <Checkbox
                             checked={data.firstBuy}
-                            onChange={(event) => setData({ firstBuy: event.target.checked })}
+                            onChange={(event) => setData({firstBuy: event.target.checked})}
                             color="primary"
                         />
                     }
@@ -218,28 +218,28 @@ export default function Turnips() {
     if (!result.length) {
         makesSense = false;
     }
-    let graph = <Graph result={result} />
+    let graph = <Graph result={result} />;
     return <>
         <Helmet>
-            <title>{t('core:title.browser.page', { pageTitle: t('core:pages.turnips') })}</title>
+            <title>{t('core:title.browser.page', {pageTitle: t('core:pages.turnips')})}</title>
         </Helmet>
-        <div style={{ maxWidth: 800, margin: 'auto' }}>
-            <Card style={{ margin: 16 }}>
+        <div style={{maxWidth: 800, margin: 'auto'}}>
+            <Card style={{margin: 16}}>
                 <CardHeader title={t('turnips:prices.title')} />
                 <CardContent>
                     <Grid container spacing={1}>
                         {isXs && firstBuy}
                         <Grid item xs={12} sm={6}>
-                            <TextField type="number" fullWidth value={data.buy ?? ''} onChange={(event) => setData({ buy: event.target.value ? +event.target.value : null })} label={t('turnips:prices.buy')} />
+                            <TextField type="number" fullWidth value={data.buy ?? ''} onChange={(event) => setData({buy: event.target.value ? +event.target.value : null})} label={t('turnips:prices.buy')} />
                         </Grid>
                         {!isXs && firstBuy}
                         {weekDays.map((day) => (
                             <>
                                 <Grid item xs={12} sm={6}>
-                                    <TextField type="number" fullWidth value={data[day].am ?? ''} onChange={(event) => setData({ [day]: { am: event.target.value ? +event.target.value : null } })} label={t('core:time.meridian.am.long_day', { day: t(`core:time.weekday.${day}.long`) })} />
+                                    <TextField type="number" fullWidth value={data[day].am ?? ''} onChange={(event) => setData({[day]: {am: event.target.value ? +event.target.value : null}})} label={t('core:time.meridian.am.long_day', {day: t(`core:time.weekday.${day}.long`)})} />
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
-                                    <TextField type="number" fullWidth value={data[day].pm ?? ''} onChange={(event) => setData({ [day]: { pm: event.target.value ? +event.target.value : null } })} label={t('core:time.meridian.pm.long_day', { day: t(`core:time.weekday.${day}.long`) })} />
+                                    <TextField type="number" fullWidth value={data[day].pm ?? ''} onChange={(event) => setData({[day]: {pm: event.target.value ? +event.target.value : null}})} label={t('core:time.meridian.pm.long_day', {day: t(`core:time.weekday.${day}.long`)})} />
                                 </Grid>
                             </>
                         ))}
@@ -249,7 +249,7 @@ export default function Turnips() {
                                 <Select
                                     value={data.previousPattern}
                                     onChange={(event) => setData(
-                                        { previousPattern: event.target.value as Pattern }
+                                        {previousPattern: event.target.value as Pattern}
                                     )}
                                     labelId='pattern-label'
                                     fullWidth
@@ -263,7 +263,7 @@ export default function Turnips() {
                             </FormControl>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <Button style={{ height: '100%' }} fullWidth variant="contained" color="primary" onClick={nextWeek}>{t('turnips:ui.start_next')}</Button>
+                            <Button style={{height: '100%'}} fullWidth variant="contained" color="primary" onClick={nextWeek}>{t('turnips:ui.start_next')}</Button>
                         </Grid>
                     </Grid>
                     {makesSense || <>

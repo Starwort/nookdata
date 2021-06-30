@@ -1,5 +1,5 @@
-import { Pattern } from './pages/turnips/data';
-import { ThemeName } from './themes';
+import {Pattern} from './pages/turnips/data';
+import {ThemeName} from './themes';
 export const VERSION = '0.1.0';
 
 function _upgrade0() {
@@ -20,20 +20,20 @@ function _upgrade0() {
             fish: [],
         };
         for (let i = 0; i < 80; i++) {
-            data.bugs.push({ obtained: false, modelled: false });
-            data.fish.push({ obtained: false, modelled: false });
+            data.bugs.push({obtained: false, modelled: false});
+            data.fish.push({obtained: false, modelled: false});
         }
         window.localStorage.critterpedia = JSON.stringify(data);
     }
     if (!window.localStorage.turnips) {
         window.localStorage.turnips = JSON.stringify({
             buy: null,
-            mon: { am: null, pm: null },
-            tue: { am: null, pm: null },
-            wed: { am: null, pm: null },
-            thu: { am: null, pm: null },
-            fri: { am: null, pm: null },
-            sat: { am: null, pm: null },
+            mon: {am: null, pm: null},
+            tue: {am: null, pm: null},
+            wed: {am: null, pm: null},
+            thu: {am: null, pm: null},
+            fri: {am: null, pm: null},
+            sat: {am: null, pm: null},
             previousPattern: Pattern.UNKNOWN,
             firstBuy: false,
         });

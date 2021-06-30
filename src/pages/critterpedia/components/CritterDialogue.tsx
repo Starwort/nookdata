@@ -1,11 +1,11 @@
-import { Card, Checkbox, createStyles, Dialog, DialogActions, DialogContent, DialogTitle, Divider, FormControlLabel, Grid, IconButton, makeStyles, Toolbar, Tooltip, useTheme } from "@material-ui/core";
-import { ChevronLeft, ChevronRight, Cloud, WbSunny } from "@material-ui/icons";
-import { Helmet } from "react-helmet";
-import { useTranslation } from "react-i18next";
-import { useNDContext } from "../../../context";
-import { numberFormatters } from "../../../i18n";
-import { getCritterLocation, getCritterName, getCritterQuote } from "../data";
-import { bugs, fish } from '../data.json';
+import {Card, Checkbox, createStyles, Dialog, DialogActions, DialogContent, DialogTitle, Divider, FormControlLabel, Grid, IconButton, makeStyles, Toolbar, Tooltip, useTheme} from "@material-ui/core";
+import {ChevronLeft, ChevronRight, Cloud, WbSunny} from "@material-ui/icons";
+import {Helmet} from "react-helmet";
+import {useTranslation} from "react-i18next";
+import {useNDContext} from "../../../context";
+import {numberFormatters} from "../../../i18n";
+import {getCritterLocation, getCritterName, getCritterQuote} from "../data";
+import {bugs, fish} from '../data.json';
 import './CritterDialogue.scss';
 import MonthPanels from "./MonthPanels";
 import TimeTracker from "./TimeTracker";
@@ -41,16 +41,16 @@ interface CritterDialogueProps {
     setOpenDialogue: (value: number | null) => void;
 }
 export default function CritterDialogue(props: CritterDialogueProps) {
-    const { t } = useTranslation('critterpedia');
+    const {t} = useTranslation('critterpedia');
     const numberFormatter = numberFormatters[t('core:misc.code')];
-    const { time, settings } = useNDContext();
+    const {time, settings} = useNDContext();
     const hours = (
         settings.hemisphere == 'north' ?
             props.data.hours :
             props.data.hours.rotated(6)
     );
     const theme = useTheme();
-    const { palette } = useTheme();
+    const {palette} = useTheme();
     let shadow;
     if (props.type == 'fish') {
         shadow = t(`critterpedia:fish.size.${(props.data as typeof fish[0]).shadow}`);
@@ -79,7 +79,7 @@ export default function CritterDialogue(props: CritterDialogueProps) {
             }}
         >
             <Helmet>
-                <title>{t('core:title.browser.page_data', { pageTitle: t('core:pages.critterpedia'), pageData: name })}</title>
+                <title>{t('core:title.browser.page_data', {pageTitle: t('core:pages.critterpedia'), pageData: name})}</title>
             </Helmet>
             <DialogTitle style={{
                 paddingBottom: 0,
@@ -121,11 +121,11 @@ export default function CritterDialogue(props: CritterDialogueProps) {
                     textAlign: 'center'
                 }}
             >
-                {t(`critterpedia:dialogue.type.${props.type}`, { index: numberFormatter(props.data.index + 1) })}
+                {t(`critterpedia:dialogue.type.${props.type}`, {index: numberFormatter(props.data.index + 1)})}
                 <br />
-                <Divider style={{ marginTop: 8, marginBottom: 8 }} />
+                <Divider style={{marginTop: 8, marginBottom: 8}} />
                 <div
-                    style={{ paddingBottom: 8 }}
+                    style={{paddingBottom: 8}}
                     dangerouslySetInnerHTML={{
                         __html: getCritterQuote(
                             props.data,
@@ -188,7 +188,7 @@ export default function CritterDialogue(props: CritterDialogueProps) {
                                         </Tooltip>
                                     }
                                     <div className="found">{getCritterLocation(props.data, props.type, t)}</div>
-                                    <div className="sell">{t('core:money.value', { value: numberFormatter(props.data.price) })}</div>
+                                    <div className="sell">{t('core:money.value', {value: numberFormatter(props.data.price)})}</div>
                                     {shadow && <div className="shadow">{shadow}</div>}
                                 </div>
                             </Grid>
@@ -221,5 +221,5 @@ export default function CritterDialogue(props: CritterDialogueProps) {
                 />
             </DialogActions>
         </Dialog>
-    </>
+    </>;
 }

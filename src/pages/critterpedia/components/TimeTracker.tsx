@@ -1,7 +1,7 @@
-import { useTheme } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
-import { useNDContext } from '../../../context';
-import { getTextWidth } from '../../../misc';
+import {useTheme} from '@material-ui/core';
+import {useTranslation} from 'react-i18next';
+import {useNDContext} from '../../../context';
+import {getTextWidth} from '../../../misc';
 import './TimeTracker.scss';
 
 interface TimeTrackerProps {
@@ -10,8 +10,8 @@ interface TimeTrackerProps {
 
 export default function TimeTracker(props: TimeTrackerProps) {
     const theme = useTheme();
-    const { t } = useTranslation('core');
-    const { time: now, settings } = useNDContext();
+    const {t} = useTranslation('core');
+    const {time: now, settings} = useNDContext();
     let progress = (
         (
             (
@@ -63,7 +63,7 @@ export default function TimeTracker(props: TimeTrackerProps) {
             }}
         />
         <div>
-            <div className="large-division" style={{ backgroundColor: theme.palette.text.primary }} />
+            <div className="large-division" style={{backgroundColor: theme.palette.text.primary}} />
             <div className="division-label">
                 {
                     t(
@@ -80,19 +80,19 @@ export default function TimeTracker(props: TimeTrackerProps) {
                 }
             </div>
         </div>
-        <div className="hour" style={{ backgroundColor: props.hours[0] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
-        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
-        <div className="hour" style={{ backgroundColor: props.hours[1] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
-        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
-        <div className="hour" style={{ backgroundColor: props.hours[2] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
-        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
-        <div className="hour" style={{ backgroundColor: props.hours[3] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
-        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
-        <div className="hour" style={{ backgroundColor: props.hours[4] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
-        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
-        <div className="hour" style={{ backgroundColor: props.hours[5] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
+        <div className="hour" style={{backgroundColor: props.hours[0] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity}} />
+        <div className="small-division" style={{backgroundColor: theme.palette.text.primary}} />
+        <div className="hour" style={{backgroundColor: props.hours[1] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity}} />
+        <div className="small-division" style={{backgroundColor: theme.palette.text.primary}} />
+        <div className="hour" style={{backgroundColor: props.hours[2] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity}} />
+        <div className="small-division" style={{backgroundColor: theme.palette.text.primary}} />
+        <div className="hour" style={{backgroundColor: props.hours[3] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity}} />
+        <div className="small-division" style={{backgroundColor: theme.palette.text.primary}} />
+        <div className="hour" style={{backgroundColor: props.hours[4] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity}} />
+        <div className="small-division" style={{backgroundColor: theme.palette.text.primary}} />
+        <div className="hour" style={{backgroundColor: props.hours[5] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity}} />
         <div>
-            <div className="medium-division" style={{ backgroundColor: theme.palette.text.primary }} />
+            <div className="medium-division" style={{backgroundColor: theme.palette.text.primary}} />
             <div className="division-label">
                 {
                     t(
@@ -109,19 +109,19 @@ export default function TimeTracker(props: TimeTrackerProps) {
                 }
             </div>
         </div>
-        <div className="hour" style={{ backgroundColor: props.hours[6] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
-        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
-        <div className="hour" style={{ backgroundColor: props.hours[7] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
-        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
-        <div className="hour" style={{ backgroundColor: props.hours[8] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
-        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
-        <div className="hour" style={{ backgroundColor: props.hours[9] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
-        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
-        <div className="hour" style={{ backgroundColor: props.hours[10] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
-        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
-        <div className="hour" style={{ backgroundColor: props.hours[11] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
+        <div className="hour" style={{backgroundColor: props.hours[6] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity}} />
+        <div className="small-division" style={{backgroundColor: theme.palette.text.primary}} />
+        <div className="hour" style={{backgroundColor: props.hours[7] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity}} />
+        <div className="small-division" style={{backgroundColor: theme.palette.text.primary}} />
+        <div className="hour" style={{backgroundColor: props.hours[8] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity}} />
+        <div className="small-division" style={{backgroundColor: theme.palette.text.primary}} />
+        <div className="hour" style={{backgroundColor: props.hours[9] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity}} />
+        <div className="small-division" style={{backgroundColor: theme.palette.text.primary}} />
+        <div className="hour" style={{backgroundColor: props.hours[10] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity}} />
+        <div className="small-division" style={{backgroundColor: theme.palette.text.primary}} />
+        <div className="hour" style={{backgroundColor: props.hours[11] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity}} />
         <div>
-            <div className="large-division" style={{ backgroundColor: theme.palette.text.primary }} />
+            <div className="large-division" style={{backgroundColor: theme.palette.text.primary}} />
             <div className="division-label">
                 {
                     t(
@@ -138,19 +138,19 @@ export default function TimeTracker(props: TimeTrackerProps) {
                 }
             </div>
         </div>
-        <div className="hour" style={{ backgroundColor: props.hours[12] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
-        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
-        <div className="hour" style={{ backgroundColor: props.hours[13] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
-        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
-        <div className="hour" style={{ backgroundColor: props.hours[14] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
-        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
-        <div className="hour" style={{ backgroundColor: props.hours[15] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
-        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
-        <div className="hour" style={{ backgroundColor: props.hours[16] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
-        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
-        <div className="hour" style={{ backgroundColor: props.hours[17] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
+        <div className="hour" style={{backgroundColor: props.hours[12] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity}} />
+        <div className="small-division" style={{backgroundColor: theme.palette.text.primary}} />
+        <div className="hour" style={{backgroundColor: props.hours[13] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity}} />
+        <div className="small-division" style={{backgroundColor: theme.palette.text.primary}} />
+        <div className="hour" style={{backgroundColor: props.hours[14] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity}} />
+        <div className="small-division" style={{backgroundColor: theme.palette.text.primary}} />
+        <div className="hour" style={{backgroundColor: props.hours[15] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity}} />
+        <div className="small-division" style={{backgroundColor: theme.palette.text.primary}} />
+        <div className="hour" style={{backgroundColor: props.hours[16] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity}} />
+        <div className="small-division" style={{backgroundColor: theme.palette.text.primary}} />
+        <div className="hour" style={{backgroundColor: props.hours[17] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity}} />
         <div>
-            <div className="medium-division" style={{ backgroundColor: theme.palette.text.primary }} />
+            <div className="medium-division" style={{backgroundColor: theme.palette.text.primary}} />
             <div className="division-label">
                 {
                     t(
@@ -167,19 +167,19 @@ export default function TimeTracker(props: TimeTrackerProps) {
                 }
             </div>
         </div>
-        <div className="hour" style={{ backgroundColor: props.hours[18] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
-        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
-        <div className="hour" style={{ backgroundColor: props.hours[19] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
-        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
-        <div className="hour" style={{ backgroundColor: props.hours[20] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
-        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
-        <div className="hour" style={{ backgroundColor: props.hours[21] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
-        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
-        <div className="hour" style={{ backgroundColor: props.hours[22] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
-        <div className="small-division" style={{ backgroundColor: theme.palette.text.primary }} />
-        <div className="hour" style={{ backgroundColor: props.hours[23] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity }} />
+        <div className="hour" style={{backgroundColor: props.hours[18] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity}} />
+        <div className="small-division" style={{backgroundColor: theme.palette.text.primary}} />
+        <div className="hour" style={{backgroundColor: props.hours[19] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity}} />
+        <div className="small-division" style={{backgroundColor: theme.palette.text.primary}} />
+        <div className="hour" style={{backgroundColor: props.hours[20] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity}} />
+        <div className="small-division" style={{backgroundColor: theme.palette.text.primary}} />
+        <div className="hour" style={{backgroundColor: props.hours[21] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity}} />
+        <div className="small-division" style={{backgroundColor: theme.palette.text.primary}} />
+        <div className="hour" style={{backgroundColor: props.hours[22] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity}} />
+        <div className="small-division" style={{backgroundColor: theme.palette.text.primary}} />
+        <div className="hour" style={{backgroundColor: props.hours[23] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity}} />
         <div>
-            <div className="large-division" style={{ backgroundColor: theme.palette.text.primary }} />
+            <div className="large-division" style={{backgroundColor: theme.palette.text.primary}} />
             <div className="division-label">
                 {
                     t(
@@ -196,5 +196,5 @@ export default function TimeTracker(props: TimeTrackerProps) {
                 }
             </div>
         </div>
-    </div>
+    </div>;
 }

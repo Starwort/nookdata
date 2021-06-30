@@ -1,4 +1,4 @@
-import { ComponentsProps } from "@material-ui/core/styles/props";
+import {ComponentsProps} from "@material-ui/core/styles/props";
 
 const commonProps: ComponentsProps = {
     MuiTextField: {
@@ -11,7 +11,7 @@ const commonProps: ComponentsProps = {
         variant: 'filled',
     },
     MuiDialogTitle: {
-        style: { textAlign: 'center' },
+        style: {textAlign: 'center'},
     }
 };
-export { commonProps };
+export {commonProps};

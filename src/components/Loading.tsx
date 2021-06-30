@@ -1,4 +1,4 @@
-import { useTheme } from '@material-ui/core';
+import {useTheme} from '@material-ui/core';
 import './Loading.scss';
 export default function Loading() {
     const theme = useTheme();

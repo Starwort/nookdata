@@ -1,21 +1,21 @@
-import { Card, CardContent, CardHeader, FormControl, Grid, InputLabel, MenuItem, Select, TextField, useTheme } from '@material-ui/core';
+import {Card, CardContent, CardHeader, FormControl, Grid, InputLabel, MenuItem, Select, TextField, useTheme} from '@material-ui/core';
 import React from 'react';
-import { Helmet } from 'react-helmet';
-import { Trans, useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router';
-import { UserCritterData, UserCritterpediaData } from '../../data';
-import { numberFormatters } from '../../i18n';
-import { range } from '../../misc';
+import {Helmet} from 'react-helmet';
+import {Trans, useTranslation} from 'react-i18next';
+import {useHistory} from 'react-router';
+import {UserCritterData, UserCritterpediaData} from '../../data';
+import {numberFormatters} from '../../i18n';
+import {range} from '../../misc';
 import CritterPanel from './components/CritterPanel';
-import { bugs, fish } from './data.json';
+import {bugs, fish} from './data.json';
 import SearchParameters from './search_parameters';
 
 interface CritterpediaProps {
-    load?: { type: 'bug' | 'fish', index: number }
+    load?: {type: 'bug' | 'fish', index: number;};
 }
 
 export default function Critterpedia(props: CritterpediaProps) {
-    const { t } = useTranslation(['core', 'critterpedia']);
+    const {t} = useTranslation(['core', 'critterpedia']);
     const numberFormatter = numberFormatters[t('core:misc.code')];
     const theme = useTheme();
     const data: UserCritterpediaData = JSON.parse(window.localStorage.critterpedia);
@@ -35,7 +35,7 @@ export default function Critterpedia(props: CritterpediaProps) {
         size,
         stateRequired,
     };
-    const { type, index } = props.load ?? { type: 'bug', index: null };
+    const {type, index} = props.load ?? {type: 'bug', index: null};
     const [bugsData, setBugsDataImpl] = React.useState(data.bugs);
     const [fishData, setFishDataImpl] = React.useState(data.fish);
 
@@ -61,10 +61,10 @@ export default function Critterpedia(props: CritterpediaProps) {
     }
     return <>
         <Helmet>
-            <title>{t('core:title.browser.page', { pageTitle: t('core:pages.critterpedia') })}</title>
+            <title>{t('core:title.browser.page', {pageTitle: t('core:pages.critterpedia')})}</title>
         </Helmet>
-        <div style={{ maxWidth: 1316, margin: 'auto' }}>
-            <Card style={{ margin: 16 }}>
+        <div style={{maxWidth: 1316, margin: 'auto'}}>
+            <Card style={{margin: 16}}>
                 <CardHeader title={t('critterpedia:search.title')} />
                 <CardContent>
                     <Grid container spacing={1}>
@@ -135,10 +135,10 @@ export default function Critterpedia(props: CritterpediaProps) {
                     </Grid>
                 </CardContent>
             </Card>
-            <Card style={{ margin: 16 }}>
+            <Card style={{margin: 16}}>
                 <CardHeader title={
                     <Trans i18nKey="critterpedia:cards.bugs" t={t}>
-                        Bugs <span style={{ color: theme.palette.primary.main }}>
+                        Bugs <span style={{color: theme.palette.primary.main}}>
                             ({
                                 {
                                     obtained: numberFormatter(bugsData.reduce(
@@ -146,7 +146,7 @@ export default function Critterpedia(props: CritterpediaProps) {
                                     )),
                                 }
                             } / 80)
-                        </span> <span style={{ color: theme.palette.modelled.main }}>
+                        </span> <span style={{color: theme.palette.modelled.main}}>
                             ({
                                 {
                                     modelled: numberFormatter(bugsData.reduce(
@@ -157,8 +157,8 @@ export default function Critterpedia(props: CritterpediaProps) {
                         </span>
                     </Trans>
                 } />
-                <CardContent style={{ overflowX: 'auto' }}>
-                    <table style={{ paddingRight: 16 }}>
+                <CardContent style={{overflowX: 'auto'}}>
+                    <table style={{paddingRight: 16}}>
                         <tbody>
                             {
                                 range(5).map(
@@ -175,8 +175,8 @@ export default function Critterpedia(props: CritterpediaProps) {
                                                                 obtained={critterData.obtained}
                                                                 modelled={critterData.modelled}
                                                                 type="bug"
-                                                                setObtained={(value: boolean) => setBugsData(myIndex, { obtained: value, modelled: false })}
-                                                                setModelled={(value: boolean) => setBugsData(myIndex, { obtained: true, modelled: value })}
+                                                                setObtained={(value: boolean) => setBugsData(myIndex, {obtained: value, modelled: false})}
+                                                                setModelled={(value: boolean) => setBugsData(myIndex, {obtained: true, modelled: value})}
                                                                 open={type === 'bug' && index === myIndex}
                                                                 setOpenDialogue={(value) => setOpenDialogue('bug', value)}
                                                                 searchParameters={searchParameters}
@@ -192,10 +192,10 @@ export default function Critterpedia(props: CritterpediaProps) {
                     </table>
                 </CardContent>
             </Card>
-            <Card style={{ margin: 16 }}>
+            <Card style={{margin: 16}}>
                 <CardHeader title={
                     <Trans i18nKey="critterpedia:cards.fish" t={t}>
-                        Fish <span style={{ color: theme.palette.primary.main }}>
+                        Fish <span style={{color: theme.palette.primary.main}}>
                             ({
                                 {
                                     obtained: numberFormatter(fishData.reduce(
@@ -203,7 +203,7 @@ export default function Critterpedia(props: CritterpediaProps) {
                                     )),
                                 }
                             } / 80)
-                        </span> <span style={{ color: theme.palette.modelled.main }}>
+                        </span> <span style={{color: theme.palette.modelled.main}}>
                             ({
                                 {
                                     modelled: numberFormatter(fishData.reduce(
@@ -214,8 +214,8 @@ export default function Critterpedia(props: CritterpediaProps) {
                         </span>
                     </Trans>
                 } />
-                <CardContent style={{ overflowX: 'auto' }}>
-                    <table style={{ paddingRight: 16 }}>
+                <CardContent style={{overflowX: 'auto'}}>
+                    <table style={{paddingRight: 16}}>
                         <tbody>
                             {
                                 range(5).map(
@@ -232,8 +232,8 @@ export default function Critterpedia(props: CritterpediaProps) {
                                                                 obtained={critterData.obtained}
                                                                 modelled={critterData.modelled}
                                                                 type="fish"
-                                                                setObtained={(value: boolean) => setFishData(myIndex, { obtained: value, modelled: false })}
-                                                                setModelled={(value: boolean) => setFishData(myIndex, { obtained: true, modelled: value })}
+                                                                setObtained={(value: boolean) => setFishData(myIndex, {obtained: value, modelled: false})}
+                                                                setModelled={(value: boolean) => setFishData(myIndex, {obtained: true, modelled: value})}
                                                                 open={type === 'fish' && index == myIndex}
                                                                 setOpenDialogue={(value) => setOpenDialogue('fish', value)}
                                                                 searchParameters={searchParameters}
@@ -250,5 +250,5 @@ export default function Critterpedia(props: CritterpediaProps) {
                 </CardContent>
             </Card>
         </div>
-    </>
+    </>;
 }

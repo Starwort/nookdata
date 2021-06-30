@@ -1,6 +1,6 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import {createMuiTheme} from '@material-ui/core/styles';
 import '../prototype_mods';
-import { commonProps } from './common_theme_data';
+import {commonProps} from './common_theme_data';
 
 
 // Dark theme
@@ -9,16 +9,16 @@ const theme = createMuiTheme({
         type: 'dark',
         opacity: 0.3,
         elevations: {
-            0: { main: '#1e1e1e' },
-            1: { main: '#292929' },
-            2: { main: '#2e2e2e' },
-            3: { main: '#303030' },
-            4: { main: '#323232' },
-            6: { main: '#373737' },
-            8: { main: '#393939' },
-            12: { main: '#3e3e3e' },
-            16: { main: '#404040' },
-            24: { main: '#424242' },
+            0: {main: '#1e1e1e'},
+            1: {main: '#292929'},
+            2: {main: '#2e2e2e'},
+            3: {main: '#303030'},
+            4: {main: '#323232'},
+            6: {main: '#373737'},
+            8: {main: '#393939'},
+            12: {main: '#3e3e3e'},
+            16: {main: '#404040'},
+            24: {main: '#424242'},
         },
         modelled: {
             main: 'gold',

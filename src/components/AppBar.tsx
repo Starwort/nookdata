@@ -1,4 +1,4 @@
-import { AppBar as TopAppBar, IconButton, Toolbar } from '@material-ui/core';
+import {AppBar as TopAppBar, IconButton, Toolbar} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import React from 'react';
 import UpdateReadyIcon from './UpdateReadyIcon';
@@ -20,11 +20,11 @@ function AppBar(props: AppBarProps) {
             <TopAppBar position="fixed">
                 <Toolbar>
                     <IconButton edge="start" color="inherit" aria-label="menu"
-                        style={{ marginRight: 16 }}
+                        style={{marginRight: 16}}
                         onClick={() => props.setDrawerOpen(!props.drawerOpen)}>
                         <MenuIcon />
                     </IconButton>
-                    <div style={{ flexGrow: 1 }}>
+                    <div style={{flexGrow: 1}}>
                         {props.title}
                     </div>
                     {props.updateReady && <UpdateReadyIcon />}
@@ -33,6 +33,6 @@ function AppBar(props: AppBarProps) {
             </TopAppBar>
             <Toolbar />
         </>
-    )
+    );
 }
 export default AppBar;

@@ -1,11 +1,11 @@
-import { EmojiNature, ShowChart } from '@material-ui/icons';
+import {EmojiNature, ShowChart} from '@material-ui/icons';
 import React from 'react';
-import { Dict } from '../misc';
+import {Dict} from '../misc';
 import Critterpedia from './critterpedia';
 import Turnips from './turnips';
 
-export { Critterpedia };
-export { Turnips };
+export {Critterpedia};
+export {Turnips};
 
 interface PageData {
     title: string;
@@ -20,4 +20,4 @@ export const pageData: Dict<PageData> = {
         title: 'core:pages.turnips',
         icon: <ShowChart />,
     },
-}
+};

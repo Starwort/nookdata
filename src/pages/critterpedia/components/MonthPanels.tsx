@@ -1,7 +1,7 @@
-import { Card, CardContent, Grid, Theme, useMediaQuery, useTheme } from "@material-ui/core";
-import { useTranslation } from "react-i18next";
-import { useNDContext } from "../../../context";
-import { range } from "../../../misc";
+import {Card, CardContent, Grid, Theme, useMediaQuery, useTheme} from "@material-ui/core";
+import {useTranslation} from "react-i18next";
+import {useNDContext} from "../../../context";
+import {range} from "../../../misc";
 import '../../../prototype_mods';
 import UserSettings from '../../../user_settings';
 import './MonthPanels.scss';
@@ -69,8 +69,8 @@ interface MonthPanelProps {
 }
 function MonthPanel(props: MonthPanelProps) {
     const theme = useTheme();
-    const { t } = useTranslation('critterpedia');
-    const { settings } = useNDContext();
+    const {t} = useTranslation('critterpedia');
+    const {settings} = useNDContext();
     const tooSmall = useMediaQuery(theme.breakpoints.down('xs'));
     return <Grid item xs={4}>
         <Card
@@ -83,11 +83,11 @@ function MonthPanel(props: MonthPanelProps) {
             }}
             className="month-panel"
         >
-            <CardContent style={{ paddingBottom: 16 }}>
+            <CardContent style={{paddingBottom: 16}}>
                 {t(months[props.month] + (tooSmall ? '.short' : '.long'))}
             </CardContent>
         </Card>
-    </Grid>
+    </Grid>;
 }
 interface MonthPanelsProps {
     months: boolean[];

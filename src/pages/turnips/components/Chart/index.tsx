@@ -3,9 +3,9 @@ import {
 } from 'billboard.js';
 import 'billboard.js/dist/billboard.css';
 import React from 'react';
-import { Dict } from '../../../../misc';
+import {Dict} from '../../../../misc';
 import './dark.scss';
-import { ChartProps } from './types';
+import {ChartProps} from './types';
 // lifted from react-billboardjs and modified to work in typescript
 /* MIT License
 
@@ -105,7 +105,7 @@ class Chart extends React.Component<ChartProps> {
             return console.error('No chart is available to export.');
         }
 
-        this.chart.export({ mimeType, preserveAspectRatio: true }, onExported);
+        this.chart.export({mimeType, preserveAspectRatio: true}, onExported);
     }
 
     loadData(data: Data) {
@@ -118,21 +118,21 @@ class Chart extends React.Component<ChartProps> {
 
         this.chart.load(data as {
             url?: string;
-            json?: [{ [key: string]: string }];
+            json?: [{[key: string]: string;}];
             rows?: PrimitiveArray[];
             columns?: PrimitiveArray[];
-            data?: Array<{ [key: string]: number }>;
-            names?: { [key: string]: string };
-            xs?: { [key: string]: string };
-            classes?: { [key: string]: string };
+            data?: Array<{[key: string]: number;}>;
+            names?: {[key: string]: string;};
+            xs?: {[key: string]: string;};
+            classes?: {[key: string]: string;};
             categories?: string[];
-            axes?: { [key: string]: string | string[] };
-            colors?: { [key: string]: string };
-            headers?: { [key: string]: string };
-            keys?: { [key: string]: string };
+            axes?: {[key: string]: string | string[];};
+            colors?: {[key: string]: string;};
+            headers?: {[key: string]: string;};
+            keys?: {[key: string]: string;};
             mimeType?: string;
             type?: string;
-            types?: { [key: string]: string };
+            types?: {[key: string]: string;};
             unload?: boolean | ArrayOrString;
             done?: () => any;
         });
@@ -183,8 +183,8 @@ class Chart extends React.Component<ChartProps> {
     }
 
     updateChart() {
-        const { data, unloadBeforeLoad } = this.props;
-        const dataToLoad = unloadBeforeLoad ? { ...data, unload: true } : data;
+        const {data, unloadBeforeLoad} = this.props;
+        const dataToLoad = unloadBeforeLoad ? {...data, unload: true} : data;
 
         this.setChart(dataToLoad);
     }
@@ -202,7 +202,7 @@ class Chart extends React.Component<ChartProps> {
     }
 
     render() {
-        const { className, domProps, style } = this.props;
+        const {className, domProps, style} = this.props;
 
         return (
             <div

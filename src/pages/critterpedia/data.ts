@@ -1,7 +1,7 @@
-import { bugs, fish } from './data.json';
+import {bugs, fish} from './data.json';
 
 type Critter = typeof bugs[0] | typeof fish[0];
-export type { Critter };
+export type {Critter};
 export {
     getCritterName,
     getCritterQuote,
@@ -14,7 +14,7 @@ function getCritterName(critter: Critter, type: 'bug' | 'fish', t: (key: string,
 }
 
 function getCritterQuote(critter: Critter, type: 'bug' | 'fish', playername: string, t: (key: string, props?: Object) => string) {
-    return t(`critterpedia:${type}.quote.${critter.normal_name}`, { playername });
+    return t(`critterpedia:${type}.quote.${critter.normal_name}`, {playername});
 }
 
 function getCritterLocation(critter: Critter, type: 'bug' | 'fish', t: (key: string, props?: Object) => string) {
