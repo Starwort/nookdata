@@ -1,6 +1,5 @@
 import {Pattern} from './pages/turnips/data';
 import {ThemeName} from './themes';
-export const VERSION = '0.1.0';
 
 function _upgrade0() {
     if (!window.localStorage.settings) {
@@ -182,6 +181,7 @@ namespace Versions {
         export const upgrade = _upgrade2;
     }
 }
+export const VERSION = '0.2.0';
 export type UserHourData = Versions.ND_0_2_0.UserHourData;
 export type UserTurnipsData = Versions.ND_0_2_0.UserTurnipsData;
 export type UserCritterData = Versions.ND_0_2_0.UserCritterData;
@@ -200,5 +200,6 @@ export function updateData() {
             break;
         default:
             console.log("Please do not mess with your data!");
+            window.localStorage.version = VERSION;
     }
 };
