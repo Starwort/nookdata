@@ -17,7 +17,7 @@ export function getTextWidth(text: string) {
     return div.clientWidth;
 }
 
-export const root = '/nookdata_v2';
+export const root = '/nookdata';
 export function getDefault<T>(data: string | undefined, defaultValue: T) {
     if (data !== undefined) {
         return JSON.parse(data) as T;  // todo: figure out how to type-check this
