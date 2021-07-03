@@ -236,7 +236,7 @@ export default function Critterpedia(props: CritterpediaProps) {
                                                                 stored={critterData.stored}
                                                                 type="fish"
                                                                 setObtained={(value: boolean) => setFishData(myIndex, {obtained: value, modelled: false, stored: +value})}
-                                                                setModelled={(value: boolean) => setFishData(myIndex, {obtained: true, modelled: value, stored: critterData.stored + (value ? -3 : 3)})}
+                                                                setModelled={(value: boolean) => setFishData(myIndex, {obtained: true, modelled: value, stored: Math.max(0, critterData.stored + (value ? -3 : 3))})}
                                                                 setStored={(value: number) => setFishData(myIndex, {...critterData, stored: Math.max(0, value)})}
                                                                 open={type === 'fish' && index == myIndex}
                                                                 setOpenDialogue={(value) => setOpenDialogue('fish', value)}
