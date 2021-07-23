@@ -1,0 +1,34 @@
+{
+    "prices": {
+        "title": "Prix cette semaine",
+        "buy": "Prix à l'achat (Dimanche)",
+        "first_buy": {
+            "checkbox": "Premier achat",
+            "hover": "Cochez cette case si c'est la première fois que vous achetez des navets à Porcelette sur votre île cette semaine."
+        }
+    },
+    "pattern": {
+        "label": "Courbe du cours précédent",
+        "fluctuating": "Variable",
+        "large_spike": "Pic important",
+        "decreasing": "En baisse",
+        "small_spike": "Petit pic",
+        "unknown": "Je ne sais pas"
+    },
+    "graph": {
+        "buy": "Achat (Dim.)",
+        "fluctuating": "Variable ({{patternChance}}%)",
+        "large_spike": "Grand pic ({{patternChance}}%)",
+        "decreasing": "En baisse ({{patternChance}}%)",
+        "small_spike": "Petit pic ({{patternChance}}%)",
+        "aggregate": "Tous les cours possibles"
+    },
+    "ui": {
+        "start_next": "Commencer une nouvelle semaine",
+        "reset_dialogue": {
+            "title": "Êtes-vous sûr ?",
+            "text": "Si vous créez une nouvelle semaine, vous perdrez toutes les données de la semaine précédente. Ces données ne pourront pas être récupérées par la suite."
+        },
+        "bad_data": "Vos données ne correspondent à aucun schéma existant. Veuillez vérifier qu'elles sont exactes."
+    }
+}

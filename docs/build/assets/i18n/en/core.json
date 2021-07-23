@@ -1,0 +1,157 @@
+{
+    "time": {
+        "twelve_hour": {
+            "am": "{{h12}}:{{m}}A.M.",
+            "pm": "{{h12}}:{{m}}P.M.",
+            "am_short": "{{h12}}A.M.",
+            "pm_short": "{{h12}}P.M."
+        },
+        "twenty_four_hour": "{{pad}}{{h24}}:{{m}}",
+        "month": {
+            "jan": {
+                "short": "Jan.",
+                "long": "January"
+            },
+            "feb": {
+                "short": "Feb.",
+                "long": "February"
+            },
+            "mar": {
+                "short": "Mar.",
+                "long": "March"
+            },
+            "apr": {
+                "short": "Apr.",
+                "long": "April"
+            },
+            "may": {
+                "short": "May",
+                "long": "May"
+            },
+            "jun": {
+                "short": "Jun.",
+                "long": "June"
+            },
+            "jul": {
+                "short": "Jul.",
+                "long": "July"
+            },
+            "aug": {
+                "short": "Aug.",
+                "long": "August"
+            },
+            "sep": {
+                "short": "Sep.",
+                "long": "September"
+            },
+            "oct": {
+                "short": "Oct.",
+                "long": "October"
+            },
+            "nov": {
+                "short": "Nov.",
+                "long": "November"
+            },
+            "dec": {
+                "short": "Dec.",
+                "long": "December"
+            }
+        },
+        "weekday": {
+            "mon": {
+                "short": "Mon.",
+                "long": "Monday"
+            },
+            "tue": {
+                "short": "Tue.",
+                "long": "Tuesday"
+            },
+            "wed": {
+                "short": "Wed.",
+                "long": "Wednesday"
+            },
+            "thu": {
+                "short": "Thu.",
+                "long": "Thursday"
+            },
+            "fri": {
+                "short": "Fri.",
+                "long": "Friday"
+            },
+            "sat": {
+                "short": "Sat.",
+                "long": "Saturday"
+            },
+            "sun": {
+                "short": "Sun.",
+                "long": "Sunday"
+            }
+        },
+        "meridian": {
+            "am": {
+                "short": "A.M.",
+                "long": "morning",
+                "short_day": "{{day}} A.M.",
+                "long_day": "{{day}} morning"
+            },
+            "pm": {
+                "short": "P.M.",
+                "long": "afternoon",
+                "short_day": "{{day}} P.M.",
+                "long_day": "{{day}} afternoon"
+            }
+        }
+    },
+    "pages": {
+        "critterpedia": "Critterpedia",
+        "turnips": "Turnip Prices"
+    },
+    "title": {
+        "a": "Nook",
+        "b": "Data",
+        "browser": {
+            "generic": "NookData",
+            "page": "{{pageTitle}} | NookData",
+            "page_data": "{{pageTitle}} - {{pageData}} | NookData"
+        }
+    },
+    "lang": {
+        "choose": "Site language",
+        "en": "English (English)",
+        "fr": "French (français)",
+        "ja": "Japanese (日本語)"
+    },
+    "ui": {
+        "dismiss": "Dismiss",
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "dont_ask": "Don't ask again"
+    },
+    "sidebar": {
+        "about": "About NookData",
+        "lang": "Set Language",
+        "theme": "Toggle Theme",
+        "support": "Get Support"
+    },
+    "info": {
+        "title": "About",
+        "description": "You are currently viewing NookData revision <1>{{gitRevision}}</1>.",
+        "contrib": {
+            "title": "NookData Contributors",
+            "subtitle": "and their contributions",
+            "tooltip": "Click to view {{name}}'s commits (opens in a new tab)",
+            "starwort": "Code and overall design, English and Japanese localisations",
+            "elolechan": "Bespoke art assets, French localisation",
+            "hevy5125": "Improvements to Japanese localisation"
+        }
+    },
+    "money": {
+        "value": "{{value}} bells"
+    },
+    "alt": {
+        "avatar": "{{name}}'s avatar"
+    },
+    "misc": {
+        "code": "en"
+    }
+}
