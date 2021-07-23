@@ -1,0 +1,157 @@
+{
+    "time": {
+        "twelve_hour": {
+            "am": "{{h12}}:{{m}}h du matin",
+            "pm": "{{h12}}:{{m}}h du soir",
+            "am_short": "{{h12}}h du matin",
+            "pm_short": "{{h12}}h du soir"
+        },
+        "twenty_four_hour": "{{pad}}{{h24}}:{{m}}",
+        "month": {
+            "jan": {
+                "short": "Jan.",
+                "long": "Janvier"
+            },
+            "feb": {
+                "short": "Fev.",
+                "long": "Février"
+            },
+            "mar": {
+                "short": "Mars",
+                "long": "Mars"
+            },
+            "apr": {
+                "short": "Avr.",
+                "long": "Avril"
+            },
+            "may": {
+                "short": "Mai",
+                "long": "Mai"
+            },
+            "jun": {
+                "short": "Juin",
+                "long": "Juin"
+            },
+            "jul": {
+                "short": "Juil.",
+                "long": "Juillet"
+            },
+            "aug": {
+                "short": "Août",
+                "long": "Août"
+            },
+            "sep": {
+                "short": "Sep.",
+                "long": "Septembre"
+            },
+            "oct": {
+                "short": "Oct.",
+                "long": "Octobre"
+            },
+            "nov": {
+                "short": "Nov.",
+                "long": "Novembre"
+            },
+            "dec": {
+                "short": "Dec.",
+                "long": "Décembre"
+            }
+        },
+        "weekday": {
+            "mon": {
+                "short": "Lun.",
+                "long": "Lundi"
+            },
+            "tue": {
+                "short": "Mar.",
+                "long": "Mardi"
+            },
+            "wed": {
+                "short": "Mer.",
+                "long": "Mercredi"
+            },
+            "thu": {
+                "short": "Jeu.",
+                "long": "Jeudi"
+            },
+            "fri": {
+                "short": "Ven.",
+                "long": "Vendredi"
+            },
+            "sat": {
+                "short": "Sam.",
+                "long": "Samedi"
+            },
+            "sun": {
+                "short": "Dim.",
+                "long": "Dimanche"
+            }
+        },
+        "meridian": {
+            "am": {
+                "short": "mat.",
+                "long": "matin",
+                "short_day": "{{day}} mat.",
+                "long_day": "{{day}} matin"
+            },
+            "pm": {
+                "short": "aprem",
+                "long": "après-midi",
+                "short_day": "{{day}} aprem",
+                "long_day": "{{day}} après-midi"
+            }
+        }
+    },
+    "pages": {
+        "critterpedia": "Bébêtopédie",
+        "turnips": "Cours du navet"
+    },
+    "title": {
+        "a": "Nook",
+        "b": "Data",
+        "browser": {
+            "generic": "NookData",
+            "page": "{{pageTitle}} | NookData",
+            "page_data": "{{pageTitle}} - {{pageData}} | NookData"
+        }
+    },
+    "lang": {
+        "choose": "Langue du site",
+        "en": "Anglais (English)",
+        "fr": "Français (français)",
+        "ja": "Japonais (日本語)"
+    },
+    "ui": {
+        "dismiss": "Fermer",
+        "cancel": "Annuler",
+        "confirm": "Confirmer",
+        "dont_ask": "Ne plus demander"
+    },
+    "sidebar": {
+        "about": "À propos de NookData",
+        "lang": "Langue",
+        "theme": "Thème clair/sombre",
+        "support": "Besoin d'aide ?"
+    },
+    "info": {
+        "title": "Plus d'infos",
+        "description": "Vous utilisez actuellement la révision <1>{{gitRevision}}</1> de NookData.",
+        "contrib": {
+            "title": "Contributeurs de NookData",
+            "subtitle": "et leurs contributions",
+            "tooltip": "Cliquez pour voir les commits de {{name}} (nouvel onglet)",
+            "starwort": "Code et design global, localisation anglaise et japonaise",
+            "elolechan": "Assets sur mesure et localisation française",
+            "hevy5125": "Aide pour la localisation japonaise"
+        }
+    },
+    "money": {
+        "value": "{{value}} clochettes"
+    },
+    "alt": {
+        "avatar": "Avatar de {{name}}"
+    },
+    "misc": {
+        "code": "fr"
+    }
+}

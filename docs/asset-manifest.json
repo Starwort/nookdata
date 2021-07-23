@@ -1,0 +1,38 @@
+{
+  "files": {
+    "static/js/0.c654f6b4.chunk.js": "/nookdata/static/js/0.c654f6b4.chunk.js",
+    "static/js/0.c654f6b4.chunk.js.map": "/nookdata/static/js/0.c654f6b4.chunk.js.map",
+    "main.css": "/nookdata/static/css/main.15f9ca0f.chunk.css",
+    "main.js": "/nookdata/static/js/main.c8bc6d30.chunk.js",
+    "main.js.map": "/nookdata/static/js/main.c8bc6d30.chunk.js.map",
+    "runtime-main.js": "/nookdata/static/js/runtime-main.f8c357f6.js",
+    "runtime-main.js.map": "/nookdata/static/js/runtime-main.f8c357f6.js.map",
+    "static/js/3.28ee4fbf.chunk.js": "/nookdata/static/js/3.28ee4fbf.chunk.js",
+    "static/js/3.28ee4fbf.chunk.js.map": "/nookdata/static/js/3.28ee4fbf.chunk.js.map",
+    "static/css/4.a30b8ece.chunk.css": "/nookdata/static/css/4.a30b8ece.chunk.css",
+    "static/js/4.7ba60db3.chunk.js": "/nookdata/static/js/4.7ba60db3.chunk.js",
+    "static/js/4.7ba60db3.chunk.js.map": "/nookdata/static/js/4.7ba60db3.chunk.js.map",
+    "static/css/5.56b4bd23.chunk.css": "/nookdata/static/css/5.56b4bd23.chunk.css",
+    "static/js/5.0d4e36b2.chunk.js": "/nookdata/static/js/5.0d4e36b2.chunk.js",
+    "static/js/5.0d4e36b2.chunk.js.map": "/nookdata/static/js/5.0d4e36b2.chunk.js.map",
+    "static/css/6.d23d082c.chunk.css": "/nookdata/static/css/6.d23d082c.chunk.css",
+    "static/js/6.44106dd3.chunk.js": "/nookdata/static/js/6.44106dd3.chunk.js",
+    "static/js/6.44106dd3.chunk.js.map": "/nookdata/static/js/6.44106dd3.chunk.js.map",
+    "index.html": "/nookdata/index.html",
+    "service-worker.js": "/nookdata/service-worker.js",
+    "service-worker.js.map": "/nookdata/service-worker.js.map",
+    "static/css/4.a30b8ece.chunk.css.map": "/nookdata/static/css/4.a30b8ece.chunk.css.map",
+    "static/css/5.56b4bd23.chunk.css.map": "/nookdata/static/css/5.56b4bd23.chunk.css.map",
+    "static/css/6.d23d082c.chunk.css.map": "/nookdata/static/css/6.d23d082c.chunk.css.map",
+    "static/css/main.15f9ca0f.chunk.css.map": "/nookdata/static/css/main.15f9ca0f.chunk.css.map",
+    "static/js/3.28ee4fbf.chunk.js.LICENSE.txt": "/nookdata/static/js/3.28ee4fbf.chunk.js.LICENSE.txt",
+    "static/media/getFetch.cjs": "/nookdata/static/media/getFetch.d7d6010d.cjs",
+    "static/media/index.scss": "/nookdata/static/media/humming-misc.6db5eaeb.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f8c357f6.js",
+    "static/js/3.28ee4fbf.chunk.js",
+    "static/css/main.15f9ca0f.chunk.css",
+    "static/js/main.c8bc6d30.chunk.js"
+  ]
+}
