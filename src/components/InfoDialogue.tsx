@@ -21,7 +21,7 @@ function ContribInfo({name, avatarUrl, t}: ContribInfoProps) {
             }}
             button
             component="a"
-            href={`https://github.com/Starwort/nookdata_v2/commits?author=${name}`}
+            href={`https://github.com/Starwort/nookdata/commits?author=${name}`}
             target="_blank"
         >
             <ListItemAvatar>
@@ -47,7 +47,7 @@ export default function InfoDialogue(props: InfoDialogueProps) {
         <DialogContent>
             <Trans i18nKey="core:info.description" t={t}>
                 You are currently viewing NookData revision
-                <a href={`https://github.com/Starwort/nookdata_v2/commit/${gitInfo.commit.hash}`} style={{color: theme.palette.primary.main, textUnderlineOffset: 2}}>
+                <a href={`https://github.com/Starwort/nookdata/commit/${gitInfo.commit.hash}`} style={{color: theme.palette.primary.main, textUnderlineOffset: 2}}>
                     {{gitRevision: numberFormatters[t('core:misc.code')](gitInfo.commit.shortHash)}}
                 </a>.
             </Trans>
