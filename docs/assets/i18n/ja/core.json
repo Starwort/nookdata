@@ -114,7 +114,7 @@
                 "short": "{{month}}月{{day}}日（{{weekday}}）",
                 "full": "{{year}}年{{month}}月{{day}}日（{{weekday}}）",
                 "short_with_time": "{{month}}月{{day}}日{{time}}（{{weekday}}）",
-                "full_with_time": "{{year}}年{{month}}月{{day}}日{{time}}（{{weekday}}）"
+                "full_with_time": "{{year}}年{{month}}月{{day}}日（{{weekday}}）{{time}}"
             }
         }
     },
