@@ -151,7 +151,7 @@
     },
     "info": {
         "title": "ついて",
-        "description": "現在、たぬき心得リビジョン番号<1>{{gitRevision}}</1>を使用しています。このヴァアジョンは{{buildDate}}に生まれる",
+        "description": "現在、たぬき心得リビジョン番号<1>{{gitRevision}}</1>を使用しています。このヴァアジョンは{{buildDate}}{{buildTime}}に生まれる",
         "contrib": {
             "title": "たぬき心得のコントリビューター",
             "subtitle": "とそのコントリビューション",
