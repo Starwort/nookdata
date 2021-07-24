@@ -1,12 +1,14 @@
 {
     "time": {
-        "twelve_hour": {
-            "am": "{{h12}}:{{m}}h du matin",
-            "pm": "{{h12}}:{{m}}h du soir",
-            "am_short": "{{h12}}h du matin",
-            "pm_short": "{{h12}}h du soir"
+        "precision": {
+            "hour": "{{hour}}",
+            "minute": "{{hour}}:{{minute}}",
+            "second": "{{hour}}:{{minute}}:{{second}}"
         },
-        "twenty_four_hour": "{{pad}}{{h24}}:{{m}}",
+        "twelve_hour": {
+            "am": "{{time}}h du matin",
+            "pm": "{{time}}h du soir"
+        },
         "month": {
             "jan": {
                 "short": "Jan.",
@@ -100,6 +102,20 @@
                 "short_day": "{{day}} aprem",
                 "long_day": "{{day}} après-midi"
             }
+        },
+        "date": {
+            "short": {
+                "short": "{{day}}/{{month}}",
+                "full": "{{day}}/{{month}}/{{shortYear}}",
+                "short_with_time": "{{day}}/{{month}} {{time}}",
+                "full_with_time": "{{day}}/{{month}}/{{shortYear}} {{time}}"
+            },
+            "long": {
+                "short": "{{weekday}} {{day}} {{monthName}}",
+                "full": "{{weekday}} {{day}} {{monthName}, {{year}",
+                "short_with_time": "{{weekday}} {{day}} {{monthName}}, {{time}}",
+                "full_with_time": "{{weekday}} {{day}} {{monthName}}, {{year}} {{time}}"
+            }
         }
     },
     "pages": {
@@ -135,7 +151,7 @@
     },
     "info": {
         "title": "Plus d'infos",
-        "description": "Vous utilisez actuellement la révision <1>{{gitRevision}}</1> de NookData.",
+        "description": "Vous utilisez actuellement la révision <1>{{gitRevision}}</1> de NookData. Cette version a été compilée le {{buildDate}}.",
         "contrib": {
             "title": "Contributeurs de NookData",
             "subtitle": "et leurs contributions",

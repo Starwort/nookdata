@@ -1,12 +1,14 @@
 {
     "time": {
-        "twelve_hour": {
-            "am": "{{h12}}:{{m}}A.M.",
-            "pm": "{{h12}}:{{m}}P.M.",
-            "am_short": "{{h12}}A.M.",
-            "pm_short": "{{h12}}P.M."
+        "precision": {
+            "hour": "{{hour}}",
+            "minute": "{{hour}}:{{minute}}",
+            "second": "{{hour}}:{{minute}}:{{second}}"
         },
-        "twenty_four_hour": "{{pad}}{{h24}}:{{m}}",
+        "twelve_hour": {
+            "am": "{{time}}A.M.",
+            "pm": "{{time}}P.M."
+        },
         "month": {
             "jan": {
                 "short": "Jan.",
@@ -100,6 +102,20 @@
                 "short_day": "{{day}} P.M.",
                 "long_day": "{{day}} afternoon"
             }
+        },
+        "date": {
+            "short": {
+                "short": "{{day}}/{{month}}",
+                "full": "{{day}}/{{month}}/{{shortYear}}",
+                "short_with_time": "{{day}}/{{month}} {{time}}",
+                "full_with_time": "{{day}}/{{month}}/{{shortYear}} {{time}}"
+            },
+            "long": {
+                "short": "{{weekday}} {{day}} {{monthName}}",
+                "full": "{{weekday}} {{day}} {{monthName}, {{year}",
+                "short_with_time": "{{weekday}} {{day}} {{monthName}}, {{time}}",
+                "full_with_time": "{{weekday}} {{day}} {{monthName}}, {{year}} {{time}}"
+            }
         }
     },
     "pages": {
@@ -135,7 +151,7 @@
     },
     "info": {
         "title": "About",
-        "description": "You are currently viewing NookData revision <1>{{gitRevision}}</1>.",
+        "description": "You are currently viewing NookData revision <1>{{gitRevision}}</1>. This version was compiled on {{buildDate}}.",
         "contrib": {
             "title": "NookData Contributors",
             "subtitle": "and their contributions",

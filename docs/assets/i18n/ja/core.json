@@ -1,12 +1,14 @@
 {
     "time": {
-        "twelve_hour": {
-            "am": "{{h12}}時{{m}}分午前",
-            "pm": "{{h12}}時{{m}}分午後",
-            "am_short": "{{h12}}時午前",
-            "pm_short": "{{h12}}時午後"
+        "precision": {
+            "hour": "{{hour}}時",
+            "minute": "{{hour}}時{{minute}}分",
+            "second": "{{hour}}時{{minute}}分{{second}}秒"
         },
-        "twenty_four_hour": "{{pad}}{{h24}}時{{m}}分",
+        "twelve_hour": {
+            "am": "午前{{h12}}時{{m}}分",
+            "pm": "午後{{h12}}時{{m}}分"
+        },
         "month": {
             "jan": {
                 "short": "一",
@@ -100,6 +102,20 @@
                 "short_day": "{{day}}の午後",
                 "long_day": "{{day}}の午後"
             }
+        },
+        "date": {
+            "short": {
+                "short": "{{month}}月{{day}}日",
+                "full": "{{year}}年{{month}}月{{day}}日",
+                "short_with_time": "{{month}}月{{day}}日{{time}}",
+                "full_with_time": "{{year}}年{{month}}月{{day}}日{{time}}"
+            },
+            "long": {
+                "short": "{{month}}月{{day}}日（{{weekday}}）",
+                "full": "{{year}}年{{month}}月{{day}}日（{{weekday}}）",
+                "short_with_time": "{{month}}月{{day}}日{{time}}（{{weekday}}）",
+                "full_with_time": "{{year}}年{{month}}月{{day}}日{{time}}（{{weekday}}）"
+            }
         }
     },
     "pages": {
@@ -135,7 +151,7 @@
     },
     "info": {
         "title": "ついて",
-        "description": "現在、たぬき心得リビジョン番号<1>{{gitRevision}}</1>を使用しています",
+        "description": "現在、たぬき心得リビジョン番号<1>{{gitRevision}}</1>を使用しています。このヴァアジョンは{{buildDate}}に生まれる",
         "contrib": {
             "title": "たぬき心得のコントリビューター",
             "subtitle": "とそのコントリビューション",
