@@ -1,24 +1,11 @@
 import {Card, CardContent, Grid, Theme, useMediaQuery, useTheme} from "@material-ui/core";
 import {useTranslation} from "react-i18next";
 import {useNDContext} from "../../../context";
-import {range} from "../../../misc";
+import {months, range} from "../../../misc";
 import '../../../prototype_mods';
 import UserSettings from '../../../user_settings';
 import './MonthPanels.scss';
-const months = [
-    "core:time.month.jan",
-    "core:time.month.feb",
-    "core:time.month.mar",
-    "core:time.month.apr",
-    "core:time.month.may",
-    "core:time.month.jun",
-    "core:time.month.jul",
-    "core:time.month.aug",
-    "core:time.month.sep",
-    "core:time.month.oct",
-    "core:time.month.nov",
-    "core:time.month.dec",
-];
+
 function winter(theme: Theme, settings: UserSettings) {
     return (
         settings.hemisphere === "north"

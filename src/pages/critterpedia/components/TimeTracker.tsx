@@ -1,17 +1,32 @@
 import {useTheme} from '@material-ui/core';
 import {useTranslation} from 'react-i18next';
 import {useNDContext} from '../../../context';
-import {getTextWidth} from '../../../misc';
+import {formatTime, getTextWidth} from '../../../misc';
 import './TimeTracker.scss';
 
 interface TimeTrackerProps {
     hours: boolean[];
 }
 
+const times = [
+    new Date(1970, 0, 1, 0),
+    new Date(1970, 0, 1, 6),
+    new Date(1970, 0, 1, 12),
+    new Date(1970, 0, 1, 18),
+    new Date(1970, 0, 2, 0),
+];
+
 export default function TimeTracker(props: TimeTrackerProps) {
     const theme = useTheme();
     const {t} = useTranslation('core');
     const {time: now, settings} = useNDContext();
+    const formattedTimes = times.map(
+        (time) => formatTime(
+            time,
+            t,
+            {twelveHour: settings.useTwelveHourTime, precision: 'hour'},
+        )
+    );
     let progress = (
         (
             (
@@ -26,32 +41,7 @@ export default function TimeTracker(props: TimeTrackerProps) {
         className="time-tracker"
         style={{
             marginBottom: Math.max(
-                getTextWidth(
-                    t(
-                        settings.useTwelveHourTime
-                            ? 'core:time.twelve_hour.am_short'
-                            : 'core:time.twenty_four_hour',
-                        {
-                            pad: '0',
-                            h12: 12,
-                            h24: 0,
-                            m: '00',
-                        }
-                    )
-                ),
-                getTextWidth(
-                    t(
-                        settings.useTwelveHourTime
-                            ? 'core:time.twelve_hour.pm_short'
-                            : 'core:time.twenty_four_hour',
-                        {
-                            pad: '0',
-                            h12: 12,
-                            h24: 0,
-                            m: '00',
-                        }
-                    )
-                ),
+                ...formattedTimes.map(getTextWidth)
             ) - 8,
         }}
     >
@@ -65,19 +55,7 @@ export default function TimeTracker(props: TimeTrackerProps) {
         <div>
             <div className="large-division" style={{backgroundColor: theme.palette.text.primary}} />
             <div className="division-label">
-                {
-                    t(
-                        settings.useTwelveHourTime
-                            ? 'core:time.twelve_hour.am_short'
-                            : 'core:time.twenty_four_hour',
-                        {
-                            pad: '0',
-                            h12: 12,
-                            h24: 0,
-                            m: '00',
-                        }
-                    )
-                }
+                {formattedTimes[0]}
             </div>
         </div>
         <div className="hour" style={{backgroundColor: props.hours[0] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity}} />
@@ -94,19 +72,7 @@ export default function TimeTracker(props: TimeTrackerProps) {
         <div>
             <div className="medium-division" style={{backgroundColor: theme.palette.text.primary}} />
             <div className="division-label">
-                {
-                    t(
-                        settings.useTwelveHourTime
-                            ? 'core:time.twelve_hour.am_short'
-                            : 'core:time.twenty_four_hour',
-                        {
-                            pad: '0',
-                            h12: 6,
-                            h24: 6,
-                            m: '00',
-                        }
-                    )
-                }
+                {formattedTimes[1]}
             </div>
         </div>
         <div className="hour" style={{backgroundColor: props.hours[6] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity}} />
@@ -123,19 +89,7 @@ export default function TimeTracker(props: TimeTrackerProps) {
         <div>
             <div className="large-division" style={{backgroundColor: theme.palette.text.primary}} />
             <div className="division-label">
-                {
-                    t(
-                        settings.useTwelveHourTime
-                            ? 'core:time.twelve_hour.pm_short'
-                            : 'core:time.twenty_four_hour',
-                        {
-                            pad: '',
-                            h12: 12,
-                            h24: 12,
-                            m: '00',
-                        }
-                    )
-                }
+                {formattedTimes[2]}
             </div>
         </div>
         <div className="hour" style={{backgroundColor: props.hours[12] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity}} />
@@ -152,19 +106,7 @@ export default function TimeTracker(props: TimeTrackerProps) {
         <div>
             <div className="medium-division" style={{backgroundColor: theme.palette.text.primary}} />
             <div className="division-label">
-                {
-                    t(
-                        settings.useTwelveHourTime
-                            ? 'core:time.twelve_hour.pm_short'
-                            : 'core:time.twenty_four_hour',
-                        {
-                            pad: '',
-                            h12: 6,
-                            h24: 18,
-                            m: '00',
-                        }
-                    )
-                }
+                {formattedTimes[3]}
             </div>
         </div>
         <div className="hour" style={{backgroundColor: props.hours[18] ? theme.palette.modelled.main : 'transparent', opacity: theme.palette.opacity}} />
@@ -181,19 +123,7 @@ export default function TimeTracker(props: TimeTrackerProps) {
         <div>
             <div className="large-division" style={{backgroundColor: theme.palette.text.primary}} />
             <div className="division-label">
-                {
-                    t(
-                        settings.useTwelveHourTime
-                            ? 'core:time.twelve_hour.am_short'
-                            : 'core:time.twenty_four_hour',
-                        {
-                            pad: '0',
-                            h12: 12,
-                            h24: 0,
-                            m: '00',
-                        }
-                    )
-                }
+                {formattedTimes[4]}
             </div>
         </div>
     </div>;

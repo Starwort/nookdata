@@ -1,8 +1,13 @@
 import {Avatar, Button, Dialog, DialogActions, DialogContent, DialogTitle, List, ListItem, ListItemAvatar, ListItemText, Tooltip, Typography, useTheme} from '@material-ui/core';
+import preval from 'preval.macro';
 import GitInfo from 'react-git-info/macro';
 import {Trans, useTranslation} from 'react-i18next';
 import {Centred} from '.';
+import {useSettings} from '../context';
 import {numberFormatters} from '../i18n';
+import {formatDate} from '../misc';
+
+const compileTime: Date = new Date(preval`module.exports = new Date().getTime()`);
 
 const gitInfo = GitInfo();
 
@@ -39,6 +44,7 @@ interface InfoDialogueProps {
 
 export default function InfoDialogue(props: InfoDialogueProps) {
     const {t} = useTranslation('core');
+    const settings = useSettings();
     const theme = useTheme();
     return <Dialog open={props.open} onClose={() => props.setOpen(false)}>
         <DialogTitle>
@@ -49,7 +55,14 @@ export default function InfoDialogue(props: InfoDialogueProps) {
                 You are currently viewing NookData revision
                 <a href={`https://github.com/Starwort/nookdata/commit/${gitInfo.commit.hash}`} style={{color: theme.palette.primary.main, textUnderlineOffset: 2}}>
                     {{gitRevision: numberFormatters[t('core:misc.code')](gitInfo.commit.shortHash)}}
-                </a>.
+                </a>. It was built on {{
+                    buildDate: formatDate(
+                        compileTime,
+                        t,
+                        {longhand: true, includeYear: true, includeTime: true},
+                        {twelveHour: settings.useTwelveHourTime, precision: 'minute'},
+                    ),
+                }}.
             </Trans>
             <br />
             <br />

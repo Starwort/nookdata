@@ -1,3 +1,6 @@
+import {TFunction} from "react-i18next";
+import {numberFormatters} from "./i18n";
+
 export type Dict<V> = {
     [key: string]: V;
 };
@@ -103,4 +106,106 @@ export function fsum(input: Array<number>) {
         sum = t;
     }
     return sum + c;  // Correction only applied once in the very end.
+}
+
+export const months = [
+    "core:time.month.jan",
+    "core:time.month.feb",
+    "core:time.month.mar",
+    "core:time.month.apr",
+    "core:time.month.may",
+    "core:time.month.jun",
+    "core:time.month.jul",
+    "core:time.month.aug",
+    "core:time.month.sep",
+    "core:time.month.oct",
+    "core:time.month.nov",
+    "core:time.month.dec",
+];
+export const weekdays = [
+    "core:time.weekday.sun",
+    "core:time.weekday.mon",
+    "core:time.weekday.tue",
+    "core:time.weekday.wed",
+    "core:time.weekday.thu",
+    "core:time.weekday.fri",
+    "core:time.weekday.sat",
+];
+interface TimeFormatterSettings {
+    twelveHour: boolean;
+    precision: 'hour' | 'minute' | 'second';
+}
+interface DateFormatterSettings {
+    longhand: boolean;
+    includeYear: boolean;
+    includeTime: boolean;
+}
+
+export function formatTime(
+    date: Date,
+    t: TFunction<"core">,
+    {twelveHour, precision}: TimeFormatterSettings
+): string {
+    const formatter = numberFormatters[t('core:misc.code')];
+    if (twelveHour) {
+        let hour = date.getHours() % 12;
+        if (hour == 0) {
+            hour = 12;
+        }
+        return t(
+            `core:time.twelve_hour.${(
+                date.getHours() < 12 ? 'am' : 'pm'
+            )}`,
+            {
+                time: t(
+                    `core:time.precision.${precision}`,
+                    {
+                        hour: formatter(hour),
+                        minute: formatter(date.getMinutes()).padStart(2, '0'),
+                        second: formatter(date.getSeconds()).padStart(2, '0'),
+                    },
+                ),
+            },
+        );
+    } else {
+        let minute = date.getMinutes();
+        if (precision == 'hour') {
+            precision = 'minute';
+            minute = 0;
+        }
+        return t(
+            `core:time.precision.${precision}`,
+            {
+                hour: formatter(date.getHours()).padStart(2, '0'),
+                minute: formatter(minute).padStart(2, '0'),
+                second: formatter(date.getSeconds()).padStart(2, '0'),
+            },
+        );
+    }
+}
+
+export function formatDate(
+    date: Date,
+    t: TFunction<"core">,
+    {longhand, includeYear, includeTime}: DateFormatterSettings,
+    timeFormatterSettings: TimeFormatterSettings
+): string {
+    return t(
+        `core:time.date.${(
+            longhand ? 'long' : 'short'
+        )}.${(
+            includeYear ? 'full' : 'short'
+        )}${(
+            includeTime ? '_with_time' : ''
+        )}`,
+        {
+            year: date.getFullYear(),
+            shortYear: (date.getFullYear() % 100).toString().padStart(2, '0'),
+            month: date.getMonth(),
+            monthName: t(months[date.getMonth()] + '.long'),
+            day: date.getDate(),
+            weekday: t(weekdays[date.getDay()] + '.long'),
+            time: formatTime(date, t, timeFormatterSettings),
+        }
+    );
 }
