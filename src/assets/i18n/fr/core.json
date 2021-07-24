@@ -112,7 +112,7 @@
             },
             "long": {
                 "short": "{{weekday}} {{day}} {{monthName}}",
-                "full": "{{weekday}} {{day}} {{monthName}, {{year}",
+                "full": "{{weekday}} {{day}} {{monthName}}, {{year}}",
                 "short_with_time": "{{weekday}} {{day}} {{monthName}}, {{time}}",
                 "full_with_time": "{{weekday}} {{day}} {{monthName}}, {{year}} {{time}}"
             }

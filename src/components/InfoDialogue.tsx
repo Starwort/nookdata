@@ -66,7 +66,6 @@ export default function InfoDialogue(props: InfoDialogueProps) {
                         compileTime,
                         t,
                         {longhand: true, includeYear: true, includeTime: false},
-                        {twelveHour: settings.useTwelveHourTime, precision: 'minute'},
                     ),
                 }}.
             </Trans>

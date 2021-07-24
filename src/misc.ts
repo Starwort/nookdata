@@ -135,10 +135,10 @@ interface TimeFormatterSettings {
     twelveHour: boolean;
     precision: 'hour' | 'minute' | 'second';
 }
-interface DateFormatterSettings {
+interface DateFormatterSettings<Time> {
     longhand: boolean;
     includeYear: boolean;
-    includeTime: boolean;
+    includeTime: Time;
 }
 
 export function formatTime(
@@ -187,8 +187,19 @@ export function formatTime(
 export function formatDate(
     date: Date,
     t: TFunction<"core">,
-    {longhand, includeYear, includeTime}: DateFormatterSettings,
-    timeFormatterSettings: TimeFormatterSettings
+    {longhand, includeYear, includeTime}: DateFormatterSettings<true>,
+    timeFormatterSettings: TimeFormatterSettings,
+): string;
+export function formatDate(
+    date: Date,
+    t: TFunction<"core">,
+    {longhand, includeYear, includeTime}: DateFormatterSettings<false>,
+): string;
+export function formatDate(
+    date: Date,
+    t: TFunction<"core">,
+    {longhand, includeYear, includeTime}: DateFormatterSettings<boolean>,
+    timeFormatterSettings?: TimeFormatterSettings,
 ): string {
     return t(
         `core:time.date.${(
@@ -205,7 +216,7 @@ export function formatDate(
             monthName: t(months[date.getMonth()] + '.long'),
             day: date.getDate(),
             weekday: t(weekdays[date.getDay()] + '.long'),
-            time: formatTime(date, t, timeFormatterSettings),
+            time: includeTime ? formatTime(date, t, timeFormatterSettings!) : '',
         }
     );
 }
