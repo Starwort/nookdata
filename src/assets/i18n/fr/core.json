@@ -151,7 +151,7 @@
     },
     "info": {
         "title": "Plus d'infos",
-        "description": "Vous utilisez actuellement la révision <1>{{gitRevision}}</1> de NookData. Cette version a été compilée le {{buildDate}}.",
+        "description": "Vous utilisez actuellement la révision <1>{{gitRevision}}</1> de NookData. Cette version a été compilée à {{buildTime}} le {{buildDate}}.",
         "contrib": {
             "title": "Contributeurs de NookData",
             "subtitle": "et leurs contributions",

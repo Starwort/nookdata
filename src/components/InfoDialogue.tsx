@@ -5,7 +5,7 @@ import {Trans, useTranslation} from 'react-i18next';
 import {Centred} from '.';
 import {useSettings} from '../context';
 import {numberFormatters} from '../i18n';
-import {formatDate} from '../misc';
+import {formatDate, formatTime} from '../misc';
 
 const compileTime: Date = new Date(preval`module.exports = new Date().getTime()`);
 
@@ -55,11 +55,17 @@ export default function InfoDialogue(props: InfoDialogueProps) {
                 You are currently viewing NookData revision
                 <a href={`https://github.com/Starwort/nookdata/commit/${gitInfo.commit.hash}`} style={{color: theme.palette.primary.main, textUnderlineOffset: 2}}>
                     {{gitRevision: numberFormatters[t('core:misc.code')](gitInfo.commit.shortHash)}}
-                </a>. It was built on {{
+                </a>. It was built at {{
+                    buildTime: formatTime(
+                        compileTime,
+                        t,
+                        {twelveHour: settings.useTwelveHourTime, precision: 'minute'},
+                    ),
+                }} on {{
                     buildDate: formatDate(
                         compileTime,
                         t,
-                        {longhand: true, includeYear: true, includeTime: true},
+                        {longhand: true, includeYear: true, includeTime: false},
                         {twelveHour: settings.useTwelveHourTime, precision: 'minute'},
                     ),
                 }}.
