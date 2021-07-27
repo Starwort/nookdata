@@ -1,9 +1,11 @@
 import {Button, Card, Checkbox, createStyles, Dialog, DialogActions, DialogContent, DialogTitle, Divider, FormControlLabel, Grid, IconButton, makeStyles, TextField, Toolbar, Tooltip, useTheme} from "@material-ui/core";
 import {ChevronLeft, ChevronRight, Cloud, WbSunny} from "@material-ui/icons";
+import React from "react";
 import {Helmet} from "react-helmet";
 import {useTranslation} from "react-i18next";
 import {Centred} from "../../../components";
-import {useNDContext} from "../../../context";
+import {useData, useTime} from "../../../context";
+import {UserCritterData} from "../../../data";
 import {numberFormatters} from "../../../i18n";
 import {getCritterLocation, getCritterName, getCritterQuote} from "../data";
 import {bugs, fish} from '../data.json';
@@ -34,43 +36,49 @@ const shadows = [
 interface CritterDialogueProps {
     data: (typeof bugs[0]) | (typeof fish[0]);
     type: 'bug' | 'fish';
-    obtained: boolean;
-    modelled: boolean;
-    stored: number;
-    setObtained: (value: boolean) => void;
-    setModelled: (value: boolean) => void;
-    setStored: (value: number) => void;
     open: boolean;
     setOpenDialogue: (value: number | null) => void;
 }
-export default function CritterDialogue(props: CritterDialogueProps) {
+export default function CritterDialogue({data, type, open, setOpenDialogue}: CritterDialogueProps) {
     const {t} = useTranslation('critterpedia');
     const numberFormatter = numberFormatters[t('core:misc.code')];
-    const {time, settings} = useNDContext();
+    const time = useTime();
+    const {settings, critterpedia, updateData} = useData();
     const hours = (
         settings.hemisphere == 'north' ?
-            props.data.hours :
-            props.data.hours.rotated(6)
+            data.hours :
+            data.hours.rotated(6)
     );
+    const state = (
+        type === 'bug'
+            ? critterpedia.bugs
+            : critterpedia.fish
+    )[data.index];
     const theme = useTheme();
-    const {palette} = useTheme();
+    const palette = theme.palette;
     let shadow;
-    if (props.type == 'fish') {
-        shadow = t(`critterpedia:fish.size.${(props.data as typeof fish[0]).shadow}`);
+    if (type == 'fish') {
+        shadow = t(`critterpedia:fish.size.${(data as typeof fish[0]).shadow}`);
     }
-    const index = props.data.index.toString().padStart(2, '0');
-    const name = getCritterName(props.data, props.type, t).capitalise();
+    const updateSelf = React.useCallback(
+        type === 'bug'
+            ? (value: Partial<UserCritterData>) => updateData({critterpedia: {bugs: {[data.index]: value} as UserCritterData[]}})
+            : (value: Partial<UserCritterData>) => updateData({critterpedia: {fish: {[data.index]: value} as UserCritterData[]}}),
+        [type]
+    );
+    const index = data.index.toString().padStart(2, '0');
+    const name = getCritterName(data, type, t).capitalise();
     return <>
         <Dialog
-            open={props.open}
-            onClose={() => props.setOpenDialogue(null)}
+            open={open}
+            onClose={() => setOpenDialogue(null)}
             scroll="body"
             PaperProps={{
                 style: {
-                    borderColor: props.modelled
+                    borderColor: state.modelled
                         ? palette.modelled.main
                         : (
-                            props.obtained
+                            state.obtained
                                 ? palette.primary.main
                                 : 'transparent'
                         ),
@@ -90,18 +98,18 @@ export default function CritterDialogue(props: CritterDialogueProps) {
             >
                 <Toolbar>
                     {
-                        props.data.index > 0
-                            ? <IconButton edge="start" onClick={() => props.setOpenDialogue(props.data.index - 1)}>
+                        data.index > 0
+                            ? <IconButton edge="start" onClick={() => setOpenDialogue(data.index - 1)}>
                                 {theme.direction == 'ltr' ? <ChevronLeft /> : <ChevronRight />}
                             </IconButton>
                             : <IconButton disabled />
                     }
                     <div style={{
                         textAlign: 'center',
-                        color: props.modelled
+                        color: state.modelled
                             ? palette.modelled.main
                             : (
-                                props.obtained
+                                state.obtained
                                     ? palette.primary.main
                                     : undefined
                             ),
@@ -111,8 +119,8 @@ export default function CritterDialogue(props: CritterDialogueProps) {
                         {name}
                     </div>
                     {
-                        props.data.index < 79
-                            ? <IconButton edge="end" onClick={() => props.setOpenDialogue(props.data.index + 1)}>
+                        data.index < 79
+                            ? <IconButton edge="end" onClick={() => setOpenDialogue(data.index + 1)}>
                                 {theme.direction == 'ltr' ? <ChevronRight /> : <ChevronLeft />}
                             </IconButton>
                             : <IconButton disabled />
@@ -124,15 +132,15 @@ export default function CritterDialogue(props: CritterDialogueProps) {
                     textAlign: 'center'
                 }}
             >
-                {t(`critterpedia:dialogue.type.${props.type}`, {index: numberFormatter(props.data.index + 1)})}
+                {t(`critterpedia:dialogue.type.${type}`, {index: numberFormatter(data.index + 1)})}
                 <br />
                 <Divider style={{marginTop: 8, marginBottom: 8}} />
                 <div
                     style={{paddingBottom: 8}}
                     dangerouslySetInnerHTML={{
                         __html: getCritterQuote(
-                            props.data,
-                            props.type,
+                            data,
+                            type,
                             settings.playerName,
                             t
                         )
@@ -151,12 +159,12 @@ export default function CritterDialogue(props: CritterDialogueProps) {
                     <Grid container>
                         <Grid item xs={12} sm={6}>
                             <img src={
-                                `assets/${props.type}/${index}.png`
+                                `assets/${type}/${index}.png`
                             } />
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <div className="info">
-                                {props.data.dry &&
+                                {data.dry &&
                                     <Tooltip
                                         title={t('critterpedia:dialogue.details.dry') as string}
                                     >
@@ -174,7 +182,7 @@ export default function CritterDialogue(props: CritterDialogueProps) {
                                 <div className="lfound">{t('critterpedia:dialogue.details.found')}</div>
                                 <div className="lsell">{t('critterpedia:dialogue.details.price')}</div>
                                 {shadow && <div className="lshadow">{t('critterpedia:dialogue.details.shadow')}</div>}
-                                {props.data.rain &&
+                                {data.rain &&
                                     <Tooltip
                                         title={t('critterpedia:dialogue.details.rain') as string}
                                     >
@@ -189,8 +197,8 @@ export default function CritterDialogue(props: CritterDialogueProps) {
                                         </div>
                                     </Tooltip>
                                 }
-                                <div className="found">{getCritterLocation(props.data, props.type, t)}</div>
-                                <div className="sell">{t('core:money.value', {value: numberFormatter(props.data.price)})}</div>
+                                <div className="found">{getCritterLocation(data, type, t)}</div>
+                                <div className="sell">{t('core:money.value', {value: numberFormatter(data.price)})}</div>
                                 {shadow && <div className="shadow">{shadow}</div>}
                             </div>
                         </Grid>
@@ -199,8 +207,8 @@ export default function CritterDialogue(props: CritterDialogueProps) {
                 <Grid container>
                     <Grid item xs={12} sm={4}>
                         <TextField
-                            value={props.stored.toString()}
-                            onChange={(event) => props.setStored(+event.target.value)}
+                            value={state.stored.toString()}
+                            onChange={(event) => updateSelf({stored: +event.target.value})}
                             type="number"
                             label={t('critterpedia:dialogue.stored')}
                         />
@@ -210,8 +218,8 @@ export default function CritterDialogue(props: CritterDialogueProps) {
                             <FormControlLabel
                                 control={
                                     <Checkbox
-                                        checked={props.obtained}
-                                        onChange={(event) => props.setObtained(event.target.checked)}
+                                        checked={state.obtained}
+                                        onChange={(event) => updateSelf({obtained: event.target.checked, stored: +event.target.checked, modelled: false})}
                                         color="primary"
                                     />
                                 }
@@ -225,9 +233,9 @@ export default function CritterDialogue(props: CritterDialogueProps) {
                                 control={
                                     <Checkbox
                                         className={useStyles(theme).modelled}
-                                        checked={props.modelled}
-                                        disabled={!props.obtained}
-                                        onChange={(event) => props.setModelled(event.target.checked)}
+                                        checked={state.modelled}
+                                        disabled={!state.obtained}
+                                        onChange={(event) => updateSelf({modelled: event.target.checked, stored: Math.max(state.stored + 3 * (-1) ** +event.target.checked, 0)})}
                                         color="default"
                                     />
                                 }
@@ -240,7 +248,7 @@ export default function CritterDialogue(props: CritterDialogueProps) {
             <DialogActions>
                 <Button
                     variant="text"
-                    onClick={() => props.setOpenDialogue(null)}
+                    onClick={() => setOpenDialogue(null)}
                 >{t('core:ui.dismiss')}</Button>
             </DialogActions>
         </Dialog>

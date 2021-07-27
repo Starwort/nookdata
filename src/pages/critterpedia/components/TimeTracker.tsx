@@ -1,6 +1,6 @@
 import {useTheme} from '@material-ui/core';
 import {useTranslation} from 'react-i18next';
-import {useNDContext} from '../../../context';
+import {useData, useTime} from '../../../context';
 import {formatTime, getTextWidth} from '../../../misc';
 import './TimeTracker.scss';
 
@@ -19,7 +19,8 @@ const times = [
 export default function TimeTracker(props: TimeTrackerProps) {
     const theme = useTheme();
     const {t} = useTranslation('core');
-    const {time: now, settings} = useNDContext();
+    const now = useTime();
+    const {settings} = useData();
     const formattedTimes = times.map(
         (time) => formatTime(
             time,

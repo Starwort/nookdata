@@ -3,18 +3,18 @@ import React, {Suspense} from 'react';
 import {Route, Switch} from 'react-router';
 import {Redirect} from 'react-router-dom';
 import {AppFrame, Loading, UpdateReadyDialogue, WorksOfflineDialogue} from './components';
-import {SettingsContextProvider, TimeContextProvider} from './context';
-import {updateData} from './data';
+import {DataContextProvider, TimeContextProvider} from './context';
+import {upgradeData, UserSettings} from './data';
 import {valueOr} from './misc';
 import {Critterpedia, Turnips} from './pages';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import getTheme from './themes';
-import UserSettings from './user_settings';
 
 export function App() {
-    updateData();
+    React.useEffect(upgradeData, []);
     const [settings, setSettingsImpl] = React.useState(() => JSON.parse(window.localStorage.settings));
     function setSettings(value: UserSettings) {
+        value.dataLastUpdated = new Date().toISOString();
         window.localStorage.settings = JSON.stringify(value);
         setSettingsImpl(value);
     }
@@ -23,24 +23,6 @@ export function App() {
         setSettings({...settings, theme: value});
         // document.body.classList.remove("no-transition");
         setTimeout(() => document.body.classList.remove("no-transition"), 10);
-    }
-    function setPlayerName(value: string) {
-        setSettings({...settings, playerName: value});
-    }
-    function setIslandName(value: string) {
-        setSettings({...settings, islandName: value});
-    }
-    function setHemisphere(value: 'north' | 'south') {
-        setSettings({...settings, hemisphere: value});
-    }
-    function setTimeOffset(value: number) {
-        setSettings({...settings, timeOffset: value});
-    }
-    function setUseSystemTime(value: boolean) {
-        setSettings({...settings, useSystemTime: value});
-    }
-    function setUseTwelveHourTime(value: boolean) {
-        setSettings({...settings, useTwelveHourTime: value});
     }
     const theme = React.useMemo(
         () => getTheme(settings.theme),
@@ -64,8 +46,8 @@ export function App() {
         serviceWorkerRegistration.register({onUpdate: _ => setUpdateReady(true), onSuccess: _ => setWorksOffline(true)});
     }, []);
     return <ThemeProvider theme={theme}>
-        <TimeContextProvider>
-            <SettingsContextProvider settings={settings}>
+        <DataContextProvider>
+            <TimeContextProvider>
                 <CssBaseline />
                 <AppFrame setTheme={setTheme} updateReady={updateReady} worksOffline={worksOffline} setWorksOffline={setWorksOffline}>
                     <Suspense fallback={<Loading />}>
@@ -104,7 +86,7 @@ export function App() {
                 </AppFrame>
                 <WorksOfflineDialogue open={worksOfflineDialogueOpen} setOpen={setWorksOfflineDialogueOpen} />
                 <UpdateReadyDialogue open={updateReadyDialogueOpen} setOpen={setUpdateReadyDialogueOpen} />
-            </SettingsContextProvider>
-        </TimeContextProvider>
+            </TimeContextProvider>
+        </DataContextProvider>
     </ThemeProvider>;
 }

@@ -1,9 +1,9 @@
 import {Card, CardContent, Grid, Theme, useMediaQuery, useTheme} from "@material-ui/core";
 import {useTranslation} from "react-i18next";
-import {useNDContext} from "../../../context";
+import {useData} from "../../../context";
+import {UserSettings} from '../../../data';
 import {months, range} from "../../../misc";
 import '../../../prototype_mods';
-import UserSettings from '../../../user_settings';
 import './MonthPanels.scss';
 
 function winter(theme: Theme, settings: UserSettings) {
@@ -57,7 +57,7 @@ interface MonthPanelProps {
 function MonthPanel(props: MonthPanelProps) {
     const theme = useTheme();
     const {t} = useTranslation('critterpedia');
-    const {settings} = useNDContext();
+    const {settings} = useData();
     const tooSmall = useMediaQuery(theme.breakpoints.down('xs'));
     return <Grid item xs={4}>
         <Card

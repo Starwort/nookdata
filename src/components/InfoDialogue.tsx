@@ -3,7 +3,7 @@ import preval from 'preval.macro';
 import GitInfo from 'react-git-info/macro';
 import {Trans, useTranslation} from 'react-i18next';
 import {Centred} from '.';
-import {useSettings} from '../context';
+import {useData} from '../context';
 import {numberFormatters} from '../i18n';
 import {formatDate, formatTime} from '../misc';
 
@@ -44,7 +44,7 @@ interface InfoDialogueProps {
 
 export default function InfoDialogue(props: InfoDialogueProps) {
     const {t} = useTranslation('core');
-    const settings = useSettings();
+    const {settings} = useData();
     const theme = useTheme();
     return <Dialog open={props.open} onClose={() => props.setOpen(false)}>
         <DialogTitle>

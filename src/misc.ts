@@ -1,3 +1,4 @@
+import React from "react";
 import {TFunction} from "react-i18next";
 import {numberFormatters} from "./i18n";
 
@@ -219,4 +220,11 @@ export function formatDate(
             time: includeTime ? formatTime(date, t, timeFormatterSettings!) : '',
         }
     );
+}
+export function useRerender() {
+    const [, setTick] = React.useState(0);
+    const update = React.useCallback(() => {
+        setTick(tick => tick + 1);
+    }, []);
+    return update;
 }

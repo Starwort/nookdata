@@ -3,7 +3,7 @@ import React from 'react';
 import {Helmet} from 'react-helmet';
 import {Trans, useTranslation} from 'react-i18next';
 import {useHistory} from 'react-router';
-import {UserCritterData, UserCritterpediaData} from '../../data';
+import {useData} from '../../context';
 import {numberFormatters} from '../../i18n';
 import {range} from '../../misc';
 import CritterPanel from './components/CritterPanel';
@@ -11,14 +11,16 @@ import {bugs, fish} from './data.json';
 import SearchParameters from './search_parameters';
 
 interface CritterpediaProps {
-    load?: {type: 'bug' | 'fish', index: number;};
+    load?: {
+        type: 'bug' | 'fish';
+        index: number;
+    };
 }
 
 export default function Critterpedia(props: CritterpediaProps) {
     const {t} = useTranslation(['core', 'critterpedia']);
     const numberFormatter = numberFormatters[t('core:misc.code')];
     const theme = useTheme();
-    const data: UserCritterpediaData = JSON.parse(window.localStorage.critterpedia);
     const [activeRequired, setActiveRequired] = React.useState<'now' | 'month' | 'until_next' | 'any'>('any');
     const [location, setLocation] = React.useState('');
     const [name, setName] = React.useState('');
@@ -36,8 +38,7 @@ export default function Critterpedia(props: CritterpediaProps) {
         stateRequired,
     };
     const {type, index} = props.load ?? {type: 'bug', index: null};
-    const [bugsData, setBugsDataImpl] = React.useState(data.bugs);
-    const [fishData, setFishDataImpl] = React.useState(data.fish);
+    const {critterpedia: {bugs: bugData, fish: fishData}} = useData();
 
     const history = useHistory();
 
@@ -47,17 +48,6 @@ export default function Critterpedia(props: CritterpediaProps) {
         } else {
             history.push(`/critterpedia/${type}/${index}`);
         }
-    }
-
-    function setBugsData(bug: number, state: UserCritterData) {
-        data.bugs[bug] = state;
-        window.localStorage.critterpedia = JSON.stringify(data);
-        setBugsDataImpl(data.bugs);
-    }
-    function setFishData(fish: number, state: UserCritterData) {
-        data.fish[fish] = state;
-        window.localStorage.critterpedia = JSON.stringify(data);
-        setFishDataImpl(data.fish);
     }
     return <>
         <Helmet>
@@ -141,7 +131,7 @@ export default function Critterpedia(props: CritterpediaProps) {
                         Bugs <span style={{color: theme.palette.primary.main}}>
                             ({
                                 {
-                                    obtained: numberFormatter(bugsData.reduce(
+                                    obtained: numberFormatter(bugData.reduce(
                                         (total, bug) => total + (+bug.obtained), 0
                                     )),
                                 }
@@ -149,7 +139,7 @@ export default function Critterpedia(props: CritterpediaProps) {
                         </span> <span style={{color: theme.palette.modelled.main}}>
                             ({
                                 {
-                                    modelled: numberFormatter(bugsData.reduce(
+                                    modelled: numberFormatter(bugData.reduce(
                                         (total, bug) => total + (+bug.modelled), 0
                                     )),
                                 }
@@ -168,17 +158,11 @@ export default function Critterpedia(props: CritterpediaProps) {
                                                 range(16).map(
                                                     (x) => {
                                                         const myIndex = x * 5 + y;
-                                                        const critterData = bugsData[myIndex];
+                                                        const critterData = bugData[myIndex];
                                                         return <td key={x}>
                                                             <CritterPanel
                                                                 data={bugs[myIndex]}
-                                                                obtained={critterData.obtained}
-                                                                modelled={critterData.modelled}
-                                                                stored={critterData.stored}
                                                                 type="bug"
-                                                                setObtained={(value: boolean) => setBugsData(myIndex, {obtained: value, modelled: false, stored: +value})}
-                                                                setModelled={(value: boolean) => setBugsData(myIndex, {obtained: true, modelled: value, stored: Math.max(0, critterData.stored + (value ? -3 : 3))})}
-                                                                setStored={(value: number) => setBugsData(myIndex, {...critterData, stored: Math.max(0, value)})}
                                                                 open={type === 'bug' && index === myIndex}
                                                                 setOpenDialogue={(value) => setOpenDialogue('bug', value)}
                                                                 searchParameters={searchParameters}
@@ -231,13 +215,7 @@ export default function Critterpedia(props: CritterpediaProps) {
                                                         return <td key={x}>
                                                             <CritterPanel
                                                                 data={fish[myIndex]}
-                                                                obtained={critterData.obtained}
-                                                                modelled={critterData.modelled}
-                                                                stored={critterData.stored}
                                                                 type="fish"
-                                                                setObtained={(value: boolean) => setFishData(myIndex, {obtained: value, modelled: false, stored: +value})}
-                                                                setModelled={(value: boolean) => setFishData(myIndex, {obtained: true, modelled: value, stored: Math.max(0, critterData.stored + (value ? -3 : 3))})}
-                                                                setStored={(value: number) => setFishData(myIndex, {...critterData, stored: Math.max(0, value)})}
                                                                 open={type === 'fish' && index == myIndex}
                                                                 setOpenDialogue={(value) => setOpenDialogue('fish', value)}
                                                                 searchParameters={searchParameters}

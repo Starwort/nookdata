@@ -1,7 +1,7 @@
 import {Card, CardActionArea, Tooltip, useTheme} from "@material-ui/core";
 import {Help, Warning} from "@material-ui/icons";
 import {useTranslation} from "react-i18next";
-import {useNDContext} from "../../../context";
+import {useData, useTime} from "../../../context";
 import '../../../prototype_mods';
 import {getCritterLocation, getCritterName} from '../data';
 import {bugs, fish} from '../data.json';
@@ -12,29 +12,29 @@ import './CritterPanel.scss';
 interface CritterPanelProps {
     data: (typeof bugs[0]) | (typeof fish[0]);
     type: 'bug' | 'fish';
-    obtained: boolean;
-    modelled: boolean;
-    stored: number;
-    setObtained: (value: boolean) => void;
-    setModelled: (value: boolean) => void;
-    setStored: (value: number) => void;
     searchParameters: SearchParameters;
     open: boolean;
     setOpenDialogue: (value: number | null) => void;
 }
 function CritterPanel(props: CritterPanelProps) {
     const {t} = useTranslation('critterpedia');
-    const {time, settings} = useNDContext();
+    const time = useTime();
+    const {settings, critterpedia} = useData();
     const hours = (
         settings.hemisphere == 'north' ?
             props.data.hours :
             props.data.hours.rotated(6)
     );
     const theme = useTheme();
+    const palette = theme.palette;
     const activeNow = hours[time.getMonth()][time.getHours()];
     const activeMonth = hours[time.getMonth()].reduce((a, b) => a || b);
     const leavingSoon = activeMonth && !hours[(time.getMonth() + 1) % 12].reduce((a, b) => a || b);
-    const {palette} = useTheme();
+    const state = (
+        props.type === 'bug'
+            ? critterpedia.bugs
+            : critterpedia.fish
+    )[props.data.index];
     const {
         activeRequired,
         location,
@@ -61,9 +61,9 @@ function CritterPanel(props: CritterPanelProps) {
         match = false;
     } else if (props.type == 'fish' && !shadow.includes(size.toLowerCase())) {
         match = false;
-    } else if (stateRequired === 'unobtained' && props.obtained) {
+    } else if (stateRequired === 'unobtained' && state.obtained) {
         match = false;
-    } else if (stateRequired === 'unmodelled' && props.modelled) {
+    } else if (stateRequired === 'unmodelled' && state.modelled) {
         match = false;
     } else {
         switch (priceComparison) {
@@ -89,7 +89,7 @@ function CritterPanel(props: CritterPanelProps) {
         t(`critterpedia:panel.type.${props.type}`, {name: getCritterName(props.data, props.type, t).capitalise(), index: props.data.index + 1}),
         (activeMonth ? (leavingSoon ? t('critterpedia:panel.status.leaving_soon') : '') : t('critterpedia:panel.status.unavailable')),
         (activeNow ? t('critterpedia:panel.status.now') : ''),
-        (props.modelled ? t('critterpedia:panel.status.modelled') : ''),
+        (state.modelled ? t('critterpedia:panel.status.modelled') : ''),
         t('critterpedia:panel.status.details'),
     ].filter((elem) => !!elem).join('\n');
 
@@ -99,10 +99,10 @@ function CritterPanel(props: CritterPanelProps) {
                 className="critter-panel"
                 style={
                     {
-                        backgroundColor: props.modelled
+                        backgroundColor: state.modelled
                             ? palette.modelled.transparent
                             : (
-                                props.obtained
+                                state.obtained
                                     ? palette.primary.transparent
                                     : (
                                         activeMonth
@@ -110,12 +110,12 @@ function CritterPanel(props: CritterPanelProps) {
                                             : palette.error.transparent
                                     )
                             ),
-                        borderColor: props.modelled
+                        borderColor: state.modelled
                             ? palette.modelled.main
                             : (
                                 activeMonth
                                     ? (
-                                        props.obtained
+                                        state.obtained
                                             ? palette.primary.main
                                             : undefined
                                     )
@@ -129,17 +129,17 @@ function CritterPanel(props: CritterPanelProps) {
                     {
                         leavingSoon
                             ? <Warning style={{
-                                color: props.modelled
+                                color: state.modelled
                                     ? palette.modelled.main
                                     : palette.error.main,
                             }} />
                             : <Help style={{
-                                color: props.modelled
+                                color: state.modelled
                                     ? palette.modelled.main
                                     : (
                                         activeMonth
                                             ? (
-                                                props.obtained
+                                                state.obtained
                                                     ? palette.primary.main
                                                     : undefined
                                             )

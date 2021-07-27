@@ -22,12 +22,12 @@ import {
 } from "@material-ui/core";
 import {Warning} from "@material-ui/icons";
 import {areaSplineRange} from 'billboard.js';
-import deepmerge from "deepmerge";
 import React from "react";
 import {Helmet} from "react-helmet";
 import {useTranslation} from "react-i18next";
 import {Centred} from '../../components';
-import {clone, DeepPartial, Dict, fsum, getDefault, range} from "../../misc";
+import {useData} from "../../context";
+import {clone, DeepPartial, Dict, fsum, range} from "../../misc";
 import {Chart} from './components';
 import {calculate, dataMakesSense, emptyWeek, knownPattern, Pattern, patternColours, TurnipsResult, UserTurnipsData} from "./data";
 
@@ -124,7 +124,7 @@ function Graph({result}: {result: TurnipsResult[];}) {
             <div style={{margin: '0 16px'}}>
                 <Grid container spacing={2}>
                     {[Pattern.SMALL_SPIKE, Pattern.LARGE_SPIKE, Pattern.FLUCTUATING, Pattern.DECREASING].map(pattern =>
-                        <Grid item xs={12} sm={6} lg={3}>
+                        <Grid item xs={12} sm={6} lg={3} key={pattern}>
                             <Card
                                 style={{
                                     backgroundColor: theme.name === 'light' ? patternColours.light[pattern](1) : undefined,
@@ -161,25 +161,23 @@ function Graph({result}: {result: TurnipsResult[];}) {
 }
 
 export default function Turnips() {
-    const foundData = getDefault(window.localStorage.turnips, clone(emptyWeek));
-    const [data, setDataImpl] = React.useState(foundData);
+    console.log("render!");
+    const {settings, turnips: data, updateData} = useData();
     const [confirmOpen, setConfirmOpen] = React.useState(false);
-    const [dontAsk, setDontAsk] = React.useState(false);
+    const [noConfirm, setNoConfirm] = React.useState(false);
     let makesSense = dataMakesSense(data);
+    function setData(data: DeepPartial<UserTurnipsData>) {
+        updateData({turnips: data});
+    }
     function confirm() {
-        if (dontAsk) {
-            window.localStorage.turnipDontConfirm = 'true';
+        if (noConfirm) {
+            updateData({settings: {turnipNoConfirm: true}});
         }
         setConfirmOpen(false);
         reset();
     }
-    function setData(newData: DeepPartial<UserTurnipsData>) {
-        let toSet: UserTurnipsData = deepmerge<UserTurnipsData>(data, newData as Partial<UserTurnipsData>);
-        window.localStorage.turnips = JSON.stringify(toSet);
-        setDataImpl(toSet);
-    }
     function nextWeek() {
-        if (getDefault<boolean>(window.localStorage.turnipDontConfirm, false)) {
+        if (settings.turnipNoConfirm) {
             reset();
         } else {
             setConfirmOpen(true);
@@ -215,10 +213,10 @@ export default function Turnips() {
         () => dataMakesSense(data) ? calculate(data) : [],
         [data]
     );
+    let graph = <Graph result={result} />;
     if (!result.length) {
         makesSense = false;
     }
-    let graph = <Graph result={result} />;
     return <>
         <Helmet>
             <title>{t('core:title.browser.page', {pageTitle: t('core:pages.turnips')})}</title>
@@ -234,14 +232,14 @@ export default function Turnips() {
                         </Grid>
                         {!isXs && firstBuy}
                         {weekDays.map((day) => (
-                            <>
-                                <Grid item xs={12} sm={6}>
+                            <React.Fragment key={day}>
+                                <Grid item xs={12} sm={6} key={`${day}am`}>
                                     <TextField type="number" fullWidth value={data[day].am ?? ''} onChange={(event) => setData({[day]: {am: event.target.value ? +event.target.value : null}})} label={t('core:time.meridian.am.long_day', {day: t(`core:time.weekday.${day}.long`)})} />
                                 </Grid>
-                                <Grid item xs={12} sm={6}>
+                                <Grid item xs={12} sm={6} key={`${day}pm`}>
                                     <TextField type="number" fullWidth value={data[day].pm ?? ''} onChange={(event) => setData({[day]: {pm: event.target.value ? +event.target.value : null}})} label={t('core:time.meridian.pm.long_day', {day: t(`core:time.weekday.${day}.long`)})} />
                                 </Grid>
-                            </>
+                            </React.Fragment>
                         ))}
                         <Grid item xs={12} sm={6}>
                             <FormControl fullWidth>
@@ -296,8 +294,8 @@ export default function Turnips() {
                 <FormControlLabel
                     control={
                         <Checkbox
-                            checked={dontAsk}
-                            onChange={(event) => setDontAsk(event.target.checked)}
+                            checked={noConfirm}
+                            onChange={(event) => setNoConfirm(event.target.checked)}
                             color="primary"
                         />
                     }
