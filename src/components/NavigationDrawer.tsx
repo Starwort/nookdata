@@ -4,6 +4,7 @@ import {useTranslation} from 'react-i18next';
 import {ListItemLink} from '.';
 import {ReactComponent as DarkModeSVG} from '../assets/icons/dark_mode.svg';
 import {ReactComponent as DiscordSVG} from '../assets/icons/discord.svg';
+import {ReactComponent as LightModeSVG} from '../assets/icons/light_mode.svg';
 import {pageData} from '../pages';
 import {ThemeName} from '../themes';
 
@@ -14,7 +15,7 @@ function DarkModeIcon() {
     return <SvgIcon component={DarkModeSVG} />;
 }
 function LightModeIcon() {
-    return <SvgIcon component={DarkModeSVG} />;
+    return <SvgIcon component={LightModeSVG} />;
 }
 
 interface DrawerContentProps {
