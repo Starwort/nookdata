@@ -3,8 +3,8 @@
     "static/js/0.0ae2ca8c.chunk.js": "/nookdata/static/js/0.0ae2ca8c.chunk.js",
     "static/js/0.0ae2ca8c.chunk.js.map": "/nookdata/static/js/0.0ae2ca8c.chunk.js.map",
     "main.css": "/nookdata/static/css/main.15f9ca0f.chunk.css",
-    "main.js": "/nookdata/static/js/main.4f9f99fb.chunk.js",
-    "main.js.map": "/nookdata/static/js/main.4f9f99fb.chunk.js.map",
+    "main.js": "/nookdata/static/js/main.df99081e.chunk.js",
+    "main.js.map": "/nookdata/static/js/main.df99081e.chunk.js.map",
     "runtime-main.js": "/nookdata/static/js/runtime-main.876e90c0.js",
     "runtime-main.js.map": "/nookdata/static/js/runtime-main.876e90c0.js.map",
     "static/js/3.4b1e95e1.chunk.js": "/nookdata/static/js/3.4b1e95e1.chunk.js",
@@ -29,12 +29,13 @@
     "static/media/dark_mode.a4ad8d77.svg": "/nookdata/static/media/dark_mode.a4ad8d77.svg",
     "static/media/discord.8f962468.svg": "/nookdata/static/media/discord.8f962468.svg",
     "static/media/getFetch.cjs": "/nookdata/static/media/getFetch.d7d6010d.cjs",
-    "static/media/index.scss": "/nookdata/static/media/humming-misc.6db5eaeb.woff"
+    "static/media/index.scss": "/nookdata/static/media/humming-misc.6db5eaeb.woff",
+    "static/media/light_mode.81cf8a4d.svg": "/nookdata/static/media/light_mode.81cf8a4d.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.876e90c0.js",
     "static/js/3.4b1e95e1.chunk.js",
     "static/css/main.15f9ca0f.chunk.css",
-    "static/js/main.4f9f99fb.chunk.js"
+    "static/js/main.df99081e.chunk.js"
   ]
 }
