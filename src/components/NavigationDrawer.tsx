@@ -1,11 +1,21 @@
-import {Drawer, Hidden, List, ListItem, ListItemIcon, ListItemText, Toolbar, useTheme} from '@material-ui/core';
-import {Feedback, Info, Language} from '@material-ui/icons';
-import DarkModeIcon from '@material-ui/icons/Brightness4';
-import LightModeIcon from '@material-ui/icons/Brightness7';
+import {Drawer, Hidden, List, ListItem, ListItemIcon, ListItemText, SvgIcon, Toolbar, useTheme} from '@material-ui/core';
+import {Info, Language} from '@material-ui/icons';
 import {useTranslation} from 'react-i18next';
 import {ListItemLink} from '.';
+import {ReactComponent as DarkModeSVG} from '../assets/icons/dark_mode.svg';
+import {ReactComponent as DiscordSVG} from '../assets/icons/discord.svg';
 import {pageData} from '../pages';
 import {ThemeName} from '../themes';
+
+function Discord() {
+    return <SvgIcon component={DiscordSVG} />;
+}
+function DarkModeIcon() {
+    return <SvgIcon component={DarkModeSVG} />;
+}
+function LightModeIcon() {
+    return <SvgIcon component={DarkModeSVG} />;
+}
 
 interface DrawerContentProps {
     onSelect?: () => void;
@@ -31,7 +41,7 @@ function DrawerContent({
         <div style={{flexGrow: 1}} />
         <ListItem button component="a" href="https://discord.gg/jahp5wd" target="_blank">
             <ListItemIcon>
-                <Feedback />
+                <Discord />
             </ListItemIcon>
             <ListItemText primary={t('core:sidebar.support')} />
         </ListItem>

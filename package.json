@@ -61,6 +61,7 @@
     ]
   },
   "devDependencies": {
+    "@svgr/webpack": "^5.5.0",
     "@types/react-helmet": "^6.1.1",
     "@types/react-router": "^5.1.13",
     "@types/react-router-dom": "^5.1.7",
@@ -73,7 +74,12 @@
       "use-babel-config",
       {
         "presets": [
-          "react-app",
+          [
+            "react-app",
+            {
+              "runtime": "automatic"
+            }
+          ],
           [
             "@babel/preset-typescript",
             {
@@ -91,6 +97,16 @@
                   "path": "react"
                 }
               ]
+            }
+          ],
+          [
+            "babel-plugin-named-asset-import",
+            {
+              "loaderMap": {
+                "svg": {
+                  "ReactComponent": "@svgr/webpack?-svgo,+titleProp,+ref![path]"
+                }
+              }
             }
           ]
         ]
