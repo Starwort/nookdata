@@ -131,21 +131,49 @@
             "page_data": "{{pageTitle}} - {{pageData}} | NookData"
         }
     },
-    "lang": {
-        "choose": "Site language",
-        "en": "English (English)",
-        "fr": "French (français)",
-        "ja": "Japanese (日本語)"
+    "settings": {
+        "title": "NookData Settings",
+        "system": {
+            "title": "Site Settings",
+            "lang": {
+                "choose": "Site Language",
+                "en": "English (English)",
+                "fr": "French (français)",
+                "ja": "Japanese (日本語)"
+            },
+            "theme": {
+                "choose": "Site Theme",
+                "dark": "Material Dark",
+                "light": "Material Light"
+            },
+            "time": {
+                "system": "Use System Time",
+                "override": "Override Time",
+                "use_twelve_hour": "Use Twelve-Hour Time"
+            }
+        },
+        "island": {
+            "title": "Island Settings",
+            "name": "Island Name",
+            "player_name": "Player Name",
+            "hemisphere": {
+                "choose": "Island Hemisphere",
+                "north": "Northern Hemisphere",
+                "south": "Southern Hemisphere"
+            }
+        }
     },
     "ui": {
         "dismiss": "Dismiss",
         "cancel": "Cancel",
         "confirm": "Confirm",
-        "dont_ask": "Don't ask again"
+        "dont_ask": "Don't ask again",
+        "done": "Done",
+        "close": "Close"
     },
     "sidebar": {
         "about": "About NookData",
-        "lang": "Set Language",
+        "settings": "Settings",
         "theme": "Toggle Theme",
         "support": "Get Support"
     },
