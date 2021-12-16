@@ -1,3 +1,4 @@
+import 'datejs';
 import React, {useContext} from "react";
 import {upgradeData, UserCritterpediaData, UserSettings, UserTurnipsData} from "./data";
 import {DeepPartial, useRerender} from "./misc";
@@ -23,16 +24,17 @@ interface ContextProviderProps {
 
 interface TimeContextProps {
     interval?: number;
+    offset: number;
 }
 
-export function TimeContextProvider({interval, children}: TimeContextProps & ContextProviderProps) {
+export function TimeContextProvider({interval, offset, children}: TimeContextProps & ContextProviderProps) {
     const [time, setTime] = React.useState(defaultTime);
     React.useEffect(() => {
-        let windowInterval = window.setInterval(() => setTime(new Date()), interval ?? 500);
+        let windowInterval = window.setInterval(() => setTime((new Date()).addMilliseconds(offset)), interval ?? 500);
         return () => {
             window.clearInterval(windowInterval);
         };
-    }, [interval]);
+    }, [interval, offset]);
     return React.createElement(
         TimeContext.Provider,
         {value: time},

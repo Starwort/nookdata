@@ -1,14 +1,14 @@
 import AppBar from './AppBar';
 import AppFrame from './AppFrame';
 import Centred from './Centred';
+import InfoDialogue from './dialogues/InfoDialogue';
+import SettingsDialogue from './dialogues/SettingsDialogue';
+import UpdateReadyDialogue from './dialogues/UpdateReadyDialogue';
+import WorksOfflineDialogue from './dialogues/WorksOfflineDialogue';
 import DrawerAdjust from './DrawerAdjust';
-import InfoDialogue from './InfoDialogue';
-import LanguageDialogue from './LanguageDialogue';
 import ListItemLink from './ListItemLink';
 import Loading from './Loading';
 import NavigationDrawer from './NavigationDrawer';
-import UpdateReadyDialogue from './UpdateReadyDialogue';
-import WorksOfflineDialogue from './WorksOfflineDialogue';
 
 export {
     AppBar,
@@ -16,7 +16,7 @@ export {
     Centred,
     DrawerAdjust,
     InfoDialogue,
-    LanguageDialogue,
+    SettingsDialogue,
     ListItemLink,
     Loading,
     NavigationDrawer,

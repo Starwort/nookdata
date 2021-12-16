@@ -1,21 +1,20 @@
 import {Typography, useMediaQuery, useTheme} from '@material-ui/core';
 import React from 'react';
 import {useTranslation} from 'react-i18next';
-import {AppBar, DrawerAdjust, NavigationDrawer} from '.';
-import {ThemeName} from '../themes';
-import InfoDialogue from './InfoDialogue';
-import LanguageDialogue from './LanguageDialogue';
+import {AppBar, DrawerAdjust, NavigationDrawer, SettingsDialogue} from '.';
+import {UserSettings} from '../data';
+import InfoDialogue from './dialogues/InfoDialogue';
 
 
 interface AppFrameProps {
-    setTheme: (value: ThemeName) => void;
     children: React.ReactNode;
     updateReady: boolean;
     worksOffline: boolean;
-    setWorksOffline: (value: boolean) => void;
+    setWorksOffline(value: boolean): void;
+    setSettings(settings: UserSettings): void;
 }
 let initialRenders = 10;
-export default function AppFrame(props: AppFrameProps) {
+export default function AppFrame({children, updateReady, worksOffline, setWorksOffline, setSettings}: AppFrameProps) {
     const theme = useTheme();
     const startOpen = useMediaQuery(theme.breakpoints.up('lg'));
     const [drawerOpen, setDrawerOpen] = React.useState(false);
@@ -28,8 +27,8 @@ export default function AppFrame(props: AppFrameProps) {
             initialRenders--;
         }
     }
-    const {t, i18n} = useTranslation('core');
-    const [langOpen, setLangOpen] = React.useState(false);
+    const {t} = useTranslation('core');
+    const [settingsOpen, setSettingsOpen] = React.useState(false);
     const [infoOpen, setInfoOpen] = React.useState(false);
     return (
         <>
@@ -56,24 +55,20 @@ export default function AppFrame(props: AppFrameProps) {
                         </div>
                     </Typography>
                 }
-                updateReady={props.updateReady}
-                worksOffline={props.worksOffline}
-                setWorksOffline={props.setWorksOffline}
+                updateReady={updateReady}
+                worksOffline={worksOffline}
+                setWorksOffline={setWorksOffline}
             />
             <NavigationDrawer
                 open={drawerOpen}
                 setOpen={setDrawerOpen}
-                setTheme={props.setTheme}
                 setInfoOpen={setInfoOpen}
-                setLangOpen={setLangOpen}
+                setSettingsOpen={setSettingsOpen}
             />
-            <LanguageDialogue open={langOpen} setLang={(value: string) => {
-                i18n.changeLanguage(value);
-                setLangOpen(false);
-            }} />
+            <SettingsDialogue open={settingsOpen} setOpen={setSettingsOpen} setSettings={setSettings} />
             <InfoDialogue open={infoOpen} setOpen={setInfoOpen} />
             <DrawerAdjust active={drawerOpen}>
-                {props.children}
+                {children}
             </DrawerAdjust>
         </>
     );

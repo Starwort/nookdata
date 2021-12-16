@@ -18,12 +18,6 @@ export function App() {
         window.localStorage.settings = JSON.stringify(value);
         setSettingsImpl(value);
     }
-    function setTheme(value: 'dark' | 'light') {
-        document.body.classList.add("no-transition");
-        setSettings({...settings, theme: value});
-        // document.body.classList.remove("no-transition");
-        setTimeout(() => document.body.classList.remove("no-transition"), 10);
-    }
     const theme = React.useMemo(
         () => getTheme(settings.theme),
         [settings]
@@ -47,9 +41,9 @@ export function App() {
     }, []);
     return <ThemeProvider theme={theme}>
         <DataContextProvider>
-            <TimeContextProvider>
+            <TimeContextProvider offset={settings.timeOffset}>
                 <CssBaseline />
-                <AppFrame setTheme={setTheme} updateReady={updateReady} worksOffline={worksOffline} setWorksOffline={setWorksOffline}>
+                <AppFrame updateReady={updateReady} worksOffline={worksOffline} setWorksOffline={setWorksOffline} setSettings={setSettings}>
                     <Suspense fallback={<Loading />}>
                         <Switch>
                             <Route path="/critterpedia/:type/:index" render={({match}) => {

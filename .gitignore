@@ -24,4 +24,4 @@ yarn-error.log*
 
 .vscode/
 
-public/assets/
+public/assets

@@ -9,6 +9,8 @@ const themes = {
     dark,
 };
 
+export const themeNames = Object.keys(themes);
+
 export type ThemeName = keyof typeof themes;
 
 export default function getTheme(theme: ThemeName) {

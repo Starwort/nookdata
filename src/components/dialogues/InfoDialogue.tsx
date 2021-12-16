@@ -2,10 +2,10 @@ import {Avatar, Button, Dialog, DialogActions, DialogContent, DialogTitle, List,
 import preval from 'preval.macro';
 import GitInfo from 'react-git-info/macro';
 import {Trans, useTranslation} from 'react-i18next';
-import {Centred} from '.';
-import {useData} from '../context';
-import {numberFormatters} from '../i18n';
-import {formatDate, formatTime} from '../misc';
+import {Centred} from '..';
+import {useData} from '../../context';
+import {numberFormatters} from '../../i18n';
+import {formatDate, formatTime} from '../../misc';
 
 const compileTime: Date = new Date(preval`module.exports = new Date().getTime()`);
 
