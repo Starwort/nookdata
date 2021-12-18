@@ -213,7 +213,7 @@ export function formatDate(
         {
             year: date.getFullYear(),
             shortYear: (date.getFullYear() % 100).toString().padStart(2, '0'),
-            month: date.getMonth(),
+            month: date.getMonth() + 1,
             monthName: t(months[date.getMonth()] + '.long'),
             day: date.getDate(),
             weekday: t(weekdays[date.getDay()] + '.long'),
