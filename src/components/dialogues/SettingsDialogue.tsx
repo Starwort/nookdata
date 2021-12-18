@@ -147,7 +147,7 @@ export default function SettingsDialogue({open, setOpen, setSettings}: SettingsD
                         onChange={(event) => setSettings({...settings, islandName: event.target.value as string})}
                         fullWidth
                         InputLabelProps={{
-                            shrink: !!settings.islandName,
+                            shrink: settings.islandName ? true : undefined,
                         }}
                     />
                 </Grid>
@@ -172,7 +172,7 @@ export default function SettingsDialogue({open, setOpen, setSettings}: SettingsD
                         onChange={(event) => setSettings({...settings, playerName: event.target.value as string})}
                         fullWidth
                         InputLabelProps={{
-                            shrink: !!settings.playerName,
+                            shrink: settings.playerName ? true : undefined,
                         }}
                     />
                 </Grid>
