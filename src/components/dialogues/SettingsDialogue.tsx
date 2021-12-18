@@ -100,7 +100,7 @@ export default function SettingsDialogue({open, setOpen, setSettings}: SettingsD
                                     checked={settings.useSystemTime}
                                     onChange={(event) => {
                                         setDate(new Date());
-                                        setSettings({...settings, useSystemTime: event.target.checked});
+                                        setSettings({...settings, useSystemTime: event.target.checked, timeOffset: 0});
                                     }}
                                     color="primary"
                                 />
