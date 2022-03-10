@@ -11,7 +11,7 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import getTheme from './themes';
 
 export function App() {
-    React.useEffect(upgradeData, []);
+    React.useLayoutEffect(upgradeData, []);
     const [settings, setSettingsImpl] = React.useState(() => JSON.parse(window.localStorage.settings));
     function setSettings(value: UserSettings) {
         value.dataLastUpdated = new Date().toISOString();
