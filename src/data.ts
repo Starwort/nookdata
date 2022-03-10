@@ -228,6 +228,18 @@ namespace Versions {
         };
     }
 }
+export const DEFAULT_SETTINGS: UserSettings = {
+    theme: 'dark',
+    hemisphere: 'north',
+    playerName: 'PLAYER',
+    islandName: 'ISLAND',
+    timeOffset: 0,
+    useSystemTime: true,
+    useTwelveHourTime: false,
+    dataLastUpdated: (new Date(0)).toISOString(),
+    token: '',
+    turnipNoConfirm: false
+};
 export const VERSION = '0.2.1';
 export type UserHourData = Versions.ND_0_2_1.UserHourData;
 export type UserTurnipsData = Versions.ND_0_2_1.UserTurnipsData;
