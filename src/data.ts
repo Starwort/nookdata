@@ -236,6 +236,7 @@ export type UserCritterpediaData = Versions.ND_0_2_1.UserCritterpediaData;
 export type UserSettings = Versions.ND_0_2_1.UserSettings;
 export function upgradeData() {
     switch (window.localStorage.dataVersion) {
+        case 'undefined':
         case undefined:
             Versions.PreNumber.upgrade();
             break;
