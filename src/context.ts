@@ -43,7 +43,7 @@ export function TimeContextProvider({interval, offset, children}: TimeContextPro
 }
 
 export function DataContextProvider({children}: ContextProviderProps) {
-    React.useEffect(upgradeData, []);
+    upgradeData(); // usually a no-op, prevents crash for new users
     const rerender = useRerender();
     let settings = JSON.parse(window.localStorage.settings) as UserSettings;
     let critterpedia = JSON.parse(window.localStorage.critterpedia) as UserCritterpediaData;

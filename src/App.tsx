@@ -4,14 +4,13 @@ import {Route, Switch} from 'react-router';
 import {Redirect} from 'react-router-dom';
 import {AppFrame, Loading, UpdateReadyDialogue, WorksOfflineDialogue} from './components';
 import {DataContextProvider, TimeContextProvider} from './context';
-import {DEFAULT_SETTINGS, upgradeData, UserSettings} from './data';
+import {DEFAULT_SETTINGS, UserSettings} from './data';
 import {valueOr} from './misc';
 import {Critterpedia, Turnips} from './pages';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import getTheme from './themes';
 
 export function App() {
-    React.useEffect(upgradeData, []);
     const [settings, setSettingsImpl] = React.useState(() => JSON.parse(window.localStorage.settings ?? JSON.stringify(DEFAULT_SETTINGS)));
     function setSettings(value: UserSettings) {
         value.dataLastUpdated = new Date().toISOString();
